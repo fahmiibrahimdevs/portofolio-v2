@@ -134,9 +134,31 @@ renderer.code = function ({ text, lang }) {
   </div>`;
 };
 
-// Inline Code Snippets
+// Inline Code Snippets with Syntax Highlighting & Entity Escaping
 renderer.codespan = function ({ text }) {
-  return `<code class="px-1.5 py-0.5 mx-0.5 rounded-md bg-slate-800/90 text-cyan-300 font-mono text-[0.875em] border border-slate-700/60 font-medium">${text}</code>`;
+  let highlighted = "";
+  try {
+    highlighted = hljs.highlightAuto(text).value;
+  } catch {
+    highlighted = text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+  return `<code class="inline-code-badge">${highlighted}</code>`;
+};
+
+// Handle raw HTML tags safely so unescaped technical tags (e.g. <head>, <body>, <custom>) don't vanish
+const ALLOWED_INLINE_TAGS = /^(<\/?(b|i|u|s|em|strong|br|kbd|mark|sub|sup|span)(\s+[^>]*)?>)$/i;
+
+renderer.html = function ({ text }) {
+  if (ALLOWED_INLINE_TAGS.test(text.trim())) {
+    return text;
+  }
+  // Safely escape technical tags typed in markdown without backticks
+  return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 };
 
 // Lists (Ordered & Unordered with 1.5 line height & clean indentation)
