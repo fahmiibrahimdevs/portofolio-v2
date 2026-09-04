@@ -1,0 +1,12 @@
+{
+  "name": "fahmi-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:server": "cd server && bun run dev",
+    "dev:client": "cd client && bun run dev",
+    "dev": "bun run --parallel dev:server dev:client",
+    "build:client": "cd client && bun run build",
+    "start": "cd server && bun run start"
+  }
+}
