@@ -63,6 +63,39 @@ renderer.image = function ({ href, title, text }) {
   </figure>`;
 };
 
+// Language mapper for aesthetic badges
+const langNameMap: Record<string, string> = {
+  js: "JavaScript",
+  javascript: "JavaScript",
+  ts: "TypeScript",
+  typescript: "TypeScript",
+  html: "HTML",
+  css: "CSS",
+  scss: "SCSS",
+  py: "Python",
+  python: "Python",
+  sh: "Bash",
+  bash: "Bash",
+  shell: "Shell",
+  json: "JSON",
+  sql: "SQL",
+  php: "PHP",
+  cpp: "C++",
+  c: "C",
+  cs: "C#",
+  csharp: "C#",
+  go: "Go",
+  rust: "Rust",
+  yaml: "YAML",
+  yml: "YAML",
+  xml: "XML",
+  markdown: "Markdown",
+  md: "Markdown",
+  diff: "Diff",
+  docker: "Dockerfile",
+  dockerfile: "Dockerfile",
+};
+
 // Code Blocks with Highlight.js
 renderer.code = function ({ text, lang }) {
   const cleanLang = (lang || "").trim().toLowerCase();
@@ -80,20 +113,30 @@ renderer.code = function ({ text, lang }) {
       .replace(/>/g, "&gt;");
   }
 
-  const displayLang = cleanLang ? cleanLang.toUpperCase() : "CODE";
+  const displayLang = cleanLang ? (langNameMap[cleanLang] || cleanLang.toUpperCase()) : "Code";
 
-  return `<div class="my-4 rounded-2xl overflow-hidden border border-slate-800 bg-[#0d1117] shadow-xl">
-    <div class="px-4 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
-      <div class="flex items-center gap-1.5">
-        <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
-        <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-        <span class="ml-2 text-[11px] font-mono text-cyan-400 font-semibold tracking-wider">${displayLang}</span>
+  return `<div class="code-block-wrapper not-prose my-5 rounded-2xl overflow-hidden border border-slate-800 bg-[#0d1117] shadow-2xl transition-all duration-300 hover:border-slate-700/80 group/code">
+    <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between select-none">
+      <div class="flex items-center gap-2.5">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-full bg-rose-500/90 inline-block shadow-sm"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/90 inline-block shadow-sm"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/90 inline-block shadow-sm"></span>
+        </div>
+        <span class="ml-1 px-2.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-mono font-semibold text-cyan-400 tracking-wider">${displayLang}</span>
       </div>
-      <span class="text-[10px] text-slate-500 font-mono">Source</span>
+      <button type="button" class="code-copy-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono text-slate-400 hover:text-slate-100 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 transition-all duration-150 cursor-pointer shadow-sm active:scale-95" title="Copy code snippet">
+        <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
+        <span class="pointer-events-none">Copy</span>
+      </button>
     </div>
-    <pre class="p-4 overflow-x-auto text-xs sm:text-[13px] font-mono leading-[1.5] bg-[#0d1117] text-slate-100"><code>${highlighted}</code></pre>
+    <pre class="m-0! p-4! sm:p-5! overflow-x-auto text-[13px] sm:text-sm font-mono leading-[1.65] bg-[#0d1117] text-slate-100 border-0! rounded-none! custom-scrollbar"><code class="hljs ${cleanLang ? `language-${cleanLang}` : ''} bg-transparent! p-0! font-mono">${highlighted}</code></pre>
   </div>`;
+};
+
+// Inline Code Snippets
+renderer.codespan = function ({ text }) {
+  return `<code class="px-1.5 py-0.5 mx-0.5 rounded-md bg-slate-800/90 text-cyan-300 font-mono text-[0.875em] border border-slate-700/60 font-medium">${text}</code>`;
 };
 
 // Lists (Ordered & Unordered with 1.5 line height & clean indentation)

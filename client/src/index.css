@@ -538,13 +538,71 @@ html[data-theme="dark"] .prose a, html[data-theme="dark"] .rich-content a {
   color: #38bdf8 !important;
 }
 
-.prose pre, .rich-content pre {
-  border-radius: 0.75rem !important;
-  margin: 1rem 0 !important;
-  line-height: 1.5 !important;
-  background-color: #0f172a !important;
+/* =========================================================================
+   CODE BLOCK & SYNTAX HIGHLIGHTING PERFECTION
+   ========================================================================= */
+.code-block-wrapper {
+  margin: 1.25rem 0 !important;
+  background-color: #0d1117 !important;
+  border: 1px solid #1e293b !important;
+  border-radius: 1rem !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+}
+
+.prose .code-block-wrapper pre,
+.rich-content .code-block-wrapper pre,
+.code-block-wrapper pre {
+  margin: 0 !important;
+  padding: 1.125rem 1.25rem !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background-color: #0d1117 !important;
+  color: #e2e8f0 !important;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 0.85rem !important;
+  line-height: 1.65 !important;
+  box-shadow: none !important;
+}
+
+.prose .code-block-wrapper pre code,
+.rich-content .code-block-wrapper pre code,
+.code-block-wrapper pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  font-size: inherit !important;
+  color: #e2e8f0 !important;
+  font-family: inherit !important;
+  text-shadow: none !important;
+}
+
+/* Inline Code Badge Styling */
+.prose :not(pre) > code,
+.rich-content :not(pre) > code,
+code:not(pre code) {
+  background-color: rgba(30, 41, 59, 0.75) !important;
+  color: #38bdf8 !important;
+  padding: 0.2rem 0.45rem !important;
+  border-radius: 0.375rem !important;
+  border: 1px solid rgba(51, 65, 85, 0.6) !important;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace !important;
+  font-size: 0.865em !important;
+  font-weight: 500 !important;
+}
+
+/* Fallback generic pre if not wrapped */
+.prose > pre:not(.code-block-wrapper pre),
+.rich-content > pre:not(.code-block-wrapper pre) {
+  border-radius: 0.875rem !important;
+  margin: 1.25rem 0 !important;
+  padding: 1.125rem 1.25rem !important;
+  line-height: 1.65 !important;
+  background-color: #0d1117 !important;
   color: #f8fafc !important;
-  border: 1px solid var(--slate-800) !important;
+  border: 1px solid #1e293b !important;
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+  font-size: 0.85rem !important;
 }
 
 /* Ensure highlight.js theme background blends seamlessly */
@@ -552,3 +610,4 @@ pre code.hljs {
   background: transparent !important;
   padding: 0 !important;
 }
+
