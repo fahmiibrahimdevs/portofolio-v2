@@ -1,6 +1,7 @@
 import React from "react";
 import { Github, ExternalLink, ArrowRight, Layers, Tag } from "lucide-react";
 import { Project } from "../../types";
+import { stripMarkdown } from "../../utils/markdown";
 
 interface ProjectCardProps {
   project: Project;
@@ -56,8 +57,8 @@ export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
           </h3>
 
           <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-            {project.short_desc && project.short_desc !== "-"
-              ? project.short_desc
+            {stripMarkdown(project.short_desc) && stripMarkdown(project.short_desc) !== "-"
+              ? stripMarkdown(project.short_desc)
               : "Explore full project architecture, schematics, and implementation details."}
           </p>
         </div>

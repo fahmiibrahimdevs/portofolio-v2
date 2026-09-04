@@ -39,25 +39,25 @@ export function ArticleReaderModal({ article, isOpen, onClose }: ArticleReaderMo
         )}
 
         {/* Header Metadata */}
-        <div className="space-y-2 pb-4 border-b border-slate-800">
+        <div className="space-y-3 pb-5 border-b border-slate-800">
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-100 leading-tight">
             {article.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
+          <div className="flex flex-wrap items-center gap-3.5 text-xs sm:text-[13px] text-slate-300">
             {article.date && (
               <span className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                <Calendar className="w-3.5 h-3.5 text-slate-400" />
                 <span>Published on {article.date}</span>
               </span>
             )}
-            <span>•</span>
-            <span className="flex items-center gap-1.5 text-cyan-400">
+            <span className="text-slate-500">•</span>
+            <span className="flex items-center gap-1.5 text-cyan-400 font-medium">
               <Clock className="w-3.5 h-3.5" />
               <span>{article.read_time_minutes || 2} min read</span>
             </span>
-            <span>•</span>
-            <span>Author: <strong className="text-slate-200">Fahmi Ibrahim</strong></span>
+            <span className="text-slate-500">•</span>
+            <span>Author: <strong className="text-slate-100 font-semibold">Fahmi Ibrahim</strong></span>
           </div>
         </div>
 

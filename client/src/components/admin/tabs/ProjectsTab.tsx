@@ -152,23 +152,29 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
 
   const selectedTagIds = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()) : [];
 
+  const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
+
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
       const matchCat = filterCategory === "all" || String(p.category_id) === filterCategory;
+      const matchStatus =
+        filterStatus === "all" ||
+        (filterStatus === "published" && (p.status_publish === "Published" || !p.status_publish)) ||
+        (filterStatus === "draft" && (p.status_publish === "Draft" || p.status_publish?.toLowerCase() === "draft"));
       const q = debouncedSearchQuery.toLowerCase().trim();
       const matchQuery =
         !q ||
         p.title.toLowerCase().includes(q) ||
         p.short_desc?.toLowerCase().includes(q) ||
         p.category_name?.toLowerCase().includes(q);
-      return matchCat && matchQuery;
+      return matchCat && matchStatus && matchQuery;
     });
-  }, [projects, filterCategory, debouncedSearchQuery]);
+  }, [projects, filterCategory, filterStatus, debouncedSearchQuery]);
 
   // Reset page when filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterCategory, debouncedSearchQuery]);
+  }, [filterCategory, filterStatus, debouncedSearchQuery]);
 
   // Paginated slice
   const paginatedProjects = useMemo(() => {
@@ -213,36 +219,76 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
           />
         </div>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-          <button
-            type="button"
-            onClick={() => setFilterCategory("all")}
-            className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
-              filterCategory === "all"
-                ? "bg-cyan-600 text-white shadow-sm"
-                : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
-            }`}
-          >
-            All ({projects.length})
-          </button>
-          {categories.map((c) => {
-            const count = projects.filter((p) => String(p.category_id) === String(c.id)).length;
-            if (count === 0) return null;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setFilterCategory(String(c.id))}
-                className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
-                  filterCategory === String(c.id)
-                    ? "bg-cyan-600 text-white shadow-sm"
-                    : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
-                }`}
-              >
-                {c.category_name} ({count})
-              </button>
-            );
-          })}
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end overflow-x-auto">
+          {/* Status Filter */}
+          <div className="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 shrink-0">
+            <button
+              type="button"
+              onClick={() => setFilterStatus("all")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                filterStatus === "all"
+                  ? "bg-slate-800 text-white shadow-sm"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              All ({projects.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterStatus("published")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                filterStatus === "published"
+                  ? "bg-emerald-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-emerald-400"
+              }`}
+            >
+              Published ({projects.filter((p) => p.status_publish === "Published" || !p.status_publish).length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilterStatus("draft")}
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                filterStatus === "draft"
+                  ? "bg-amber-600 text-white shadow-sm"
+                  : "text-slate-400 hover:text-amber-400"
+              }`}
+            >
+              Draft ({projects.filter((p) => p.status_publish === "Draft" || p.status_publish?.toLowerCase() === "draft").length})
+            </button>
+          </div>
+
+          {/* Category Filter */}
+          <div className="flex items-center gap-1.5 overflow-x-auto">
+            <button
+              type="button"
+              onClick={() => setFilterCategory("all")}
+              className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
+                filterCategory === "all"
+                  ? "bg-cyan-600 text-white shadow-sm"
+                  : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
+              }`}
+            >
+              All Types
+            </button>
+            {categories.map((c) => {
+              const count = projects.filter((p) => String(p.category_id) === String(c.id)).length;
+              if (count === 0) return null;
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setFilterCategory(String(c.id))}
+                  className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
+                    filterCategory === String(c.id)
+                      ? "bg-cyan-600 text-white shadow-sm"
+                      : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  }`}
+                >
+                  {c.category_name} ({count})
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -565,19 +611,15 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
             </div>
           </div>
 
-          {/* Short Desc */}
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-300 uppercase">
-              Short Summary / Excerpt
-            </label>
-            <input
-              type="text"
-              value={formData.short_desc}
-              onChange={(e) => setFormData({ ...formData, short_desc: e.target.value })}
-              placeholder="Brief 1-2 sentence description for cards..."
-              className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
-            />
-          </div>
+          {/* Short Desc / Excerpt with RichTextEditor */}
+          <RichTextEditor
+            label="Short Summary / Excerpt"
+            value={formData.short_desc}
+            onChange={(val) => setFormData({ ...formData, short_desc: val })}
+            placeholder="Write brief summary / excerpt for project cards and highlights..."
+            minHeight="min-h-[140px]"
+            helperText="Supports formatting, bold, italics, links, and inline code"
+          />
 
           {/* Full Description / Rich Text Documentation */}
           <RichTextEditor

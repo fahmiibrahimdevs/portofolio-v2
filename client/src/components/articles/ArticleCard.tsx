@@ -1,6 +1,7 @@
 import React from "react";
 import { Clock, Calendar, ArrowRight, BookOpen } from "lucide-react";
 import { Article } from "../../types";
+import { stripMarkdown } from "../../utils/markdown";
 
 interface ArticleCardProps {
   article: Article;
@@ -74,7 +75,7 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
           </h3>
 
           <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
-            {article.description || "Read full technical article and tutorial guide."}
+            {stripMarkdown(article.description) || "Read full technical article and tutorial guide."}
           </p>
         </div>
 

@@ -174,26 +174,27 @@ export function ArticleDetailPage({
         </h1>
 
         {article.description && (
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-            {article.description}
-          </p>
+          <div
+            className="prose prose-invert rich-content max-w-none text-slate-300 text-sm sm:text-base leading-relaxed font-normal"
+            dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(article.description) }}
+          />
         )}
 
-        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-1 border-t border-slate-900">
-          <span className="flex items-center gap-1.5 text-slate-300">
-            <User className="w-3.5 h-3.5 text-cyan-400" />
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-300 pt-3.5 pb-3.5 my-3 border-y border-slate-800/80">
+          <span className="flex items-center gap-1.5 text-slate-200 font-medium">
+            <User className="w-4 h-4 text-cyan-400" />
             <span>Fahmi Ibrahim</span>
           </span>
-          <span>•</span>
+          <span className="text-slate-500">•</span>
           {article.date && (
-            <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-slate-500" />
+            <span className="flex items-center gap-1.5 text-slate-300">
+              <Calendar className="w-4 h-4 text-slate-400" />
               <span>{article.date}</span>
             </span>
           )}
-          <span>•</span>
+          <span className="text-slate-500">•</span>
           <span className="flex items-center gap-1.5 text-cyan-400 font-medium">
-            <Clock className="w-3.5 h-3.5" />
+            <Clock className="w-4 h-4" />
             <span>{article.read_time_minutes || 2} min read</span>
           </span>
         </div>

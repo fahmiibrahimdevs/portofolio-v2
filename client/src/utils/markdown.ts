@@ -189,3 +189,21 @@ export function formatMarkdownToHtml(content?: string): string {
     return `<p class="text-slate-300 leading-[1.5]">${text.replace(/\n/g, "<br/>")}</p>`;
   }
 }
+
+/**
+ * Strips Markdown tags and HTML markup for clean plain-text excerpts in compact card grids.
+ */
+export function stripMarkdown(text?: string): string {
+  if (!text) return "";
+  return text
+    .replace(/<[^>]*>/g, "")
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/(\*\*|__)(.*?)\1/g, "$2")
+    .replace(/(\*|_)(.*?)\1/g, "$2")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/#+\s+/g, "")
+    .replace(/>+\s+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}

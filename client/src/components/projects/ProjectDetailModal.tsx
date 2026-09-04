@@ -73,9 +73,10 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
           </div>
 
           {project.short_desc && project.short_desc !== "-" && (
-            <p className="text-sm text-slate-300 leading-relaxed">
-              {project.short_desc}
-            </p>
+            <div
+              className="prose prose-invert rich-content max-w-none text-sm text-slate-300 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(project.short_desc) }}
+            />
           )}
 
           {/* Tags list */}

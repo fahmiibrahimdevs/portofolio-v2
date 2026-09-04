@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, getToken, removeToken } from "./api/client";
 import { AdminUser } from "./types";
 import { Navbar } from "./components/layout/Navbar";
@@ -15,6 +15,7 @@ import { AdminLoginModal } from "./components/admin/AdminLoginModal";
 import { Project, Article } from "./types";
 
 export function App() {
+  const queryClient = useQueryClient();
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
   const [currentPage, setCurrentPage] = useState<"home" | "projects" | "articles" | "contact" | "project-detail" | "article-detail">("home");
   const [selectedProjectIdentifier, setSelectedProjectIdentifier] = useState<string>("");
@@ -180,7 +181,7 @@ export function App() {
 
   // Projects queries
   const { data: projectsData, isLoading: projectsLoading } = useQuery({
-    queryKey: ["projects"],
+    queryKey: ["projects", Boolean(currentUser)],
     queryFn: () => api.getProjects({ all: Boolean(currentUser) }),
     staleTime: 1000 * 60 * 5,
   });
@@ -199,7 +200,7 @@ export function App() {
 
   // Articles queries
   const { data: articlesData, isLoading: articlesLoading } = useQuery({
-    queryKey: ["articles"],
+    queryKey: ["articles", Boolean(currentUser)],
     queryFn: () => api.getArticles({ all: Boolean(currentUser) }),
     staleTime: 1000 * 60 * 5,
   });
@@ -219,12 +220,16 @@ export function App() {
 
   const handleLoginSuccess = (user: AdminUser) => {
     setCurrentUser(user);
+    queryClient.invalidateQueries({ queryKey: ["projects"] });
+    queryClient.invalidateQueries({ queryKey: ["articles"] });
     navigateToAdmin("profile", true);
   };
 
   const handleLogout = () => {
     api.logout();
     setCurrentUser(null);
+    queryClient.invalidateQueries({ queryKey: ["projects"] });
+    queryClient.invalidateQueries({ queryKey: ["articles"] });
     navigateToPage("home", true);
   };
 

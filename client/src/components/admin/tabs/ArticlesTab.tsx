@@ -157,6 +157,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
   };
 
   const [filterSubCategory, setFilterSubCategory] = useState("all");
+  const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
 
   const filterAvailableSubCategories = useMemo(() => {
     if (filterCategory === "all") return [];
@@ -172,6 +173,10 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
     return articles.filter((a) => {
       const matchCat = filterCategory === "all" || String(a.category_id) === filterCategory;
       const matchSubCat = filterSubCategory === "all" || String(a.sub_category_id) === filterSubCategory;
+      const matchStatus =
+        filterStatus === "all" ||
+        (filterStatus === "published" && (a.status_publish === "Published" || !a.status_publish)) ||
+        (filterStatus === "draft" && (a.status_publish === "Draft" || a.status_publish?.toLowerCase() === "draft"));
       const q = debouncedSearchQuery.toLowerCase().trim();
       const matchQuery =
         !q ||
@@ -179,14 +184,14 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
         a.description?.toLowerCase().includes(q) ||
         a.category_name?.toLowerCase().includes(q) ||
         a.sub_category_name?.toLowerCase().includes(q);
-      return matchCat && matchSubCat && matchQuery;
+      return matchCat && matchSubCat && matchStatus && matchQuery;
     });
-  }, [articles, filterCategory, filterSubCategory, debouncedSearchQuery]);
+  }, [articles, filterCategory, filterSubCategory, filterStatus, debouncedSearchQuery]);
 
   // Reset page when filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterCategory, filterSubCategory, debouncedSearchQuery]);
+  }, [filterCategory, filterSubCategory, filterStatus, debouncedSearchQuery]);
 
   // Paginated slice
   const paginatedArticles = useMemo(() => {
@@ -232,36 +237,76 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
             />
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-            <button
-              type="button"
-              onClick={() => handleFilterCategoryChange("all")}
-              className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
-                filterCategory === "all"
-                  ? "bg-indigo-600 text-white shadow-sm"
-                  : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
-              }`}
-            >
-              All ({articles.length})
-            </button>
-            {categories.map((c) => {
-              const count = articles.filter((a) => String(a.category_id) === String(c.id)).length;
-              if (count === 0) return null;
-              return (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => handleFilterCategoryChange(String(c.id))}
-                  className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
-                    filterCategory === String(c.id)
-                      ? "bg-indigo-600 text-white shadow-sm"
-                      : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
-                  }`}
-                >
-                  {c.category_name} ({count})
-                </button>
-              );
-            })}
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end overflow-x-auto">
+            {/* Status Filter */}
+            <div className="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 shrink-0">
+              <button
+                type="button"
+                onClick={() => setFilterStatus("all")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  filterStatus === "all"
+                    ? "bg-slate-800 text-white shadow-sm"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                All ({articles.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setFilterStatus("published")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  filterStatus === "published"
+                    ? "bg-emerald-600 text-white shadow-sm"
+                    : "text-slate-400 hover:text-emerald-400"
+                }`}
+              >
+                Published ({articles.filter((a) => a.status_publish === "Published" || !a.status_publish).length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setFilterStatus("draft")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  filterStatus === "draft"
+                    ? "bg-amber-600 text-white shadow-sm"
+                    : "text-slate-400 hover:text-amber-400"
+                }`}
+              >
+                Draft ({articles.filter((a) => a.status_publish === "Draft" || a.status_publish?.toLowerCase() === "draft").length})
+              </button>
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex items-center gap-1.5 overflow-x-auto">
+              <button
+                type="button"
+                onClick={() => handleFilterCategoryChange("all")}
+                className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
+                  filterCategory === "all"
+                    ? "bg-indigo-600 text-white shadow-sm"
+                    : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
+                }`}
+              >
+                All Topics
+              </button>
+              {categories.map((c) => {
+                const count = articles.filter((a) => String(a.category_id) === String(c.id)).length;
+                if (count === 0) return null;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => handleFilterCategoryChange(String(c.id))}
+                    className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
+                      filterCategory === String(c.id)
+                        ? "bg-indigo-600 text-white shadow-sm"
+                        : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
+                    }`}
+                  >
+                    {c.category_name} ({count})
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -548,19 +593,15 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
             isImage
           />
 
-          {/* Excerpt */}
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-slate-300 uppercase">
-              Summary / Excerpt
-            </label>
-            <input
-              type="text"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Short summary for cards and search engines..."
-              className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
-            />
-          </div>
+          {/* Excerpt / Summary with RichTextEditor */}
+          <RichTextEditor
+            label="Summary / Excerpt"
+            value={formData.description}
+            onChange={(val) => setFormData({ ...formData, description: val })}
+            placeholder="Write short summary / excerpt for cards, search engines, and article overview..."
+            minHeight="min-h-[140px]"
+            helperText="Supports formatting, bold, italics, links, and inline code"
+          />
 
           {/* Full Content / Rich Text WYSIWYG */}
           <RichTextEditor

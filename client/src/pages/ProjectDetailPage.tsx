@@ -172,9 +172,10 @@ export function ProjectDetailPage({
         </h1>
 
         {project.short_desc && project.short_desc !== "-" && (
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-3xl">
-            {project.short_desc}
-          </p>
+          <div
+            className="prose prose-invert rich-content max-w-3xl text-slate-300 text-sm sm:text-base leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(project.short_desc) }}
+          />
         )}
 
         {/* Action Buttons & Tech Stack Row */}
