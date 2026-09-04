@@ -226,16 +226,16 @@ export function ProjectDetailPage({
         </div>
       </div>
 
-      {/* Main Documentation & Specifications Body */}
+      {/* Documentation Section */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider">
           <Layers className="w-4 h-4" />
           <span>Full Documentation & Specifications</span>
         </div>
 
-        <div className="bg-slate-950/60 border border-slate-800/90 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
+        <div className="py-2">
           <div
-            className="prose prose-invert rich-content max-w-none text-slate-300 text-xs sm:text-sm leading-relaxed"
+            className="prose prose-invert rich-content max-w-none text-slate-300 text-sm sm:text-base leading-relaxed"
             dangerouslySetInnerHTML={{
               __html: formatMarkdownToHtml(project.description || "Project documentation has not been added yet."),
             }}
@@ -244,7 +244,7 @@ export function ProjectDetailPage({
       </div>
 
       {/* Bottom Action Footer */}
-      <div className="pt-6 border-t border-slate-800/90 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="pt-8 my-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
         <button
           type="button"
           onClick={onBack}

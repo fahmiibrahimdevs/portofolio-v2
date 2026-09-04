@@ -201,7 +201,7 @@ export function ArticleDetailPage({
       </div>
 
       {/* Article Body Content */}
-      <div className="bg-slate-950/60 border border-slate-800/90 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-sm">
+      <div className="py-2">
         <div
           className="prose prose-invert rich-content max-w-none text-slate-300 text-sm sm:text-base leading-relaxed"
           dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(content) }}
@@ -209,7 +209,7 @@ export function ArticleDetailPage({
       </div>
 
       {/* Bottom Navigation */}
-      <div className="pt-6 border-t border-slate-800/90 flex items-center justify-between">
+      <div className="pt-8 my-6 border-t border-slate-800/80 flex items-center justify-between">
         <button
           type="button"
           onClick={onBack}
