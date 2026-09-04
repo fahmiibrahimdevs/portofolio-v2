@@ -19,11 +19,20 @@ renderer.heading = function ({ tokens, depth }) {
   return `<h4 class="text-base sm:text-lg font-bold text-slate-200 first:mt-0 mt-3 mb-1.5 tracking-tight leading-[1.4]">${text}</h4>`;
 };
 
+// Helper to validate safe URLs
+function isSafeUrl(url?: string): boolean {
+  if (!url) return false;
+  const trimmed = url.trim().toLowerCase();
+  // Allow relative links, anchors, http/https, mailto, tel
+  return /^(https?:\/\/|\/|#|mailto:|tel:)/i.test(trimmed);
+}
+
 // Hyperlinks
 renderer.link = function ({ href, title, tokens }) {
   const text = this.parser.parseInline(tokens);
   const titleAttr = title ? `title="${title}"` : "";
-  return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline font-medium inline-flex items-center gap-1 transition-colors" ${titleAttr}>${text} ↗</a>`;
+  const safeHref = isSafeUrl(href) ? href : "#";
+  return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline font-medium inline-flex items-center gap-1 transition-colors" ${titleAttr}>${text} ↗</a>`;
 };
 
 // Images (Aesthetic Centered Card, Auto-Hug Dimensions, Zoom Hover & Smart Caption Pill)
@@ -32,12 +41,13 @@ renderer.image = function ({ href, title, text }) {
   const cleanCaption = rawCaption.replace(/[_\-]+/g, " ").trim();
   const isGeneric = !cleanCaption || /^(image|gambar|foto|photo|screenshot|attachment|untitled)$/i.test(cleanCaption) || cleanCaption === href;
   const displayCaption = isGeneric ? "" : cleanCaption;
+  const safeSrc = (href && /^(https?:\/\/|\/|data:image\/)/i.test(href.trim())) ? href : "";
 
   return `<figure class="my-5 flex flex-col items-center justify-center text-center not-prose first:mt-0">
     <div class="inline-block relative max-w-full rounded-2xl border border-slate-800 bg-slate-900/60 p-2 sm:p-2.5 shadow-2xl transition-all duration-300 hover:border-cyan-500/40 hover:shadow-cyan-500/5 group">
-      <a href="${href}" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-xl relative group/img cursor-zoom-in" title="Klik untuk membuka gambar resolusi penuh">
+      <a href="${safeSrc || '#'}" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-xl relative group/img cursor-zoom-in" title="Klik untuk membuka gambar resolusi penuh">
         <img
-          src="${href}"
+          src="${safeSrc}"
           alt="${displayCaption || "Gambar lampiran"}"
           class="max-h-[480px] w-auto max-w-full rounded-xl object-contain mx-auto block transition-transform duration-300 group-hover/img:scale-[1.01]"
           loading="lazy"

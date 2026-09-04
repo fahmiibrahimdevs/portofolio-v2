@@ -14,22 +14,22 @@ interface ClientRecord {
  * Extract client IP from various proxy and direct connection headers
  */
 export function getClientIp(c: Context): string {
-  // 1. Cloudflare header
+  // 1. Cloudflare connecting IP (set directly by Cloudflare edge)
   const cfIp = c.req.header("cf-connecting-ip");
   if (cfIp) return cfIp.trim();
 
-  // 2. Standard X-Forwarded-For (can contain multiple comma-separated IPs; first one is client)
-  const forwardedFor = c.req.header("x-forwarded-for");
-  if (forwardedFor) {
-    const ips = forwardedFor.split(",");
-    if (ips.length > 0 && ips[0].trim()) {
-      return ips[0].trim();
-    }
-  }
-
-  // 3. X-Real-IP header (common in Nginx reverse proxies)
+  // 2. X-Real-IP (set securely by Nginx reverse proxy using $remote_addr)
   const realIp = c.req.header("x-real-ip");
   if (realIp) return realIp.trim();
+
+  // 3. X-Forwarded-For fallback (take rightmost IP before proxy or clean first IP)
+  const forwardedFor = c.req.header("x-forwarded-for");
+  if (forwardedFor) {
+    const ips = forwardedFor.split(",").map((s) => s.trim()).filter(Boolean);
+    if (ips.length > 0) {
+      return ips[0];
+    }
+  }
 
   // 4. Fallback to localhost
   return "127.0.0.1";

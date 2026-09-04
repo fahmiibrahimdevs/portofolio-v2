@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { join } from "path";
+import { join, resolve } from "path";
 import { initDatabase } from "./db/database";
 import { authRoutes } from "./routes/auth";
 import { profileRoutes } from "./routes/profile";
@@ -15,6 +15,15 @@ import { contactRoutes } from "./routes/contacts";
 
 const app = new Hono();
 
+// Global Security Headers Middleware
+app.use("*", async (c, next) => {
+  await next();
+  c.header("X-Content-Type-Options", "nosniff");
+  c.header("X-Frame-Options", "SAMEORIGIN");
+  c.header("Referrer-Policy", "strict-origin-when-cross-origin");
+  c.header("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+});
+
 // CORS Middleware
 app.use(
   "*",
@@ -24,24 +33,37 @@ app.use(
     allowHeaders: ["Content-Type", "Authorization"],
     exposeHeaders: ["Content-Length"],
     maxAge: 600,
-    credentials: true,
   })
 );
 
-// Serve uploaded files
-const uploadsDir = join(import.meta.dir, "../uploads");
+// Serve uploaded files with strict path traversal prevention
+const uploadsDir = resolve(import.meta.dir, "../uploads");
+
 app.get("/uploads/*", async (c) => {
   const rawPath = c.req.path.replace(/^\/uploads\//, "");
-  const fullPath = join(uploadsDir, rawPath);
+  // Sanitize and resolve full path to prevent Directory Traversal attacks (e.g. ../../)
+  const fullPath = resolve(uploadsDir, rawPath);
+
+  // Strict check: ensure requested file is inside uploadsDir
+  if (fullPath !== uploadsDir && !fullPath.startsWith(uploadsDir + "/")) {
+    return c.text("Forbidden: Access Denied", 403);
+  }
+
   const file = Bun.file(fullPath);
 
   if (await file.exists()) {
-    return new Response(file, {
-      headers: {
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "X-Content-Type-Options": "nosniff",
-      },
-    });
+    const isSvg = fullPath.toLowerCase().endsWith(".svg");
+    const headers: Record<string, string> = {
+      "Cache-Control": "public, max-age=31536000, immutable",
+      "X-Content-Type-Options": "nosniff",
+    };
+
+    // Sandboxing SVG images to prevent Stored XSS via embedded scripts
+    if (isSvg) {
+      headers["Content-Security-Policy"] = "default-src 'none'; sandbox;";
+    }
+
+    return new Response(file, { headers });
   }
   return c.text("File Not Found", 404);
 });
@@ -64,15 +86,17 @@ app.route("/api/articles", articleRoutes);
 app.route("/api/contacts", contactRoutes);
 
 // Serve built frontend assets from client/dist (Production SPA Mode)
-const clientDist = join(import.meta.dir, "../../client/dist");
+const clientDist = resolve(import.meta.dir, "../../client/dist");
 
 app.get("*", async (c) => {
   const reqPath = c.req.path === "/" ? "/index.html" : c.req.path;
-  const filePath = join(clientDist, reqPath);
-  const file = Bun.file(filePath);
+  const fullPath = resolve(clientDist, reqPath.replace(/^\//, ""));
 
-  if (await file.exists()) {
-    return new Response(file);
+  if (fullPath === clientDist || fullPath.startsWith(clientDist + "/")) {
+    const file = Bun.file(fullPath);
+    if (await file.exists()) {
+      return new Response(file);
+    }
   }
 
   // SPA fallback to index.html
