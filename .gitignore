@@ -32,3 +32,8 @@ lerna-debug.log*
 *.sln
 *.sw?
 Thumbs.db
+
+# Local VPS Sync Scripts (Contains VPS credentials)
+sync*.sh
+*sync*.sh
+
