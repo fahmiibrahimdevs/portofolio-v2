@@ -41,6 +41,34 @@ projectRoutes.get("/tags", async (c) => {
   }
 });
 
+function buildTagResolver(techSkills: any[], projectTags: any[]) {
+  const skillMap = new Map(techSkills.map((s: any) => [String(s.id), s]));
+  const legacyTagMap = new Map(projectTags.map((t: any) => [String(t.id), t.tag_name]));
+
+  return (tagIdRaw?: string | null) => {
+    if (!tagIdRaw) return { tags: [] as string[], tech_skills: [] as any[] };
+    const tagIds = String(tagIdRaw).split(",").map((s) => s.trim()).filter(Boolean);
+    const tags: string[] = [];
+    const skills: any[] = [];
+
+    for (const id of tagIds) {
+      if (skillMap.has(id)) {
+        const s = skillMap.get(id);
+        tags.push(s.name);
+        skills.push(s);
+      } else if (legacyTagMap.has(id)) {
+        const name = legacyTagMap.get(id);
+        tags.push(name);
+        skills.push({ id, name, icon_url: "" });
+      } else {
+        tags.push(id);
+        skills.push({ id, name: id, icon_url: "" });
+      }
+    }
+    return { tags, tech_skills: skills };
+  };
+}
+
 // GET /api/projects
 projectRoutes.get("/", async (c) => {
   try {
@@ -72,21 +100,20 @@ projectRoutes.get("/", async (c) => {
     sql += " ORDER BY p.id DESC";
 
     const rows = await query(sql, params);
-    const tags = await query("SELECT * FROM project_tags");
-    const tagMap = new Map(tags.map((t: any) => [String(t.id), t.tag_name]));
+    const [techSkills, projectTags] = await Promise.all([
+      query("SELECT id, name, icon_url FROM tech_skills"),
+      query("SELECT * FROM project_tags"),
+    ]);
+    const resolveTags = buildTagResolver(techSkills, projectTags);
 
     const projects = rows.map((r: any) => {
-      // Parse tags
-      let tagNames: string[] = [];
-      if (r.tag_id) {
-        const tagIds = String(r.tag_id).split(",").map((s) => s.trim());
-        tagNames = tagIds.map((id) => tagMap.get(id) || id).filter(Boolean);
-      }
+      const { tags, tech_skills } = resolveTags(r.tag_id);
 
       return {
         ...r,
         thumbnail_url: formatThumbnailUrl(r.thumbnail),
-        tags: tagNames,
+        tags,
+        tech_skills,
       };
     });
 
@@ -116,19 +143,19 @@ projectRoutes.get("/:idOrSlug", async (c) => {
       return c.json({ error: "Project not found" }, 404);
     }
 
-    const tags = await query("SELECT * FROM project_tags");
-    const tagMap = new Map(tags.map((t: any) => [String(t.id), t.tag_name]));
-    let tagNames: string[] = [];
-    if (project.tag_id) {
-      const tagIds = String(project.tag_id).split(",").map((s) => s.trim());
-      tagNames = tagIds.map((id) => tagMap.get(id) || id).filter(Boolean);
-    }
+    const [techSkills, projectTags] = await Promise.all([
+      query("SELECT id, name, icon_url FROM tech_skills"),
+      query("SELECT * FROM project_tags"),
+    ]);
+    const resolveTags = buildTagResolver(techSkills, projectTags);
+    const { tags, tech_skills } = resolveTags(project.tag_id);
 
     return c.json({
       project: {
         ...project,
         thumbnail_url: formatThumbnailUrl(project.thumbnail),
-        tags: tagNames,
+        tags,
+        tech_skills,
       },
     });
   } catch (err: any) {
@@ -191,11 +218,20 @@ projectRoutes.post("/", authMiddleware, async (c) => {
     const createdId = result.insertId;
     const created = await queryOne("SELECT * FROM projects WHERE id = :id", { id: createdId });
 
+    const [techSkills, projectTags] = await Promise.all([
+      query("SELECT id, name, icon_url FROM tech_skills"),
+      query("SELECT * FROM project_tags"),
+    ]);
+    const resolveTags = buildTagResolver(techSkills, projectTags);
+    const { tags, tech_skills } = resolveTags(created.tag_id);
+
     return c.json({
       message: "Project created successfully",
       project: {
         ...created,
         thumbnail_url: formatThumbnailUrl(created.thumbnail),
+        tags,
+        tech_skills,
       },
     }, 201);
   } catch (err: any) {
@@ -260,11 +296,20 @@ projectRoutes.put("/:id", authMiddleware, async (c) => {
     );
 
     const updated = await queryOne("SELECT * FROM projects WHERE id = :id", { id });
+    const [techSkills, projectTags] = await Promise.all([
+      query("SELECT id, name, icon_url FROM tech_skills"),
+      query("SELECT * FROM project_tags"),
+    ]);
+    const resolveTags = buildTagResolver(techSkills, projectTags);
+    const { tags, tech_skills } = resolveTags(updated.tag_id);
+
     return c.json({
       message: "Project updated successfully",
       project: {
         ...updated,
         thumbnail_url: formatThumbnailUrl(updated.thumbnail),
+        tags,
+        tech_skills,
       },
     });
   } catch (err: any) {

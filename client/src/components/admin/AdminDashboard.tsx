@@ -324,6 +324,7 @@ export function AdminDashboard({
               projects={projects}
               categories={projectCategories}
               tags={projectTags}
+              techCategories={techCategories}
             />
           )}
           {activeTab === "articles" && (

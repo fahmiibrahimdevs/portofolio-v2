@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Project, ProjectCategory, ProjectTag } from "../../../types";
+import { Project, ProjectCategory, ProjectTag, TechCategory } from "../../../types";
 import { api } from "../../../api/client";
 import { Modal } from "../../common/Modal";
 import { ConfirmDialog } from "../../common/ConfirmDialog";
@@ -9,6 +9,7 @@ import { RichTextEditor } from "../../common/RichTextEditor";
 import { Pagination } from "../../common/Pagination";
 import { SearchableSelect } from "../../common/SearchableSelect";
 import { StatusBadgeSelect } from "../../common/StatusBadgeSelect";
+import { TechStackSidePanel } from "../../common/TechStackSidePanel";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { 
   Plus, 
@@ -20,15 +21,19 @@ import {
   Loader2, 
   Search,
   Eye,
+  Cpu,
+  Sparkles,
+  X,
 } from "lucide-react";
 
 interface ProjectsTabProps {
   projects: Project[];
   categories: ProjectCategory[];
   tags: ProjectTag[];
+  techCategories?: TechCategory[];
 }
 
-export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
+export function ProjectsTab({ projects, categories, tags, techCategories = [] }: ProjectsTabProps) {
   const queryClient = useQueryClient();
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -67,8 +72,22 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
     link_github: "",
   });
 
+  const [isTechPickerOpen, setIsTechPickerOpen] = useState(false);
+
+  // Fast lookup map for all skills across tech categories
+  const techSkillMap = useMemo(() => {
+    const map = new Map<string, { id: string; name: string; icon_url?: string; categoryName: string }>();
+    for (const cat of techCategories) {
+      for (const s of cat.skills || []) {
+        map.set(String(s.id), { ...s, categoryName: cat.name });
+      }
+    }
+    return map;
+  }, [techCategories]);
+
   const openCreateModal = () => {
     setEditingProject(null);
+    setIsTechPickerOpen(false);
     setFormData({
       title: "",
       slug: "",
@@ -87,6 +106,7 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
 
   const openEditModal = (p: Project) => {
     setEditingProject(p);
+    setIsTechPickerOpen(false);
     setFormData({
       title: p.title || "",
       slug: p.slug || "",
@@ -108,6 +128,7 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       setModalOpen(false);
+      setIsTechPickerOpen(false);
     },
   });
 
@@ -116,6 +137,7 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       setModalOpen(false);
+      setIsTechPickerOpen(false);
     },
   });
 
@@ -138,19 +160,17 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
     }
   };
 
-  const handleToggleTag = (tagId: string | number) => {
-    const currentTags = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()).filter(Boolean) : [];
-    const tagIdStr = String(tagId);
-    let newTags: string[];
-    if (currentTags.includes(tagIdStr)) {
-      newTags = currentTags.filter((t) => t !== tagIdStr);
-    } else {
-      newTags = [...currentTags, tagIdStr];
-    }
-    setFormData({ ...formData, tag_id: newTags.join(",") });
+  const handleUpdateTechTags = (newIds: string[]) => {
+    setFormData((prev) => ({ ...prev, tag_id: newIds.join(",") }));
   };
 
-  const selectedTagIds = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()) : [];
+  const handleRemoveTag = (idToRemove: string) => {
+    const currentTags = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()).filter(Boolean) : [];
+    const updated = currentTags.filter((id) => id !== idToRemove);
+    setFormData((prev) => ({ ...prev, tag_id: updated.join(",") }));
+  };
+
+  const selectedTagIds = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()).filter(Boolean) : [];
 
   const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
 
@@ -468,9 +488,22 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
       {/* Add / Edit Modal */}
       <Modal
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false);
+          setIsTechPickerOpen(false);
+        }}
         title={editingProject ? "Edit Project" : "Add New Project"}
         maxWidth="3xl"
+        sidePanel={
+          isTechPickerOpen ? (
+            <TechStackSidePanel
+              categories={techCategories}
+              selectedIds={selectedTagIds}
+              onChange={handleUpdateTechTags}
+              onClose={() => setIsTechPickerOpen(false)}
+            />
+          ) : undefined
+        }
       >
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -585,29 +618,81 @@ export function ProjectsTab({ projects, categories, tags }: ProjectsTabProps) {
             </div>
           </div>
 
-          {/* Tags Selector */}
+          {/* Tech Stack Selector */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-slate-300 uppercase">
-              Select Tech Stack Tags
-            </label>
-            <div className="flex flex-wrap gap-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800">
-              {tags.map((t) => {
-                const isSelected = selectedTagIds.includes(String(t.id));
-                return (
-                  <button
-                    key={t.id}
-                    type="button"
-                    onClick={() => handleToggleTag(t.id)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
-                      isSelected
-                        ? "bg-cyan-600 text-white shadow-sm"
-                        : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
-                    }`}
-                  >
-                    {t.tag_name}
-                  </button>
-                );
-              })}
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-semibold text-slate-300 uppercase flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+                Select Tech Stack Tags
+              </label>
+              {selectedTagIds.length > 0 && (
+                <span className="text-[11px] font-bold text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded-md border border-cyan-800/50">
+                  {selectedTagIds.length} teknologi dipilih
+                </span>
+              )}
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
+              {selectedTagIds.length > 0 ? (
+                <div className="flex flex-wrap gap-1.5 items-center">
+                  {selectedTagIds.map((id) => {
+                    const skill = techSkillMap.get(id);
+                    const legacyTag = tags.find((t) => String(t.id) === id);
+                    const displayName = skill?.name || legacyTag?.tag_name || id;
+                    const iconUrl = skill?.icon_url;
+
+                    return (
+                      <span
+                        key={id}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-cyan-950/60 border border-cyan-500/40 text-cyan-200 shadow-2xs group"
+                      >
+                        {iconUrl && (
+                          <img
+                            src={iconUrl}
+                            alt={displayName}
+                            className="w-3.5 h-3.5 object-contain"
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = "none";
+                            }}
+                          />
+                        )}
+                        <span>{displayName}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveTag(id)}
+                          className="text-cyan-400/70 hover:text-cyan-200 hover:bg-cyan-900/50 rounded p-0.5 transition-colors cursor-pointer"
+                          title={`Hapus ${displayName}`}
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-xs text-slate-500 italic">
+                  Belum ada teknologi yang dipilih untuk proyek ini.
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setIsTechPickerOpen((prev) => !prev)}
+                className={`w-full py-2.5 px-3 border font-semibold text-xs rounded-xl transition-all flex items-center justify-center gap-2 group cursor-pointer shadow-2xs ${
+                  isTechPickerOpen
+                    ? "bg-cyan-500/20 border-cyan-500 text-cyan-300 ring-2 ring-cyan-500/20"
+                    : "bg-slate-900 hover:bg-cyan-950/30 border-slate-700 hover:border-cyan-500/50 text-cyan-400"
+                }`}
+              >
+                <Cpu className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform" />
+                <span>
+                  {isTechPickerOpen
+                    ? "Tutup Panel Pemilih Tech Stack"
+                    : selectedTagIds.length > 0
+                    ? "+ Tambah / Ubah Tech Stack (Buka Floating Window Kanan)"
+                    : "+ Buka Pemilih Tech Stack (Floating Window Kanan)"}
+                </span>
+              </button>
             </div>
           </div>
 
