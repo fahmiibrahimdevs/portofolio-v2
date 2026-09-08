@@ -67,7 +67,7 @@ export function ContactsTab({ messages }: ContactsTabProps) {
               className={`p-5 rounded-2xl border transition-all ${
                 m.is_read
                   ? "bg-slate-950/40 border-slate-800/80"
-                  : "bg-slate-900/80 border-emerald-500/40 shadow-lg shadow-emerald-950/20"
+                  : "bg-slate-900/80 border-emerald-500/40 shadow-2xs hover:shadow-md"
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800/80">

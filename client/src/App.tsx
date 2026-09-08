@@ -145,7 +145,7 @@ export function App() {
   };
 
   const handleBackToPublic = () => {
-    navigateToPage("projects", true);
+    navigateToPage("home", true);
   };
 
   // TanStack Queries for dynamic content

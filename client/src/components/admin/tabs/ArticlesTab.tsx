@@ -374,7 +374,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
             {paginatedArticles.map((a) => (
               <div
                 key={a.id}
-                className="group bg-slate-950/70 border border-slate-800/90 hover:border-indigo-800/60 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 shadow-lg hover:shadow-indigo-950/20"
+                className="group glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 border border-slate-800/90 hover:border-indigo-500/40"
               >
                 <div>
                   {/* Thumbnail Header */}
