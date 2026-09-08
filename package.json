@@ -8,6 +8,6 @@
     "dev": "bun run --parallel dev:server dev:client",
     "build:client": "cd client && bun run build",
     "start": "cd server && bun run start",
-    "sync": "bun run server/src/scripts/sync.ts"
+    "sync": "cd server && bun run src/scripts/sync.ts"
   }
 }
