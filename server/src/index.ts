@@ -12,6 +12,7 @@ import { uploadRoutes } from "./routes/upload";
 import { projectRoutes } from "./routes/projects";
 import { articleRoutes } from "./routes/articles";
 import { contactRoutes } from "./routes/contacts";
+import syncRoutes from "./routes/sync";
 
 const app = new Hono();
 
@@ -84,6 +85,7 @@ app.route("/api/upload", uploadRoutes);
 app.route("/api/projects", projectRoutes);
 app.route("/api/articles", articleRoutes);
 app.route("/api/contacts", contactRoutes);
+app.route("/api/sync", syncRoutes);
 
 // Serve built frontend assets from client/dist (Production SPA Mode)
 const clientDist = resolve(import.meta.dir, "../../client/dist");

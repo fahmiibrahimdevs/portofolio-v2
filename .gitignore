@@ -37,3 +37,8 @@ Thumbs.db
 sync*.sh
 *sync*.sh
 
+# Uploads directory
+server/uploads/*
+!server/uploads/.gitkeep
+
+
