@@ -147,7 +147,7 @@ html[data-theme="light"] {
   --slate-700: #d1d5db; /* Borders (Gray 300) */
   --slate-800: #e5e7eb; /* Main card & panel borders (Gray 200) */
   --slate-900: #ffffff; /* Card backgrounds (Pure White) */
-  --slate-950: #f9fafb; /* Gray-50 Canvas Page Background */
+  --slate-950: #f4f6f9; /* #f4f6f9 Canvas Page Background */
 
   /* Muted, deep, non-neon accent palette in Light Mode */
   --cyan-50: #f0f9ff;
