@@ -131,11 +131,11 @@ export function SearchableSelect({
           type="button"
           disabled={disabled}
           onClick={() => !disabled && setIsOpen(!isOpen)}
-          className={`w-full px-3 py-2 bg-slate-950/80 border rounded-xl text-xs text-left flex items-center justify-between transition-all select-none ${
+          className={`w-full px-3 py-2 bg-white dark:bg-slate-950/80 border rounded-xl text-xs text-left flex items-center justify-between transition-all select-none ${
             isOpen
-              ? "border-cyan-500 ring-1 ring-cyan-500/20 bg-slate-900 shadow-md"
+              ? "border-cyan-500 ring-1 ring-cyan-500/20 bg-white dark:bg-slate-900 shadow-md"
               : "border-slate-800 hover:border-slate-700"
-          } ${disabled ? "opacity-50 cursor-not-allowed bg-slate-900/50" : "cursor-pointer"}`}
+          } ${disabled ? "opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-900/50" : "cursor-pointer"}`}
         >
           <div className="flex items-center gap-2 truncate">
             {selectedOption?.icon && (

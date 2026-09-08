@@ -74,7 +74,7 @@ export function Pagination({
 
   return (
     <div
-      className={`flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-slate-950/70 border border-slate-800/80 rounded-2xl text-xs text-slate-300 shadow-sm ${className}`}
+      className={`flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-white dark:bg-slate-950/70 border border-slate-800/80 rounded-2xl text-xs text-slate-300 shadow-xs ${className}`}
     >
       {/* Items count & Per-page select */}
       <div className="flex flex-wrap items-center gap-3">
