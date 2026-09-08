@@ -14,7 +14,8 @@ import {
   Key, 
   CheckCircle2, 
   AlertCircle, 
-  Loader2 
+  Loader2,
+  RefreshCw 
 } from "lucide-react";
 import { 
   Profile, 
@@ -98,6 +99,43 @@ export function AdminDashboard({
   const [passwordLoading, setPasswordLoading] = useState(false);
   const [passwordMessage, setPasswordMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
+  const [syncLoading, setSyncLoading] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<{ type: "success" | "warning" | "error"; text: string } | null>(null);
+
+  const isLocalEnv = typeof window !== "undefined" && (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname.endsWith(".test") ||
+    window.location.hostname.endsWith(".local")
+  );
+
+  const handleSyncFromVPS = async () => {
+    setSyncLoading(true);
+    setSyncMessage(null);
+    try {
+      const res = await fetch("/api/sync/pull", { method: "POST" });
+      const data = await res.json();
+      if (data.offline) {
+        setSyncMessage({ type: "warning", text: data.message });
+        setTimeout(() => setSyncMessage(null), 6000);
+      } else if (data.success) {
+        setSyncMessage({ type: "success", text: data.message });
+        setTimeout(() => {
+          setSyncMessage(null);
+          window.location.reload();
+        }, 1200);
+      } else {
+        setSyncMessage({ type: "error", text: data.error || data.message || "Gagal sinkronisasi" });
+        setTimeout(() => setSyncMessage(null), 6000);
+      }
+    } catch (err: any) {
+      setSyncMessage({ type: "error", text: err.message || "Gagal menghubungi server lokal" });
+      setTimeout(() => setSyncMessage(null), 6000);
+    } finally {
+      setSyncLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (initialTab && initialTab !== activeTab) {
       setActiveTab(initialTab);
@@ -178,6 +216,20 @@ export function AdminDashboard({
           </div>
 
           <div className="flex items-center gap-2.5">
+            {/* Sync Button: Khusus Admin di Lingkungan Lokal (Disembunyikan di VPS) */}
+            {isLocalEnv && (
+              <button
+                type="button"
+                onClick={handleSyncFromVPS}
+                disabled={syncLoading}
+                className="px-3.5 py-2 text-xs font-semibold text-cyan-300 hover:text-white bg-slate-900 border border-cyan-800/50 rounded-xl hover:bg-cyan-950 transition-colors flex items-center gap-1.5 disabled:opacity-50 shadow-sm"
+                title="Sinkronkan seluruh data database dan berkas uploads dari VPS"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${syncLoading ? "animate-spin text-cyan-400" : "text-cyan-400"}`} />
+                <span>{syncLoading ? "Menyinkronkan..." : "Sync VPS"}</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={() => setPasswordModalOpen(true)}
@@ -207,6 +259,26 @@ export function AdminDashboard({
             </button>
           </div>
         </div>
+
+        {/* Sync Status Banner */}
+        {syncMessage && (
+          <div
+            className={`p-3 rounded-xl border text-xs flex items-center gap-2 ${
+              syncMessage.type === "success"
+                ? "bg-emerald-950/40 border-emerald-800/60 text-emerald-300"
+                : syncMessage.type === "warning"
+                ? "bg-amber-950/40 border-amber-800/60 text-amber-300"
+                : "bg-rose-950/40 border-rose-800/60 text-rose-300"
+            }`}
+          >
+            {syncMessage.type === "success" ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+            )}
+            <span>{syncMessage.text}</span>
+          </div>
+        )}
 
         {/* Tab Navigation */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-800">

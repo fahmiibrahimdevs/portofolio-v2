@@ -29,6 +29,12 @@ router.get("/export", async (c) => {
 
 // POST /api/sync/pull - Pull latest database and uploads from remote VPS into local
 router.post("/pull", async (c) => {
+  // Security guard: Prevent running sync pull on VPS production server
+  const host = (c.req.header("host") || "").toLowerCase();
+  if (host.includes("fahmiibrahim.my.id") || process.env.IS_VPS === "true") {
+    return c.json({ error: "Forbidden: Sync pull is strictly disabled on production VPS." }, 403);
+  }
+
   const remoteUrl = process.env.SYNC_REMOTE_URL || "https://fahmiibrahim.my.id";
   const syncToken = process.env.SYNC_TOKEN || "portfolio_sync_7e3b91fa02c84d65";
 
