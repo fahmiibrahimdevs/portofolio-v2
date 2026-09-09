@@ -3,6 +3,7 @@ import { Modal } from "../common/Modal";
 import { Project } from "../../types";
 import { Github, ExternalLink, Tag, Layers } from "lucide-react";
 import { formatMarkdownToHtml } from "../../utils/markdown";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface ProjectDetailModalProps {
   project: Project | null;
@@ -14,15 +15,16 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
   if (!project) return null;
 
   const tags = project.tags || [];
+  const imageUrl = resolveImageUrl(project.thumbnail_url || project.thumbnail);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={project.title} maxWidth="3xl">
       <div className="space-y-6">
         {/* Banner / Cover */}
-        {project.thumbnail_url && (
+        {imageUrl && (
           <div className="w-full h-64 sm:h-80 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 relative">
             <img
-              src={project.thumbnail_url}
+              src={imageUrl}
               alt={project.title}
               className="w-full h-full object-cover object-center"
             />

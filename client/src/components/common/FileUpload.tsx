@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { api } from "../../api/client";
 import { compressImage, formatFileSize } from "../../utils/imageCompressor";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface FileUploadProps {
   label: string;
@@ -160,13 +161,20 @@ export function FileUpload({
           <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-xl shadow-sm space-y-2">
             <div className="flex items-center gap-3">
               {isImage && (
-                <div className="w-14 h-14 rounded-lg bg-slate-800/80 border border-slate-700/50 overflow-hidden flex items-center justify-center shrink-0">
+                <div className="w-14 h-14 rounded-lg bg-slate-800/80 border border-slate-700/50 overflow-hidden flex items-center justify-center shrink-0 relative">
+                  <div className="absolute inset-0 flex items-center justify-center text-slate-500 z-0">
+                    <FileText className="w-5 h-5" />
+                  </div>
                   <img
-                    src={value}
+                    key={resolveImageUrl(value)}
+                    src={resolveImageUrl(value)}
                     alt="Uploaded preview"
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-center relative z-10"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = "none";
+                    }}
+                    onLoad={(e) => {
+                      (e.target as HTMLElement).style.display = "block";
                     }}
                   />
                 </div>

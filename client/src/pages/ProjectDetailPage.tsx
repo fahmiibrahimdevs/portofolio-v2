@@ -13,6 +13,7 @@ import {
   Share2
 } from "lucide-react";
 import { formatMarkdownToHtml } from "../utils/markdown";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 interface ProjectDetailPageProps {
   identifier: string; // id or slug
@@ -126,10 +127,10 @@ export function ProjectDetailPage({
       </div>
 
       {/* Hero Banner / Thumbnail */}
-      {project.thumbnail_url && (
+      {resolveImageUrl(project.thumbnail_url || project.thumbnail) && (
         <div className="w-full max-h-[460px] rounded-3xl overflow-hidden bg-slate-950 border border-slate-800/90 relative shadow-2xl">
           <img
-            src={project.thumbnail_url}
+            src={resolveImageUrl(project.thumbnail_url || project.thumbnail)}
             alt={project.title}
             className="w-full h-full max-h-[460px] object-cover object-center"
           />
@@ -152,7 +153,7 @@ export function ProjectDetailPage({
 
       {/* Title & Metadata Section */}
       <div className="space-y-4 pb-6 border-b border-slate-800/90">
-        {!project.thumbnail_url && project.category_name && (
+        {!resolveImageUrl(project.thumbnail_url || project.thumbnail) && project.category_name && (
           <div className="flex items-center gap-2">
             <span className="badge-soft-cyan text-xs font-bold px-3 py-1 rounded-full">
               {project.category_name}

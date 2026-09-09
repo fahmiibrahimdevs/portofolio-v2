@@ -3,6 +3,7 @@ import { Modal } from "../common/Modal";
 import { Article } from "../../types";
 import { Calendar, Clock } from "lucide-react";
 import { formatMarkdownToHtml } from "../../utils/markdown";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface ArticleReaderModalProps {
   article: Article | null;
@@ -14,15 +15,16 @@ export function ArticleReaderModal({ article, isOpen, onClose }: ArticleReaderMo
   if (!article) return null;
 
   const content = article.fill_content || article.description || "No article content available.";
+  const imageUrl = resolveImageUrl(article.thumbnail_url || article.thumbnail);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={article.title} maxWidth="3xl">
       <div className="space-y-6">
         {/* Cover */}
-        {article.thumbnail_url && (
+        {imageUrl && (
           <div className="w-full h-56 sm:h-72 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 relative">
             <img
-              src={article.thumbnail_url}
+              src={imageUrl}
               alt={article.title}
               className="w-full h-full object-cover object-center"
             />

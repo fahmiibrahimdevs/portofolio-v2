@@ -2,6 +2,7 @@ import React from "react";
 import { Clock, Calendar, ArrowRight, BookOpen } from "lucide-react";
 import { Article } from "../../types";
 import { stripMarkdown } from "../../utils/markdown";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface ArticleCardProps {
   article: Article;
@@ -36,19 +37,23 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
     >
       {/* Thumbnail */}
       <div className="relative w-full h-44 sm:h-48 bg-slate-950 overflow-hidden border-b border-slate-800/80">
-        {article.thumbnail_url ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-900 text-slate-600 z-0">
+          <BookOpen className="w-10 h-10" />
+        </div>
+
+        {resolveImageUrl(article.thumbnail_url || article.thumbnail) && (
           <img
-            src={article.thumbnail_url}
+            key={resolveImageUrl(article.thumbnail_url || article.thumbnail)}
+            src={resolveImageUrl(article.thumbnail_url || article.thumbnail)}
             alt={article.title}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            className="relative z-10 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
               (e.target as HTMLElement).style.display = "none";
             }}
+            onLoad={(e) => {
+              (e.target as HTMLElement).style.display = "block";
+            }}
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-600">
-            <BookOpen className="w-10 h-10" />
-          </div>
         )}
 
         <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">

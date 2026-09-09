@@ -12,6 +12,7 @@ import { StatusBadgeSelect } from "../../common/StatusBadgeSelect";
 import { TechStackSidePanel } from "../../common/TechStackSidePanel";
 import { ProjectCardPreview } from "../preview/ProjectCardPreview";
 import { useDebounce } from "../../../hooks/useDebounce";
+import { resolveImageUrl } from "../../../utils/imageUrl";
 import { 
   Plus, 
   Edit3, 
@@ -115,7 +116,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
       slug: p.slug || "",
       category_id: String(p.category_id || "1"),
       tag_id: p.tag_id || "",
-      thumbnail: p.thumbnail || "",
+      thumbnail: p.thumbnail_url || p.thumbnail || "",
       short_desc: p.short_desc || "",
       description: p.description || "",
       status_publish: p.status_publish || "Published",
@@ -175,7 +176,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
 
   const selectedTagIds = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()).filter(Boolean) : [];
 
-  // Construct real-time preview project data
+  // Real-time dynamic preview project object
   const previewProject = useMemo<Project>(() => {
     const selectedCategory = categories.find((c) => String(c.id) === String(formData.category_id));
     const resolvedTags = selectedTagIds.map((id) => {
@@ -193,7 +194,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
       tag_id: formData.tag_id,
       tags: resolvedTags,
       thumbnail: formData.thumbnail,
-      thumbnail_url: formData.thumbnail || "",
+      thumbnail_url: resolveImageUrl(formData.thumbnail || editingProject?.thumbnail_url) || "",
       short_desc: formData.short_desc.trim() || "Write brief summary / excerpt for project cards and highlights...",
       description: formData.description || "",
       status_publish: formData.status_publish,
@@ -374,17 +375,24 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
                 <div>
                   {/* Thumbnail Header */}
                   <div className="h-40 w-full bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800/80">
-                    {p.thumbnail_url ? (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-600 gap-1 z-0">
+                      <FolderKanban className="w-8 h-8" />
+                      <span className="text-[10px]">No thumbnail</span>
+                    </div>
+
+                    {resolveImageUrl(p.thumbnail_url || p.thumbnail) && (
                       <img
-                        src={p.thumbnail_url}
+                        key={resolveImageUrl(p.thumbnail_url || p.thumbnail)}
+                        src={resolveImageUrl(p.thumbnail_url || p.thumbnail)}
                         alt={p.title}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        className="relative z-10 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = "none";
+                        }}
+                        onLoad={(e) => {
+                          (e.target as HTMLElement).style.display = "block";
+                        }}
                       />
-                    ) : (
-                      <div className="flex flex-col items-center justify-center text-slate-600 gap-1">
-                        <FolderKanban className="w-8 h-8" />
-                        <span className="text-[10px]">No thumbnail</span>
-                      </div>
                     )}
 
                     {/* Badges Overlay */}

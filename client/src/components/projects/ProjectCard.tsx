@@ -2,6 +2,7 @@ import React from "react";
 import { Github, ExternalLink, ArrowRight, Layers, Tag } from "lucide-react";
 import { Project } from "../../types";
 import { stripMarkdown } from "../../utils/markdown";
+import { resolveImageUrl } from "../../utils/imageUrl";
 
 interface ProjectCardProps {
   project: Project;
@@ -10,6 +11,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
   const tags = project.tags || [];
+  const imageUrl = resolveImageUrl(project.thumbnail_url || project.thumbnail);
 
   return (
     <div className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all group border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30">
@@ -18,19 +20,23 @@ export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
         onClick={() => onOpenDetail(project)}
         className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden cursor-pointer border-b border-slate-800/80"
       >
-        {project.thumbnail_url ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-900 text-slate-600 z-0">
+          <Layers className="w-10 h-10" />
+        </div>
+
+        {imageUrl && (
           <img
-            src={project.thumbnail_url}
+            key={imageUrl}
+            src={imageUrl}
             alt={project.title}
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            className="relative z-10 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
               (e.target as HTMLElement).style.display = "none";
             }}
+            onLoad={(e) => {
+              (e.target as HTMLElement).style.display = "block";
+            }}
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-600">
-            <Layers className="w-10 h-10" />
-          </div>
         )}
 
         {/* Category Badge */}

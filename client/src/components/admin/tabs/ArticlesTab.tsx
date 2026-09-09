@@ -11,6 +11,7 @@ import { SearchableSelect } from "../../common/SearchableSelect";
 import { StatusBadgeSelect } from "../../common/StatusBadgeSelect";
 import { ArticleCardPreview } from "../preview/ArticleCardPreview";
 import { useDebounce } from "../../../hooks/useDebounce";
+import { resolveImageUrl } from "../../../utils/imageUrl";
 import { 
   Plus, 
   Edit3, 
@@ -117,9 +118,9 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
     setFormData({
       title: a.title || "",
       slug: a.slug || "",
-      category_id: String(a.category_id || "1"),
-      sub_category_id: String(a.sub_category_id || "1"),
-      thumbnail: a.thumbnail || "",
+      category_id: String(a.category_id || "cat-languages"),
+      sub_category_id: String(a.sub_category_id || ""),
+      thumbnail: a.thumbnail_url || a.thumbnail || "",
       description: a.description || "",
       fill_content: a.fill_content || "",
       status_publish: a.status_publish || "Published",
@@ -142,7 +143,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
       sub_category_id: formData.sub_category_id,
       sub_category_name: subCat?.sub_category_name || "Tutorial",
       thumbnail: formData.thumbnail,
-      thumbnail_url: formData.thumbnail || "",
+      thumbnail_url: resolveImageUrl(formData.thumbnail || editingArticle?.thumbnail_url) || "",
       description: formData.description.trim() || "Write brief summary or excerpt for this article card...",
       fill_content: formData.fill_content || "",
       status_publish: formData.status_publish,
@@ -415,17 +416,24 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                     rel="noopener noreferrer"
                     className="block h-40 w-full bg-slate-900 relative overflow-hidden flex items-center justify-center border-b border-slate-800/80 cursor-pointer"
                   >
-                    {a.thumbnail_url ? (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-600 gap-1 z-0">
+                      <BookOpen className="w-8 h-8" />
+                      <span className="text-[10px]">No thumbnail</span>
+                    </div>
+
+                    {resolveImageUrl(a.thumbnail_url || a.thumbnail) && (
                       <img
-                        src={a.thumbnail_url}
+                        key={resolveImageUrl(a.thumbnail_url || a.thumbnail)}
+                        src={resolveImageUrl(a.thumbnail_url || a.thumbnail)}
                         alt={a.title}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        className="relative z-10 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = "none";
+                        }}
+                        onLoad={(e) => {
+                          (e.target as HTMLElement).style.display = "block";
+                        }}
                       />
-                    ) : (
-                      <div className="flex flex-col items-center justify-center text-slate-600 gap-1">
-                        <BookOpen className="w-8 h-8" />
-                        <span className="text-[10px]">No thumbnail</span>
-                      </div>
                     )}
 
                     {/* Badges Overlay */}

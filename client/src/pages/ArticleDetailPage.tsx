@@ -13,6 +13,7 @@ import {
   Tag
 } from "lucide-react";
 import { formatMarkdownToHtml } from "../utils/markdown";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 interface ArticleDetailPageProps {
   identifier: string; // id or slug
@@ -124,10 +125,10 @@ export function ArticleDetailPage({
       </div>
 
       {/* Hero Cover Banner */}
-      {article.thumbnail_url && (
+      {resolveImageUrl(article.thumbnail_url || article.thumbnail) && (
         <div className="w-full max-h-[440px] rounded-3xl overflow-hidden bg-slate-950 border border-slate-800/90 relative shadow-2xl">
           <img
-            src={article.thumbnail_url}
+            src={resolveImageUrl(article.thumbnail_url || article.thumbnail)}
             alt={article.title}
             className="w-full h-full max-h-[440px] object-cover object-center"
           />
@@ -151,7 +152,7 @@ export function ArticleDetailPage({
 
       {/* Header Metadata */}
       <div className="space-y-4 pb-6 border-b border-slate-800/90">
-        {!article.thumbnail_url && (
+        {!resolveImageUrl(article.thumbnail_url || article.thumbnail) && (
           <div className="flex flex-wrap items-center gap-2">
             {article.category_name && (
               <span className="badge-soft-cyan text-xs font-bold px-3 py-1 rounded-full">
