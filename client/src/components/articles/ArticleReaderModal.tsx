@@ -26,7 +26,6 @@ export function ArticleReaderModal({ article, isOpen, onClose }: ArticleReaderMo
               alt={article.title}
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
             
             {article.category_name && (
               <div className="absolute top-4 left-4">

@@ -16,7 +16,7 @@ export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
       {/* Thumbnail Header */}
       <div 
         onClick={() => onOpenDetail(project)}
-        className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden cursor-pointer"
+        className="relative w-full h-48 sm:h-52 bg-slate-950 overflow-hidden cursor-pointer border-b border-slate-800/80"
       >
         {project.thumbnail_url ? (
           <img
@@ -32,9 +32,6 @@ export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
             <Layers className="w-10 h-10" />
           </div>
         )}
-
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80" />
 
         {/* Category Badge */}
         {project.category_name && (

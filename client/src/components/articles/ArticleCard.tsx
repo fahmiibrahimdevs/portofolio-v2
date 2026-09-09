@@ -35,7 +35,7 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
       className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all group cursor-pointer border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30"
     >
       {/* Thumbnail */}
-      <div className="relative w-full h-44 sm:h-48 bg-slate-950 overflow-hidden">
+      <div className="relative w-full h-44 sm:h-48 bg-slate-950 overflow-hidden border-b border-slate-800/80">
         {article.thumbnail_url ? (
           <img
             src={article.thumbnail_url}
@@ -50,8 +50,6 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
             <BookOpen className="w-10 h-10" />
           </div>
         )}
-
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80" />
 
         <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
           {article.category_name && (

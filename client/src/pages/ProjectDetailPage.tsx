@@ -133,7 +133,6 @@ export function ProjectDetailPage({
             alt={project.title}
             className="w-full h-full max-h-[460px] object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-80" />
 
           {/* Badges Floating on Hero */}
           <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">

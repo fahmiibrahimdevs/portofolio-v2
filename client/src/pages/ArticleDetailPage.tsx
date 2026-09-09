@@ -131,7 +131,6 @@ export function ArticleDetailPage({
             alt={article.title}
             className="w-full h-full max-h-[440px] object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-80" />
 
           {/* Floating Badges */}
           <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
