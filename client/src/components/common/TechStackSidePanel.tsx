@@ -6,7 +6,6 @@ import {
   X, 
   Check, 
   Cpu, 
-  Sparkles, 
   CheckSquare, 
   ChevronDown, 
   ChevronUp, 
@@ -156,9 +155,8 @@ export function TechStackSidePanel({
             <Cpu className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-100 tracking-tight flex items-center gap-1.5">
+            <h3 className="text-sm font-bold text-slate-100 tracking-tight">
               Pilih Tech Stack
-              <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
             </h3>
             <p className="text-[11px] text-slate-400 font-medium">
               Filter kategori & pilih sub-kategori teknologi

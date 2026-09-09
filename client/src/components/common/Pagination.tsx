@@ -149,7 +149,7 @@ export function Pagination({
                   onClick={() => handlePageClick(Number(p))}
                   className={`min-w-[32px] h-8 px-2 rounded-xl text-xs font-semibold transition-all ${
                     isCurrent
-                      ? "bg-cyan-600 text-white shadow-md shadow-cyan-950/60"
+                      ? "bg-cyan-600 text-white shadow-sm font-bold"
                       : "text-slate-400 hover:text-slate-100 bg-slate-900/60 hover:bg-slate-900 border border-slate-800"
                   }`}
                 >

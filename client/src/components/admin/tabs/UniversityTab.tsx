@@ -22,7 +22,7 @@ import {
   Users, 
   FlaskConical, 
   FolderKanban, 
-  Sparkles,
+  Award,
   PlusCircle
 } from "lucide-react";
 
@@ -701,7 +701,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
           <div className="space-y-3 pt-4 border-t border-slate-800">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
+                <Award className="w-3.5 h-3.5" />
                 <span>Skills Gained Groups</span>
               </div>
               <button

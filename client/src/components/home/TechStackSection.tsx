@@ -1,5 +1,5 @@
 import React from "react";
-import { Cpu, Layers, Sparkles } from "lucide-react";
+import { Cpu, Layers, Code2 } from "lucide-react";
 import { TechCategory } from "../../types";
 
 interface TechStackSectionProps {
@@ -9,7 +9,7 @@ interface TechStackSectionProps {
 
 export function TechStackSection({ categories, isLoading }: TechStackSectionProps) {
   return (
-    <section id="technology" className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-800/80">
+    <section id="technology" className="py-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto border-t border-slate-800/80">
       <div className="space-y-2 mb-5">
         <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
           <Cpu className="w-4 h-4" />
@@ -41,7 +41,7 @@ export function TechStackSection({ categories, isLoading }: TechStackSectionProp
             return (
               <div
                 key={cat.id}
-                className="glass-panel rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all"
+                className="glass-panel glass-panel-hover rounded-2xl p-5 space-y-4 flex flex-col justify-between transition-all border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30"
               >
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-slate-800/80 mb-3">
@@ -63,9 +63,9 @@ export function TechStackSection({ categories, isLoading }: TechStackSectionProp
                       {skills.map((skill) => (
                         <div
                           key={skill.id}
-                          className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-cyan-500/40 hover:bg-slate-900/80 transition-all group"
+                          className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-sky-500/50 hover:bg-slate-900/80 transition-all group"
                         >
-                          <div className="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center p-1 shrink-0 overflow-hidden group-hover:border-cyan-500/40">
+                          <div className="w-7 h-7 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center p-1 shrink-0 overflow-hidden group-hover:border-sky-500/50">
                             {skill.icon_url ? (
                               <img
                                 src={skill.icon_url}
@@ -76,7 +76,7 @@ export function TechStackSection({ categories, isLoading }: TechStackSectionProp
                                 }}
                               />
                             ) : (
-                              <Sparkles className="w-3.5 h-3.5 text-slate-400" />
+                              <Code2 className="w-3.5 h-3.5 text-slate-400" />
                             )}
                           </div>
                           <span className="text-xs font-semibold text-slate-200 group-hover:text-cyan-400 truncate">

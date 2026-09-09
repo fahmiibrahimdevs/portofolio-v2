@@ -81,7 +81,7 @@ export function ProfileTab({ profile }: ProfileTabProps) {
         <button
           type="submit"
           disabled={updateMutation.isPending}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/40 transition-all self-start sm:self-auto"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow-sm transition-all self-start sm:self-auto"
         >
           {updateMutation.isPending ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />

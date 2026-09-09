@@ -8,7 +8,6 @@ import {
   Calendar, 
   Clock, 
   Share2, 
-  Sparkles, 
   ArrowRight,
   User,
   Tag
@@ -47,7 +46,7 @@ export function ArticleDetailPage({
 
   if (isLoading && !article) {
     return (
-      <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8 animate-pulse">
+      <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-8 animate-pulse">
         <div className="h-8 w-48 bg-slate-900 rounded-xl" />
         <div className="h-72 w-full bg-slate-900 rounded-3xl" />
         <div className="space-y-4">
@@ -75,7 +74,7 @@ export function ArticleDetailPage({
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-lg shadow-cyan-950/50 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-sm transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Articles</span>
@@ -102,7 +101,7 @@ export function ArticleDetailPage({
   };
 
   return (
-    <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8 animate-in fade-in duration-200">
+    <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-8 animate-in fade-in duration-200">
       {/* Top Navigation Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <button
@@ -234,13 +233,13 @@ export function ArticleDetailPage({
         <div className="pt-10 space-y-5">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-400" />
+              <BookOpen className="w-4 h-4 text-cyan-400" />
               <span>More Recommended Articles</span>
             </h3>
             <button
               type="button"
               onClick={onBack}
-              className="text-xs font-semibold text-indigo-400 hover:underline inline-flex items-center gap-1"
+              className="text-xs font-semibold text-cyan-400 hover:underline inline-flex items-center gap-1"
             >
               <span>View All</span>
               <ArrowRight className="w-3 h-3" />
@@ -252,10 +251,10 @@ export function ArticleDetailPage({
               <div
                 key={a.id}
                 onClick={() => onSelectArticle(a)}
-                className="group p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/40 cursor-pointer transition-all space-y-2"
+                className="group p-4 rounded-2xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30 cursor-pointer transition-all space-y-2"
               >
                 <div className="flex items-center justify-between">
-                  <span className="badge-soft-indigo text-[10px] font-semibold px-2 py-0.5 rounded-md">
+                  <span className="badge-soft-cyan text-[10px] font-semibold px-2 py-0.5 rounded-md">
                     {a.category_name || "Article"}
                   </span>
                   {a.sub_category_name && (
@@ -264,7 +263,7 @@ export function ArticleDetailPage({
                     </span>
                   )}
                 </div>
-                <h4 className="text-xs font-bold text-slate-200 group-hover:text-indigo-300 transition-colors line-clamp-2 leading-snug">
+                <h4 className="text-xs font-bold text-slate-200 group-hover:text-cyan-400 transition-colors line-clamp-2 leading-snug">
                   {a.title}
                 </h4>
                 <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">

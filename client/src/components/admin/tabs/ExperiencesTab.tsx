@@ -156,7 +156,7 @@ export function ExperiencesTab({ experiences }: ExperiencesTabProps) {
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center gap-1.5 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/40 transition-all"
+          className="inline-flex items-center gap-1.5 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Experience</span>
@@ -430,7 +430,7 @@ export function ExperiencesTab({ experiences }: ExperiencesTabProps) {
             <button
               type="submit"
               disabled={createMutation.isPending || updateMutation.isPending}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/40"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm"
             >
               {(createMutation.isPending || updateMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

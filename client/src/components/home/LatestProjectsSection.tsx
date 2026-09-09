@@ -19,7 +19,7 @@ export function LatestProjectsSection({
   const latest = projects.slice(0, 4);
 
   return (
-    <section id="projects-preview" className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-800/80">
+    <section id="projects-preview" className="py-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto border-t border-slate-800/80">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-5 gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">

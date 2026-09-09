@@ -11,8 +11,7 @@ import {
   Linkedin, 
   Youtube, 
   Instagram, 
-  MessageSquare, 
-  Sparkles 
+  MessageSquare
 } from "lucide-react";
 import { Profile } from "../types";
 import { api } from "../api/client";
@@ -50,7 +49,7 @@ export function ContactPage({ profile }: ContactPageProps) {
   };
 
   return (
-    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-12">
+    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-12">
       {/* Header */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-widest">

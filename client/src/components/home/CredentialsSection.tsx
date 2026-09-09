@@ -16,9 +16,9 @@ export function CredentialsSection({ credentials, isLoading }: CredentialsSectio
   };
 
   return (
-    <section id="credentials" className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-800/80">
+    <section id="credentials" className="py-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto border-t border-slate-800/80">
       <div className="space-y-2 mb-5">
-        <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
           <Award className="w-4 h-4" />
           <span>Certifications & Honors</span>
         </div>
@@ -45,7 +45,7 @@ export function CredentialsSection({ credentials, isLoading }: CredentialsSectio
           {credentials.map((cred) => (
             <div
               key={cred.id}
-              className="glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between space-y-4 transition-all"
+              className="glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between space-y-4 transition-all border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30"
             >
               <div className="space-y-3">
                 {/* Header: Logo + Title */}
@@ -61,7 +61,7 @@ export function CredentialsSection({ credentials, isLoading }: CredentialsSectio
                         }}
                       />
                     ) : (
-                      <Award className="w-6 h-6 text-amber-400/80" />
+                      <Award className="w-6 h-6 text-cyan-400/80" />
                     )}
                   </div>
 

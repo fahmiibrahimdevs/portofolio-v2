@@ -53,7 +53,7 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
   }, [filteredProjects, currentPage, pageSize]);
 
   return (
-    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-8">
+    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-8">
       {/* Page Header */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
@@ -89,7 +89,7 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
             onClick={() => setSelectedCategory("all")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
               selectedCategory === "all"
-                ? "bg-cyan-600 text-white shadow-md shadow-cyan-950/50"
+                ? "bg-cyan-600 text-white shadow-sm font-bold"
                 : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
             }`}
           >
@@ -107,7 +107,7 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
                 onClick={() => setSelectedCategory(String(cat.id))}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   selectedCategory === String(cat.id)
-                    ? "bg-cyan-600 text-white shadow-md shadow-cyan-950/50"
+                    ? "bg-cyan-600 text-white shadow-sm font-bold"
                     : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
                 }`}
               >

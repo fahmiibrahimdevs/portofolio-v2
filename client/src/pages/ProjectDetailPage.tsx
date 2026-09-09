@@ -9,7 +9,6 @@ import {
   Tag, 
   Layers, 
   FolderKanban, 
-  Sparkles,
   ArrowRight,
   Share2
 } from "lucide-react";
@@ -47,7 +46,7 @@ export function ProjectDetailPage({
 
   if (isLoading && !project) {
     return (
-      <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8 animate-pulse">
+      <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-8 animate-pulse">
         <div className="h-8 w-48 bg-slate-900 rounded-xl" />
         <div className="h-80 w-full bg-slate-900 rounded-3xl" />
         <div className="space-y-4">
@@ -75,7 +74,7 @@ export function ProjectDetailPage({
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-lg shadow-cyan-950/50 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-sm transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Projects Showcase</span>
@@ -102,7 +101,7 @@ export function ProjectDetailPage({
   };
 
   return (
-    <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8 animate-in fade-in duration-200">
+    <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-8 animate-in fade-in duration-200">
       {/* Top Navigation & Breadcrumbs */}
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <button
@@ -216,7 +215,7 @@ export function ProjectDetailPage({
                 href={project.link_demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/50 transition-all hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all hover:scale-[1.02]"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span>Live Demo Preview</span>
@@ -260,7 +259,7 @@ export function ProjectDetailPage({
             href={project.link_demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/50 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
           >
             <ExternalLink className="w-4 h-4" />
             <span>Visit Live Demo ↗</span>
@@ -273,7 +272,7 @@ export function ProjectDetailPage({
         <div className="pt-10 space-y-5">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-cyan-400" />
+              <FolderKanban className="w-4 h-4 text-cyan-400" />
               <span>Explore Other Projects</span>
             </h3>
             <button

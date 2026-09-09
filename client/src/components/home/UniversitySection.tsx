@@ -8,8 +8,7 @@ import {
   Users, 
   FlaskConical, 
   FolderKanban, 
-  Award,
-  Sparkles
+  Award
 } from "lucide-react";
 import { UniversityAchievement } from "../../types";
 
@@ -26,9 +25,9 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
   };
 
   return (
-    <section id="education" className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-800/80">
+    <section id="education" className="py-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto border-t border-slate-800/80">
       <div className="space-y-2 mb-5">
-        <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
           <GraduationCap className="w-4 h-4" />
           <span>Academic & Research</span>
         </div>
@@ -64,15 +63,15 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                 <div key={ach.id} className="relative group">
                   {/* Vertical connecting line to the next item */}
                   {idx !== achievements.length - 1 && (
-                    <div className="absolute z-0 left-[-25px] sm:left-[-37px] top-[26px] sm:top-[36px] bottom-[-50px] sm:bottom-[-68px] w-0.5 bg-gradient-to-b from-indigo-500/50 via-slate-700/60 to-slate-800/20" />
+                    <div className="absolute z-0 left-[-25px] sm:left-[-37px] top-[26px] sm:top-[36px] bottom-[-50px] sm:bottom-[-68px] w-0.5 bg-slate-300 dark:bg-slate-800" />
                   )}
 
                   {/* Timeline Activity Node / Marker */}
-                  <div className="absolute z-10 -left-[34px] sm:-left-[48px] top-4 sm:top-6 w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center border-2 bg-slate-900 border-indigo-500/80 ring-4 ring-indigo-500/15 shadow-sm text-indigo-400">
-                    <GraduationCap className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-indigo-400" />
+                  <div className="absolute z-10 -left-[34px] sm:-left-[48px] top-4 sm:top-6 w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center border-2 bg-slate-900 border-cyan-500/80 ring-4 ring-cyan-500/15 shadow-sm text-cyan-400">
+                    <GraduationCap className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-cyan-400" />
                   </div>
 
-                  <div className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-6 transition-all border border-slate-800/90 hover:border-slate-700 shadow-sm">
+                  <div className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-6 transition-all border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30 shadow-sm">
                 {/* Header item */}
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
                   <div className="flex items-start gap-3.5 sm:gap-4 min-w-0 flex-1">
@@ -109,7 +108,7 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                   <button
                     type="button"
                     onClick={() => toggleExpand(ach.id)}
-                    className="w-full sm:w-auto mt-2 sm:mt-0 inline-flex items-center justify-center gap-1.5 text-xs sm:text-sm font-semibold badge-soft-indigo hover:opacity-90 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all shrink-0 shadow-sm active:scale-[0.98]"
+                    className="w-full sm:w-auto mt-2 sm:mt-0 inline-flex items-center justify-center gap-1.5 text-xs sm:text-sm font-semibold badge-soft-cyan hover:opacity-90 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all shrink-0 shadow-sm active:scale-[0.98]"
                   >
                     <span>{isExpanded ? "Hide Details" : "View Highlights"}</span>
                     {isExpanded ? (
@@ -167,7 +166,7 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                     {/* 2. Research Experience */}
                     {research.length > 0 && (
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-400 uppercase tracking-wider">
+                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-cyan-400 uppercase tracking-wider">
                           <FlaskConical className="w-4 h-4" />
                           <span>Research Experience</span>
                         </div>
@@ -188,13 +187,13 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                                       href={res.supervisor_link}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1"
+                                      className="text-cyan-400 hover:underline font-semibold inline-flex items-center gap-1"
                                     >
                                       <span>{res.supervisor}</span>
                                       <ExternalLink className="w-3.5 h-3.5" />
                                     </a>
                                   ) : (
-                                    <span className="text-amber-300 font-semibold">{res.supervisor}</span>
+                                    <span className="text-cyan-300 font-semibold">{res.supervisor}</span>
                                   )}
                                 </p>
                               )}
@@ -212,7 +211,7 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                     {/* 3. Key Projects */}
                     {projects.length > 0 && (
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-400 uppercase tracking-wider">
+                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-cyan-400 uppercase tracking-wider">
                           <FolderKanban className="w-4 h-4" />
                           <span>Key Projects</span>
                         </div>
@@ -222,14 +221,14 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                               key={idx}
                               className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-3"
                             >
-                              <p className="text-xs sm:text-sm font-bold text-emerald-400 uppercase tracking-wider">
+                              <p className="text-xs sm:text-sm font-bold text-cyan-400 uppercase tracking-wider">
                                 {cat.category}
                               </p>
                               <ul className="space-y-3">
                                 {cat.items.map((item, itemIdx) => (
                                   <li key={itemIdx} className="text-xs sm:text-sm text-slate-300">
                                     <div className="flex items-start gap-2">
-                                      <span className="text-emerald-400 mt-1 shrink-0 font-bold">•</span>
+                                      <span className="text-cyan-400 mt-1 shrink-0 font-bold">•</span>
                                       <div>
                                         {item.url ? (
                                           <a
@@ -265,8 +264,8 @@ export function UniversitySection({ achievements, isLoading }: UniversitySection
                     {/* 4. Skills Gained */}
                     {skillsGained.length > 0 && (
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-indigo-400 uppercase tracking-wider">
-                          <Sparkles className="w-4 h-4" />
+                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-cyan-400 uppercase tracking-wider">
+                          <Award className="w-4 h-4" />
                           <span>Skills Gained</span>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">

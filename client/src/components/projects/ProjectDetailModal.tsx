@@ -63,7 +63,7 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                   href={project.link_demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/50 transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   <span>Live Demo</span>

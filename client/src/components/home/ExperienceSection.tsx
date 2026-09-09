@@ -7,7 +7,6 @@ import {
   Calendar, 
   MapPin, 
   CheckCircle2,
-  Sparkles,
   CircleDot
 } from "lucide-react";
 import { WorkExperience } from "../../types";
@@ -25,7 +24,7 @@ export function ExperienceSection({ experiences, isLoading }: ExperienceSectionP
   };
 
   return (
-    <section id="experience" className="py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-800/80">
+    <section id="experience" className="py-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto border-t border-slate-800/80">
       <div className="space-y-2 mb-8">
         <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
           <Briefcase className="w-4 h-4" />
@@ -61,7 +60,7 @@ export function ExperienceSection({ experiences, isLoading }: ExperienceSectionP
                 <div key={exp.id} className="relative group">
                   {/* Vertical connecting line to the next item */}
                   {idx !== experiences.length - 1 && (
-                    <div className="absolute z-0 left-[-25px] sm:left-[-37px] top-[26px] sm:top-[36px] bottom-[-50px] sm:bottom-[-68px] w-0.5 bg-gradient-to-b from-cyan-500/50 via-slate-700/60 to-slate-800/20" />
+                    <div className="absolute z-0 left-[-25px] sm:left-[-37px] top-[26px] sm:top-[36px] bottom-[-50px] sm:bottom-[-68px] w-0.5 bg-slate-300 dark:bg-slate-800" />
                   )}
 
                   {/* Timeline Activity Node / Marker */}
@@ -78,7 +77,7 @@ export function ExperienceSection({ experiences, isLoading }: ExperienceSectionP
                   </div>
 
                   {/* Activity Content Card */}
-                  <div className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-6 transition-all border border-slate-800/90 hover:border-slate-700 shadow-sm">
+                  <div className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-6 transition-all border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30 shadow-sm">
                     {/* Header Row */}
                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
                       {/* Left: Company Logo + Role Title */}
@@ -176,9 +175,8 @@ export function ExperienceSection({ experiences, isLoading }: ExperienceSectionP
                     {/* Expanded Activity Points / Deliverables */}
                     {isExpanded && points.length > 0 && (
                       <div className="mt-5 pt-4 border-t border-slate-800/80 space-y-3">
-                        <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                          <Sparkles className="w-4 h-4 text-cyan-400" />
-                          <span>Key Responsibilities & Deliverables:</span>
+                        <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+                          Key Responsibilities & Deliverables:
                         </p>
                         <ul className="space-y-2.5">
                           {points.map((pt, idx) => (

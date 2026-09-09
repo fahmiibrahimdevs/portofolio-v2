@@ -32,7 +32,7 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
   return (
     <div
       onClick={() => onRead(article)}
-      className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all group cursor-pointer border border-slate-800/90 hover:border-cyan-500/40"
+      className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all group cursor-pointer border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30"
     >
       {/* Thumbnail */}
       <div className="relative w-full h-44 sm:h-48 bg-slate-950 overflow-hidden">

@@ -12,7 +12,7 @@ export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
   const tags = project.tags || [];
 
   return (
-    <div className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all group border border-slate-800/90 hover:border-cyan-500/40">
+    <div className="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all group border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30">
       {/* Thumbnail Header */}
       <div 
         onClick={() => onOpenDetail(project)}

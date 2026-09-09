@@ -22,7 +22,6 @@ import {
   Search,
   Eye,
   Cpu,
-  Sparkles,
   X,
 } from "lucide-react";
 
@@ -219,7 +218,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/40 transition-all self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add Project</span>
@@ -727,7 +726,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
             <button
               type="submit"
               disabled={createMutation.isPending || updateMutation.isPending}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/40"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm"
             >
               {(createMutation.isPending || updateMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

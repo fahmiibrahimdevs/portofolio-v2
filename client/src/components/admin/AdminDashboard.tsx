@@ -192,8 +192,8 @@ export function AdminDashboard({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 pt-20 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen bg-slate-950 text-slate-100 pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1216px] mx-auto space-y-6">
         {/* Top Header Card */}
         <div className="p-6 bg-slate-900/80 border border-slate-800 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3.5">

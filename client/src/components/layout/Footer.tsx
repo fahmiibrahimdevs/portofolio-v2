@@ -11,7 +11,7 @@ export function Footer({ profile }: FooterProps) {
 
   return (
     <footer className="border-t border-slate-800/80 bg-slate-950 py-10 px-4 sm:px-6 lg:px-8 mt-12">
-      <div className="max-w-6xl mx-auto flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <div className="max-w-[1216px] mx-auto flex flex-col items-center justify-between gap-6 sm:flex-row">
         {/* Left info */}
         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
           <p className="text-sm font-semibold text-slate-200">

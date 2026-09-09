@@ -85,10 +85,10 @@ export function ArticlesPage({
   }, [filteredArticles, currentPage, pageSize]);
 
   return (
-    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-8">
+    <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-8">
       {/* Page Header */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-widest">
           <BookOpen className="w-4 h-4" />
           <span>Knowledge & Writing</span>
         </div>
@@ -111,7 +111,7 @@ export function ArticlesPage({
               placeholder="Search articles by title, topic..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
             />
           </div>
 
@@ -122,7 +122,7 @@ export function ArticlesPage({
               onClick={() => handleCategoryChange("all")}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                 selectedCategory === "all"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-950/50"
+                  ? "bg-cyan-600 text-white shadow-sm font-bold"
                   : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
               }`}
             >
@@ -140,7 +140,7 @@ export function ArticlesPage({
                   onClick={() => handleCategoryChange(String(cat.id))}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                     selectedCategory === String(cat.id)
-                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-950/50"
+                      ? "bg-cyan-600 text-white shadow-sm font-bold"
                       : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
                   }`}
                 >
@@ -208,7 +208,7 @@ export function ArticlesPage({
               setSelectedCategory("all");
               setSelectedSubCategory("all");
             }}
-            className="text-xs text-indigo-400 hover:underline pt-2 inline-block font-medium"
+            className="text-xs text-cyan-400 hover:underline pt-2 inline-block font-medium"
           >
             Reset Filters
           </button>

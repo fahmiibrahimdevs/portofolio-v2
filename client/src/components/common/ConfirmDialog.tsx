@@ -50,8 +50,8 @@ export function ConfirmDialog({
             disabled={isLoading}
             className={`px-4 py-2 text-sm font-medium rounded-xl transition-all disabled:opacity-50 ${
               isDestructive
-                ? "bg-rose-600/90 hover:bg-rose-500 text-white shadow-lg shadow-rose-950/50"
-                : "bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-950/50"
+                ? "bg-rose-600 hover:bg-rose-500 text-white shadow-sm"
+                : "bg-cyan-600 hover:bg-cyan-500 text-white shadow-sm"
             }`}
           >
             {isLoading ? "Processing..." : confirmText}

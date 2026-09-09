@@ -44,7 +44,7 @@ renderer.image = function ({ href, title, text }) {
   const safeSrc = (href && /^(https?:\/\/|\/|data:image\/)/i.test(href.trim())) ? href : "";
 
   return `<figure class="my-5 flex flex-col items-center justify-center text-center not-prose first:mt-0">
-    <div class="inline-block relative max-w-full rounded-2xl border border-slate-800 bg-slate-900/60 p-2 sm:p-2.5 shadow-2xl transition-all duration-300 hover:border-cyan-500/40 hover:shadow-cyan-500/5 group">
+    <div class="inline-block relative max-w-full rounded-2xl border border-slate-800 bg-slate-900/60 p-2 sm:p-2.5 shadow-md transition-all duration-300 hover:border-slate-700 group">
       <a href="${safeSrc || '#'}" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-xl relative group/img cursor-zoom-in" title="Klik untuk membuka gambar resolusi penuh">
         <img
           src="${safeSrc}"

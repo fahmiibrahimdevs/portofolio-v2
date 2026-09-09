@@ -122,7 +122,7 @@ export function AdminLoginModal({ isOpen, onClose, onLoginSuccess }: AdminLoginM
           <button
             type="submit"
             disabled={isLoading}
-            className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/50 transition-all transform active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow-sm transition-all active:scale-95"
           >
             {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
             <span>Sign In</span>

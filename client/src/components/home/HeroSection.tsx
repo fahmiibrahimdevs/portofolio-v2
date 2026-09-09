@@ -2,7 +2,6 @@ import React from "react";
 import { 
   FileDown, 
   MapPin, 
-  Sparkles, 
   Github, 
   Linkedin, 
   Youtube, 
@@ -20,7 +19,7 @@ interface HeroSectionProps {
 export function HeroSection({ profile, isLoading }: HeroSectionProps) {
   if (isLoading) {
     return (
-      <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto animate-pulse">
+      <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto animate-pulse">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
           <div className="order-1 lg:order-2 w-48 h-48 sm:w-56 sm:h-56 bg-slate-800 rounded-full mx-auto"></div>
           <div className="order-2 lg:order-1 lg:col-span-2 space-y-4">
@@ -37,7 +36,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
   const isAvailable = Boolean(profile?.available_for_work);
 
   return (
-    <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
         {/* Bio & Info Column */}
         <div className="order-2 lg:order-1 lg:col-span-2 space-y-6">
@@ -60,9 +59,8 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
 
           {/* Heading */}
           <div className="space-y-2">
-            <p className="text-sm sm:text-base font-semibold text-cyan-400 tracking-wide flex items-center gap-2">
-              <span>Hello Everyone, I am</span>
-              <Sparkles className="w-4 h-4 text-cyan-400/70" />
+            <p className="text-sm sm:text-base font-semibold text-cyan-600 dark:text-cyan-400 tracking-wide">
+              Hello Everyone, I am
             </p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-100 tracking-tight leading-tight">
               {profile?.full_name || "Fahmi Ibrahim"}
@@ -86,7 +84,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 download={profile.resume_filename || "CV_Fahmi_Ibrahim.pdf"}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-semibold rounded-xl shadow-lg shadow-cyan-950/40 hover:shadow-cyan-900/60 transition-all transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold rounded-xl shadow-sm transition-all hover:-translate-y-0.5"
               >
                 <FileDown className="w-4 h-4" />
                 <span>My Resume</span>
@@ -163,10 +161,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
         {/* Avatar Photo Column */}
         <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
           <div className="relative group">
-            {/* Subtle glow border background */}
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-cyan-500/20 via-blue-500/10 to-transparent blur-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
-            
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-2 border-slate-700/80 bg-slate-900 shadow-2xl flex items-center justify-center">
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-2 border-slate-700/80 bg-slate-900 shadow-xl flex items-center justify-center">
               {profile?.avatar_url ? (
                 <img
                   src={profile.avatar_url}

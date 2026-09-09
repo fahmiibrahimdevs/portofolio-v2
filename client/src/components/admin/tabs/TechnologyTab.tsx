@@ -12,7 +12,7 @@ import {
   Trash2, 
   Cpu, 
   Layers, 
-  Sparkles, 
+  Code2, 
   Loader2, 
   FolderPlus, 
   FolderEdit 
@@ -168,7 +168,7 @@ export function TechnologyTab({ categories }: TechnologyTabProps) {
           <button
             type="button"
             onClick={() => openAddSkill()}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-cyan-950/40 transition-all"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Skill</span>
@@ -250,7 +250,7 @@ export function TechnologyTab({ categories }: TechnologyTabProps) {
                                 className="w-full h-full object-contain"
                               />
                             ) : (
-                              <Sparkles className="w-3.5 h-3.5 text-slate-500" />
+                              <Code2 className="w-3.5 h-3.5 text-slate-500" />
                             )}
                           </div>
                           <span className="text-xs font-medium text-slate-200 truncate">
