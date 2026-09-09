@@ -35,10 +35,10 @@ uploadRoutes.post("/", authMiddleware, async (c) => {
       return c.json({ error: `File type ${ext} is not allowed` }, 400);
     }
 
-    // Maximum file size: 10MB
-    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+    // Maximum file size: 30MB
+    const MAX_FILE_SIZE = 30 * 1024 * 1024;
     if (file.size > MAX_FILE_SIZE) {
-      return c.json({ error: "File size exceeds 10MB limit" }, 400);
+      return c.json({ error: "File size exceeds 30MB limit" }, 400);
     }
 
     // Generate safe filename: timestamp_sanitizedName
