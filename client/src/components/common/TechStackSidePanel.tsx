@@ -19,6 +19,7 @@ interface TechStackSidePanelProps {
   selectedIds: string[];
   onChange: (selectedIds: string[]) => void;
   onClose: () => void;
+  hideHeader?: boolean;
 }
 
 interface EnrichedTechSkill extends TechSkill {
@@ -33,6 +34,7 @@ export function TechStackSidePanel({
   selectedIds = [],
   onChange,
   onClose,
+  hideHeader = false,
 }: TechStackSidePanelProps) {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
@@ -147,34 +149,36 @@ export function TechStackSidePanel({
   const selectedInFilteredCount = filteredSkills.filter((s) => selectedIds.includes(s.id)).length;
 
   return (
-    <div className="flex flex-col h-full max-h-[90vh] bg-slate-900">
+    <div className="flex flex-col h-full min-h-0 bg-slate-900">
       {/* Header */}
-      <div className="flex items-start justify-between px-5 py-4 border-b border-slate-800/80 bg-slate-900/50">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0 shadow-xs">
-            <Cpu className="w-4 h-4" />
+      {!hideHeader && (
+        <div className="flex items-start justify-between px-5 py-4 border-b border-slate-800/80 bg-slate-900/50 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 flex items-center justify-center shrink-0 shadow-xs">
+              <Cpu className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-slate-100 tracking-tight">
+                Pilih Tech Stack
+              </h3>
+              <p className="text-[11px] text-slate-400 font-medium">
+                Filter kategori & pilih sub-kategori teknologi
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-slate-100 tracking-tight">
-              Pilih Tech Stack
-            </h3>
-            <p className="text-[11px] text-slate-400 font-medium">
-              Filter kategori & pilih sub-kategori teknologi
-            </p>
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 rounded-lg p-1.5 transition-colors cursor-pointer"
+            title="Tutup Panel"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="text-slate-400 hover:text-slate-200 hover:bg-slate-800/80 rounded-lg p-1.5 transition-colors cursor-pointer"
-          title="Tutup Panel"
-        >
-          <X className="w-4 h-4" />
-        </button>
-      </div>
+      )}
 
       {/* Body Content */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-900">
+      <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3.5 bg-slate-900">
         {/* Search Bar with Debounce */}
         <div className="relative">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />

@@ -562,8 +562,8 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
         sidePanel={
           showSidePanel ? (
             <div className="flex flex-col h-full min-h-0 bg-slate-900 overflow-hidden">
-              {/* Header */}
-              <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
+              {/* Header (Aligned with Modal Header h-16) */}
+              <div className="h-16 px-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
                 <div className="flex items-center gap-2">
                   <Eye className="w-4 h-4 text-sky-400" />
                   <span className="text-xs font-bold text-slate-100">Live Preview Card</span>

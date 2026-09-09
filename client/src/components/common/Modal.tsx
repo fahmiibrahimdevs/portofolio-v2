@@ -54,15 +54,15 @@ export function Modal({ isOpen, onClose, title, children, sidePanel, headerActio
       {/* Modal Dialog & Companion Side Floating Window Container */}
       <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4 w-full max-w-7xl my-auto">
         {/* Main Modal Box */}
-        <div className={`relative w-full ${maxWidthClasses[maxWidth] || "max-w-3xl"} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-150 shrink`}>
+        <div className={`relative w-full ${maxWidthClasses[maxWidth] || "max-w-3xl"} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto h-[90vh] max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-150 shrink`}>
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800/80 bg-slate-900/50">
+          <div className="flex items-center justify-between px-6 h-16 border-b border-slate-800/80 bg-slate-900/50 shrink-0">
             <h3 className="text-lg font-semibold text-slate-100">{title}</h3>
             <div className="flex items-center gap-2">
               {headerActions}
               <button
                 onClick={onClose}
-                className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors"
+                className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -78,7 +78,7 @@ export function Modal({ isOpen, onClose, title, children, sidePanel, headerActio
         {/* Companion Floating Window (Side Card docked to the right of modal) */}
         {sidePanel && (
           <div 
-            className="w-full lg:w-[410px] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto h-[88vh] max-h-[90vh] flex flex-col min-h-0 animate-in fade-in slide-in-from-right-4 duration-200 shrink-0"
+            className="w-full lg:w-[410px] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto h-[90vh] max-h-[90vh] flex flex-col min-h-0 animate-in fade-in slide-in-from-right-4 duration-200 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
             {sidePanel}

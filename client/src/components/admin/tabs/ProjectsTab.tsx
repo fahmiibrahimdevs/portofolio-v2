@@ -547,8 +547,8 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
         sidePanel={
           showSidePanel ? (
             <div className="flex flex-col h-full min-h-0 bg-slate-900 overflow-hidden">
-              {/* Segmented Tab Switcher Header */}
-              <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
+              {/* Segmented Tab Switcher Header (Aligned with Modal Header h-16) */}
+              <div className="h-16 px-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
                 <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
                   <button
                     type="button"
@@ -608,6 +608,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
                       selectedIds={selectedTagIds}
                       onChange={handleUpdateTechTags}
                       onClose={() => setSidePanelView("preview")}
+                      hideHeader={true}
                     />
                   </div>
                 )}
