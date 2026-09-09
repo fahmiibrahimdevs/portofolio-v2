@@ -9,9 +9,10 @@ interface ModalProps {
   sidePanel?: React.ReactNode;
   headerActions?: React.ReactNode;
   maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "full";
+  fixedHeight?: boolean;
 }
 
-export function Modal({ isOpen, onClose, title, children, sidePanel, headerActions, maxWidth = "lg" }: ModalProps) {
+export function Modal({ isOpen, onClose, title, children, sidePanel, headerActions, maxWidth = "lg", fixedHeight }: ModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -54,7 +55,7 @@ export function Modal({ isOpen, onClose, title, children, sidePanel, headerActio
       {/* Modal Dialog & Companion Side Floating Window Container */}
       <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4 w-full max-w-7xl my-auto">
         {/* Main Modal Box */}
-        <div className={`relative w-full ${maxWidthClasses[maxWidth] || "max-w-3xl"} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto h-[90vh] max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-150 shrink`}>
+        <div className={`relative w-full ${maxWidthClasses[maxWidth] || "max-w-3xl"} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto ${fixedHeight ?? Boolean(sidePanel) ? "h-[90vh]" : ""} max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-150 shrink`}>
           {/* Header */}
           <div className="flex items-center justify-between px-6 h-16 border-b border-slate-800/80 bg-slate-900/50 shrink-0">
             <h3 className="text-lg font-semibold text-slate-100">{title}</h3>

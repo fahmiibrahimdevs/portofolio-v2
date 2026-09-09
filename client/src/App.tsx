@@ -33,9 +33,18 @@ export function App() {
     const tabParam = searchParams.get("tab") as TabType | null;
 
     if (path.startsWith("/admin")) {
-      setViewMode("admin");
-      if (tabParam) {
-        setAdminTab(tabParam);
+      const token = getToken();
+      if (token) {
+        setViewMode("admin");
+        if (tabParam) {
+          setAdminTab(tabParam);
+        }
+      } else {
+        // Belum login, redirect ke public home dan munculkan modal login
+        setCurrentPage("home");
+        setViewMode("public");
+        window.history.replaceState(null, "", "/");
+        setLoginModalOpen(true);
       }
     } else if (path.startsWith("/projects/")) {
       const slugOrId = window.location.pathname.substring("/projects/".length).trim();
@@ -95,6 +104,12 @@ export function App() {
         .catch(() => {
           removeToken();
           setCurrentUser(null);
+          if (window.location.pathname.toLowerCase().startsWith("/admin")) {
+            setCurrentPage("home");
+            setViewMode("public");
+            window.history.replaceState(null, "", "/");
+            setLoginModalOpen(true);
+          }
         });
     }
   }, []);
@@ -269,7 +284,7 @@ export function App() {
         }}
         onOpenAdminModal={() => setLoginModalOpen(true)}
         onLogout={handleLogout}
-        isAdminDashboardView={viewMode === "admin"}
+        isAdminDashboardView={viewMode === "admin" && Boolean(currentUser)}
         onToggleView={() => {
           if (viewMode === "public") {
             navigateToAdmin("profile", true);
