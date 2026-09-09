@@ -10,6 +10,7 @@ import { Pagination } from "../../common/Pagination";
 import { SearchableSelect } from "../../common/SearchableSelect";
 import { StatusBadgeSelect } from "../../common/StatusBadgeSelect";
 import { TechStackSidePanel } from "../../common/TechStackSidePanel";
+import { ProjectCardPreview } from "../preview/ProjectCardPreview";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { 
   Plus, 
@@ -71,7 +72,8 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
     link_github: "",
   });
 
-  const [isTechPickerOpen, setIsTechPickerOpen] = useState(false);
+  const [showSidePanel, setShowSidePanel] = useState(true);
+  const [sidePanelView, setSidePanelView] = useState<"preview" | "tech">("preview");
 
   // Fast lookup map for all skills across tech categories
   const techSkillMap = useMemo(() => {
@@ -86,7 +88,8 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
 
   const openCreateModal = () => {
     setEditingProject(null);
-    setIsTechPickerOpen(false);
+    setShowSidePanel(true);
+    setSidePanelView("preview");
     setFormData({
       title: "",
       slug: "",
@@ -105,7 +108,8 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
 
   const openEditModal = (p: Project) => {
     setEditingProject(p);
-    setIsTechPickerOpen(false);
+    setShowSidePanel(true);
+    setSidePanelView("preview");
     setFormData({
       title: p.title || "",
       slug: p.slug || "",
@@ -127,7 +131,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       setModalOpen(false);
-      setIsTechPickerOpen(false);
+      setShowSidePanel(false);
     },
   });
 
@@ -136,7 +140,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       setModalOpen(false);
-      setIsTechPickerOpen(false);
+      setShowSidePanel(false);
     },
   });
 
@@ -170,6 +174,36 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
   };
 
   const selectedTagIds = formData.tag_id ? formData.tag_id.split(",").map((s) => s.trim()).filter(Boolean) : [];
+
+  // Construct real-time preview project data
+  const previewProject = useMemo<Project>(() => {
+    const selectedCategory = categories.find((c) => String(c.id) === String(formData.category_id));
+    const resolvedTags = selectedTagIds.map((id) => {
+      const skill = techSkillMap.get(id);
+      const legacyTag = tags.find((t) => String(t.id) === id);
+      return skill?.name || legacyTag?.tag_name || id;
+    });
+
+    return {
+      id: editingProject?.id || 9999,
+      title: formData.title.trim() || "Untitled Project Title",
+      slug: formData.slug.trim() || "untitled-project",
+      category_id: formData.category_id,
+      category_name: selectedCategory?.category_name || "Development",
+      tag_id: formData.tag_id,
+      tags: resolvedTags,
+      thumbnail: formData.thumbnail,
+      thumbnail_url: formData.thumbnail || "",
+      short_desc: formData.short_desc.trim() || "Write brief summary / excerpt for project cards and highlights...",
+      description: formData.description || "",
+      status_publish: formData.status_publish,
+      version: formData.version || "1.0.0",
+      link_demo: formData.link_demo,
+      link_github: formData.link_github,
+      created_at: editingProject?.created_at || new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+  }, [formData, editingProject, categories, selectedTagIds, techSkillMap, tags]);
 
   const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
 
@@ -489,18 +523,94 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
         isOpen={modalOpen}
         onClose={() => {
           setModalOpen(false);
-          setIsTechPickerOpen(false);
+          setShowSidePanel(false);
         }}
         title={editingProject ? "Edit Project" : "Add New Project"}
         maxWidth="3xl"
+        headerActions={
+          <button
+            type="button"
+            onClick={() => setShowSidePanel((prev) => !prev)}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 border cursor-pointer ${
+              showSidePanel
+                ? "bg-sky-500/15 border-sky-500/30 text-sky-400"
+                : "bg-slate-800/80 border-slate-700 text-slate-400 hover:text-slate-200"
+            }`}
+            title={showSidePanel ? "Sembunyikan Panel Pendamping" : "Tampilkan Live Preview Card"}
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">
+              {showSidePanel ? "Preview: ON" : "Preview: OFF"}
+            </span>
+          </button>
+        }
         sidePanel={
-          isTechPickerOpen ? (
-            <TechStackSidePanel
-              categories={techCategories}
-              selectedIds={selectedTagIds}
-              onChange={handleUpdateTechTags}
-              onClose={() => setIsTechPickerOpen(false)}
-            />
+          showSidePanel ? (
+            <div className="flex flex-col h-full overflow-hidden bg-slate-900">
+              {/* Segmented Tab Switcher Header */}
+              <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
+                <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setSidePanelView("preview")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      sidePanelView === "preview"
+                        ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>Live Preview</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSidePanelView("tech")}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      sidePanelView === "tech"
+                        ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    <Cpu className="w-3.5 h-3.5" />
+                    <span>Tech Stack</span>
+                    {selectedTagIds.length > 0 && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-500/20 text-sky-300 font-mono font-bold">
+                        {selectedTagIds.length}
+                      </span>
+                    )}
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowSidePanel(false)}
+                  className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+                  title="Tutup Panel Pendamping"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* View Content */}
+              <div className="flex-1 overflow-hidden">
+                {sidePanelView === "preview" ? (
+                  <ProjectCardPreview
+                    project={previewProject}
+                    selectedTagCount={selectedTagIds.length}
+                    onSwitchToTechStack={() => setSidePanelView("tech")}
+                    onClosePanel={() => setShowSidePanel(false)}
+                  />
+                ) : (
+                  <TechStackSidePanel
+                    categories={techCategories}
+                    selectedIds={selectedTagIds}
+                    onChange={handleUpdateTechTags}
+                    onClose={() => setSidePanelView("preview")}
+                  />
+                )}
+              </div>
+            </div>
           ) : undefined
         }
       >
@@ -676,20 +786,23 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
 
               <button
                 type="button"
-                onClick={() => setIsTechPickerOpen((prev) => !prev)}
+                onClick={() => {
+                  setShowSidePanel(true);
+                  setSidePanelView((prev) => (showSidePanel && prev === "tech" ? "preview" : "tech"));
+                }}
                 className={`w-full py-2.5 px-3 border font-semibold text-xs rounded-xl transition-all flex items-center justify-center gap-2 group cursor-pointer shadow-2xs ${
-                  isTechPickerOpen
-                    ? "bg-cyan-500/15 border-cyan-500 text-cyan-600 dark:text-cyan-400 ring-2 ring-cyan-500/20"
-                    : "bg-slate-900 hover:bg-cyan-500/10 border-slate-800 hover:border-cyan-500/40 text-cyan-600 dark:text-cyan-400"
+                  showSidePanel && sidePanelView === "tech"
+                    ? "bg-sky-500/15 border-sky-500 text-sky-400 ring-2 ring-sky-500/20"
+                    : "bg-slate-900 hover:bg-sky-500/10 border-slate-800 hover:border-sky-500/40 text-sky-400"
                 }`}
               >
-                <Cpu className="w-4 h-4 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform" />
+                <Cpu className="w-4 h-4 text-sky-400 group-hover:scale-110 transition-transform" />
                 <span>
-                  {isTechPickerOpen
-                    ? "Tutup Panel Pemilih Tech Stack"
+                  {showSidePanel && sidePanelView === "tech"
+                    ? "Kembali ke Live Preview Card"
                     : selectedTagIds.length > 0
-                    ? "+ Tambah / Ubah Tech Stack (Buka Floating Window Kanan)"
-                    : "+ Buka Pemilih Tech Stack (Floating Window Kanan)"}
+                    ? "+ Tambah / Ubah Tech Stack (Buka di Floating Panel)"
+                    : "+ Buka Pemilih Tech Stack (Floating Panel)"}
                 </span>
               </button>
             </div>

@@ -9,6 +9,7 @@ import { RichTextEditor } from "../../common/RichTextEditor";
 import { Pagination } from "../../common/Pagination";
 import { SearchableSelect } from "../../common/SearchableSelect";
 import { StatusBadgeSelect } from "../../common/StatusBadgeSelect";
+import { ArticleCardPreview } from "../preview/ArticleCardPreview";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { 
   Plus, 
@@ -21,6 +22,7 @@ import {
   Search,
   Eye,
   Tag,
+  X,
 } from "lucide-react";
 
 interface ArticlesTabProps {
@@ -87,8 +89,11 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
     }));
   };
 
+  const [showSidePanel, setShowSidePanel] = useState(true);
+
   const openCreateModal = () => {
     setEditingArticle(null);
+    setShowSidePanel(true);
     const firstCatId = String(categories[0]?.id || "cat-languages");
     const matchingSubs = subCategories.filter(
       (sc) => String(sc.category_id) === firstCatId
@@ -108,6 +113,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
 
   const openEditModal = (a: Article) => {
     setEditingArticle(a);
+    setShowSidePanel(true);
     setFormData({
       title: a.title || "",
       slug: a.slug || "",
@@ -120,6 +126,31 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
     });
     setModalOpen(true);
   };
+
+  // Real-time dynamic preview article object
+  const previewArticle = useMemo<Article>(() => {
+    const cat = categories.find((c) => String(c.id) === String(formData.category_id));
+    const subCat = subCategories.find((sc) => String(sc.id) === String(formData.sub_category_id));
+    const todayStr = new Date().toISOString().split("T")[0];
+
+    return {
+      id: editingArticle?.id || 9999,
+      title: formData.title.trim() || "Untitled Article Title",
+      slug: formData.slug.trim() || "untitled-article",
+      category_id: formData.category_id,
+      category_name: cat?.category_name || "Development",
+      sub_category_id: formData.sub_category_id,
+      sub_category_name: subCat?.sub_category_name || "Tutorial",
+      thumbnail: formData.thumbnail,
+      thumbnail_url: formData.thumbnail || "",
+      description: formData.description.trim() || "Write brief summary or excerpt for this article card...",
+      fill_content: formData.fill_content || "",
+      status_publish: formData.status_publish,
+      date: editingArticle?.date || todayStr,
+      created_at: editingArticle?.created_at || new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+  }, [formData, editingArticle, categories, subCategories]);
 
   const createMutation = useMutation({
     mutationFn: (data: any) => api.createArticle(data),
@@ -505,9 +536,59 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
       {/* Add / Edit Modal */}
       <Modal
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false);
+          setShowSidePanel(false);
+        }}
         title={editingArticle ? "Edit Article" : "Write New Article"}
         maxWidth="3xl"
+        headerActions={
+          <button
+            type="button"
+            onClick={() => setShowSidePanel((prev) => !prev)}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 border cursor-pointer ${
+              showSidePanel
+                ? "bg-sky-500/15 border-sky-500/30 text-sky-400"
+                : "bg-slate-800/80 border-slate-700 text-slate-400 hover:text-slate-200"
+            }`}
+            title={showSidePanel ? "Sembunyikan Live Preview" : "Tampilkan Live Preview"}
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">
+              {showSidePanel ? "Preview: ON" : "Preview: OFF"}
+            </span>
+          </button>
+        }
+        sidePanel={
+          showSidePanel ? (
+            <div className="flex flex-col h-full overflow-hidden bg-slate-900">
+              {/* Header */}
+              <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
+                <div className="flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-sky-400" />
+                  <span className="text-xs font-bold text-slate-100">Live Preview Card</span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowSidePanel(false)}
+                  className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+                  title="Tutup Panel Preview"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* View Content */}
+              <div className="flex-1 overflow-hidden">
+                <ArticleCardPreview
+                  article={previewArticle}
+                  rawContent={formData.fill_content}
+                />
+              </div>
+            </div>
+          ) : undefined
+        }
       >
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -7,10 +7,11 @@ interface ModalProps {
   title: string;
   children: React.ReactNode;
   sidePanel?: React.ReactNode;
+  headerActions?: React.ReactNode;
   maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "full";
 }
 
-export function Modal({ isOpen, onClose, title, children, sidePanel, maxWidth = "lg" }: ModalProps) {
+export function Modal({ isOpen, onClose, title, children, sidePanel, headerActions, maxWidth = "lg" }: ModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -57,12 +58,15 @@ export function Modal({ isOpen, onClose, title, children, sidePanel, maxWidth = 
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800/80 bg-slate-900/50">
             <h3 className="text-lg font-semibold text-slate-100">{title}</h3>
-            <button
-              onClick={onClose}
-              className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              {headerActions}
+              <button
+                onClick={onClose}
+                className="text-slate-400 hover:text-slate-200 p-1.5 rounded-lg hover:bg-slate-800/80 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Content Body */}
