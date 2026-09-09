@@ -1,9 +1,9 @@
 /*M!999999\- enable the sandbox mode */ 
--- MariaDB dump 10.19  Distrib 10.11.14-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19-11.8.6-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: portofolio
+-- Host: localhost    Database: portofolio_v2
 -- ------------------------------------------------------
--- Server version	10.6.22-MariaDB-0ubuntu0.22.04.1
+-- Server version	11.8.6-MariaDB-5ubuntu0.1 from Ubuntu
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,7 +14,7 @@
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;
 
 --
 -- Table structure for table `admin_users`
@@ -41,12 +41,15 @@ CREATE TABLE `admin_users` (
 -- Dumping data for table `admin_users`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `admin_users` WRITE;
 /*!40000 ALTER TABLE `admin_users` DISABLE KEYS */;
 INSERT INTO `admin_users` VALUES
 ('admin-fahmi-1','fahmi','fahmiibrahimdevs@gmail.com','$argon2id$v=19$m=65536,t=2,p=1$NPcprciOarMZVI2me8UHVPluyhiRFklGsfkjFJMP/hw$NYCxUC2QiXbTbw5WstAPhBmRHzBmyUaHze9MZ+kxIQc','Fahmi Ibrahim','2026-09-04 07:06:33','2026-09-04 12:59:41');
 /*!40000 ALTER TABLE `admin_users` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `article_categories`
@@ -66,6 +69,7 @@ CREATE TABLE `article_categories` (
 -- Dumping data for table `article_categories`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `article_categories` WRITE;
 /*!40000 ALTER TABLE `article_categories` DISABLE KEYS */;
 INSERT INTO `article_categories` VALUES
@@ -78,6 +82,8 @@ INSERT INTO `article_categories` VALUES
 (7,'Server');
 /*!40000 ALTER TABLE `article_categories` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `article_posts`
@@ -101,17 +107,24 @@ CREATE TABLE `article_posts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `article_posts`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `article_posts` WRITE;
 /*!40000 ALTER TABLE `article_posts` DISABLE KEYS */;
+INSERT INTO `article_posts` VALUES
+(1,'1','cat-languages','sk-html','/uploads/1788534842330_THUMB-1.png','2026-09-04','Struktur Dasar HTML: Fondasi Sebelum Bikin Website','struktur-dasar-html-fondasi-sebelum-bikin-website','Sebelum sibuk mempercantik website dengan CSS atau menambahkan interaksi dengan JavaScript, kamu perlu memahami struktur dasar HTML terlebih dahulu. Di artikel ini, kita akan membahas anatomi dokumen HTML, fungsi `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`, hingga perbedaan antara tag dan element. Cocok untuk kamu yang baru mulai belajar web development dan ingin memahami HTML dari fondasinya.','# Struktur Dasar HTML: Fondasi Sebelum Bikin Website\n\nBayangin kamu mau bikin sebuah rumah.\n\nSebelum mikirin warna cat, lampu, sofa, atau desain interior, tentu kamu harus punya fondasinya dulu. Ada lantai, dinding, pintu, jendela, dan ruangan yang jelas fungsinya.\n\nKurang lebih seperti itulah HTML dalam sebuah website.\n\nHTML adalah kerangka yang menentukan bagaimana sebuah halaman web disusun. CSS nantinya bisa dipakai untuk membuat tampilannya lebih menarik, sedangkan JavaScript bisa menambahkan interaksi dan perilaku. Tapi sebelum semuanya itu, struktur HTML-nya harus benar terlebih dahulu.\n\nMasalahnya, banyak pemula justru langsung sibuk belajar CSS atau JavaScript tanpa benar-benar memahami struktur dasar HTML. Akibatnya, ketika layout berantakan atau muncul masalah saat debugging, mereka sering bingung mencari sumber masalahnya.\n\nJadi, sebelum bikin website yang kelihatan keren, kita kenalan dulu dengan fondasinya.\n\n## Apa Itu HTML?\n\nHTML adalah singkatan dari **HyperText Markup Language.**\n\nHTML bukan programming language seperti JavaScript, Python, atau C++. HTML termasuk markup language, yaitu bahasa yang digunakan untuk memberi struktur dan makna pada sebuah konten.\n\nMisalnya, kita punya teks:\n\n```HTML\n<h1>Belajar HTML</h1>\n<p>HTML adalah fondasi dalam pengembangan website.</p>\n```\n\nDari kode tersebut, browser bisa memahami bahwa \"Belajar HTML\" adalah sebuah heading dan kalimat berikutnya adalah paragraph.\n\nJadi, tugas utama HTML bukan menentukan apakah teks tersebut berwarna biru, ukurannya besar, atau posisinya di tengah. Itu lebih merupakan tugas CSS.\n\nHTML lebih fokus pada pertanyaan:\n\n> \"Konten ini sebenarnya apa?\"\n\nApakah ini heading? Paragraph? Image? Link? List? Form?\n\nKarena itu, HTML bisa dianggap sebagai struktur dan makna dari sebuah halaman web.\n\n## Struktur Dasar Dokumen HTML\n\nHampir setiap halaman HTML modern dimulai dengan struktur seperti berikut:\n\n```HTML\n<!DOCTYPE html>\n<html lang=\"id\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Belajar HTML</title>\n</head>\n<body>\n  <h1>Halo Dunia</h1>\n</body>\n</html>\n```\n\nWalaupun pendek, setiap bagiannya punya fungsi.\n\n`<!DOCTYPE html>`\n\nBaris ini memberi tahu browser bahwa dokumen menggunakan HTML5.\n\nDOCTYPE juga membantu browser menggunakan standards mode. Tanpanya, browser dapat masuk ke quirks mode, yang bisa membuat beberapa perilaku rendering berbeda.\n\nKarena itu, biasakan menempatkannya di baris pertama.\n\n`<html lang=\"id\">`\n\n`<html>` adalah root element, yaitu pembungkus utama seluruh dokumen HTML.\n\nSementara itu, `lang=\"id\"` adalah attribute yang menunjukkan bahwa bahasa utama halaman adalah Bahasa Indonesia.\n\nAttribute lang penting untuk accessibility, terutama agar screen reader dapat mengetahui bahasa yang digunakan, dan juga memberikan informasi bahasa kepada search engine.\n\n```HTML\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Belajar HTML</title>\n</head>\n```\n\nBagian `<head>` berisi metadata dan informasi tentang halaman.\n\nIsinya biasanya tidak menjadi konten utama yang terlihat di dalam halaman, tetapi tetap penting bagi browser dan layanan seperti search engine.\n\n```HTML\n<body>\n  <h1>Halo Dunia</h1>\n</body>\n```\n\nBerbeda dengan `<head>`, bagian `<body>` berisi konten utama yang ditampilkan kepada pengguna.\n\nJadi gampangnya:\n\n`<head>` = informasi tentang halaman\n`<body>` = isi halaman\n\n`<meta charset=\"UTF-8\">`\n\nElement ini menentukan character encoding dokumen.\n\n`UTF-8` memungkinkan browser membaca berbagai karakter dengan benar, termasuk karakter seperti é, ✓, dan emoji.\n\nTanpa encoding yang sesuai, karakter tertentu berpotensi tampil tidak semestinya. Karena itu, `UTF-8` hampir selalu digunakan pada dokumen HTML modern.\n\n## Tag vs Element\n\nIni salah satu hal yang sering bikin pemula tertukar.\n\nPerhatikan:\n\n```HTML\n<p>Halo Dunia</p>\n```\n\n`<p>` adalah tag.\n\nSedangkan keseluruhan:\n\n```HTML\n<p>Halo Dunia</p>\n```\n\nadalah sebuah element.\n\nSecara umum, element seperti `<p>` terdiri dari opening tag, content, dan closing tag.\n\n`<p>` = opening tag\n`</p>` = closing tag\n\nMemahami perbedaannya akan membantu ketika mulai belajar HTML lebih jauh.\n\n## Nested Element dan Indentation\n\nElement HTML bisa berada di dalam element lainnya. Ini disebut nesting.\n\nContohnya:\n\n```HTML\n<body>\n  <h1>Belajar HTML</h1>\n\n  <p>\n    Ini adalah <strong>paragraph</strong>.\n  </p>\n</body>\n```\n\nElement `<strong>` berada di dalam `<p>`, sedangkan `<p>` dan `<h1>` berada di dalam `<body>`.\n\nKarena itu, indentation penting agar struktur kode mudah dibaca.\n\nContoh yang rapi:\n\n```HTML\n<body>\n  <h1>Belajar HTML</h1>\n  <p>Ini paragraph.</p>\n</body>\n```\n\nBandingkan dengan kode tanpa indentation:\n\n```HTML\n<body>\n<h1>Belajar HTML</h1>\n<p>Ini paragraph.</p>\n</body>\n```\n\nBrowser mungkin tetap bisa membacanya, tetapi developer akan jauh lebih mudah bekerja dengan struktur yang rapi.\n\n## Kesalahan yang Sering Terjadi\n\nAda beberapa kesalahan dasar yang sering dilakukan saat baru belajar HTML.\n\nLupa closing tag:\n\n`<p>Halo Dunia`\n\nSeharusnya:\n\n`<p>Halo Dunia</p>`\n\nSalah nesting:\n```HTML\n<p>\n  <strong>Halo</p>\n</strong>\n```\n\nYang benar:\n```HTML\n<p>\n  <strong>Halo</strong>\n</p>\n```\n\nElement yang terakhir dibuka harus ditutup terlebih dahulu.\n\nLupa `<!DOCTYPE html>`\n\nWalaupun browser mungkin tetap menampilkan halaman, sebaiknya `<!DOCTYPE html>` selalu digunakan agar dokumen diproses dalam standards mode.\n\n## Kesimpulan\n\nStruktur dasar HTML sebenarnya cukup sederhana. Yang penting bukan menghafal semua tag, tetapi memahami bagaimana sebuah dokumen HTML disusun.\n\n`<!DOCTYPE html>` memberi tahu browser bahwa kita menggunakan HTML5. `<html>` menjadi root element, `<head>` berisi metadata, dan `<body>` berisi konten yang ditampilkan. Selain itu, kamu juga perlu memahami perbedaan tag dan element, serta bagaimana melakukan nesting dengan indentation yang rapi.\n\nBegitu fondasi ini sudah dipahami, belajar element HTML lainnya akan terasa jauh lebih mudah.\n\nDi artikel berikutnya, kita akan mulai masuk ke Text Elements: Heading, Paragraph, dan List yang menjadi dasar untuk menulis konten di dalam halaman HTML.\n','Published','2026-09-04 15:14:11','2026-09-04 15:58:40'),
+(2,'1','cat-languages','sk-html','/uploads/1788537796089_THUMB-2.png','2026-09-04','Text Elements: Heading, Paragraph, dan List','text-elements-heading-paragraph-dan-list','Setelah memahami struktur dasar HTML, sekarang waktunya mulai mengisi halaman dengan konten. Di artikel ini, kita akan mengenal tiga text elements yang paling sering digunakan dalam HTML: **heading, paragraph, dan list**, sekaligus memahami kapan dan bagaimana menggunakannya dengan struktur yang benar.','Setelah punya kerangka HTML, tentunya halaman tersebut belum akan terasa seperti website kalau isinya masih kosong.\n\nNah, di sinilah kita mulai menggunakan **text elements** untuk menyusun konten. Tiga yang paling dasar dan paling sering kamu temui adalah **heading, paragraph, dan list.\n**\nKelihatannya sederhana, tapi cara menggunakannya tetap perlu dipahami sejak awal. Jangan sampai semua teks dibuat menggunakan `<div>` hanya karena \"yang penting muncul\".\n\n## Heading dengan <h1> sampai <h6>\n\nHeading digunakan untuk membuat judul atau subjudul dalam sebuah halaman.\n\nHTML menyediakan enam tingkat heading:\n\n```HTML\n<h1>Judul Utama</h1>\n<h2>Subjudul</h2>\n<h3>Subjudul Tingkat 3</h3>\n<h4>Subjudul Tingkat 4</h4>\n<h5>Subjudul Tingkat 5</h5>\n<h6>Subjudul Tingkat 6</h6>\n```\n\nSemakin besar angkanya, semakin rendah tingkat heading-nya.\n\nSecara sederhana, struktur tersebut bisa dibayangkan seperti outline sebuah artikel:\n\n```HTML\n<h1>Website Development\n    <h2>HTML\n        <h3>Text Elements\n        <h3>Links\n    <h2>CSS\n        <h3>Layout\n        <h3>Typography\n```\n\n`<h1>` bukan sekadar teks paling besar\n\nKesalahan yang sering dilakukan pemula adalah menganggap `<h1>` hanya untuk membuat tulisan besar.\n\nPadahal, heading mempunyai makna struktural. `h1` merupakan heading utama, sedangkan `h2`, `h3`, dan seterusnya menunjukkan tingkatan di bawahnya.\n\nJadi jangan memilih heading hanya berdasarkan ukurannya.\n\nMisalnya:\n\n```HTML\n<h1>Belajar HTML</h1>\n<h2>Text Elements</h2>\n<h2>Links</h2>\n```\n\nKalau nantinya ingin membuat teks menjadi lebih besar atau lebih kecil, gunakan CSS, bukan mengganti `<h2>` menjadi `<h1>` hanya karena tampilannya lebih sesuai.\n\n## Paragraph dengan `<p>`\n\nKalau heading digunakan untuk judul, maka `<p>` digunakan untuk paragraph.\n\nContohnya:\n\n```HTML\n<p>\n  HTML digunakan untuk membuat struktur sebuah halaman web.\n</p>\n```\n\nKamu bisa menggunakan beberapa `<p>` untuk memisahkan informasi menjadi paragraph yang berbeda:\n\n```HTML\n<p>HTML digunakan untuk membuat struktur halaman web.</p>\n```\n\n```HTML\n<p>\n  CSS digunakan untuk mengatur tampilan dan layout halaman.\n</p>\n```\n\nPemisahan ini bukan hanya soal tampilan. Paragraph membantu browser dan developer memahami bahwa setiap bagian merupakan blok informasi yang berbeda.\n\nJadi, jangan menggunakan banyak `<br>` hanya untuk membuat jarak antar teks.\n\nContoh yang kurang tepat:\n\n```HTML\n<p>\n  Saya sedang belajar HTML.<br><br><br>\n  HTML ternyata cukup mudah.\n</p>\n```\n\nLebih baik gunakan dua paragraph:\n\n```HTML\n<p>Saya sedang belajar HTML.</p>\n\n<p>HTML ternyata cukup mudah.</p>\n```\n\nKalau tujuanmu hanya ingin mengatur jarak atau tampilan, nanti gunakan CSS.\n\n## List dengan `<ul>`, `<ol>`, dan `<li>`\n\nKalau kamu punya beberapa item yang ingin ditampilkan sebagai daftar, gunakan list.\n\nHTML memiliki dua jenis list yang paling umum.\n\n### Unordered List\n\n`<ul>` digunakan untuk daftar yang tidak membutuhkan urutan tertentu.\n\nSetiap item menggunakan `<li>`:\n\n```HTML\n<ul>\n  <li>HTML</li>\n  <li>CSS</li>\n  <li>JavaScript</li>\n</ul>\n```\n\nHasilnya akan terlihat seperti daftar dengan bullet.\n\nCocok digunakan misalnya untuk:\n\n  - daftar fitur\n  - daftar teknologi\n  - daftar barang belanja\n  - daftar menu\n  - Ordered List\n\nSedangkan `<ol>` digunakan ketika urutan item memiliki makna.\n\n```HTML\n<ol>\n  <li>Buka VS Code</li>\n  <li>Buat file HTML</li>\n  <li>Tulis struktur dasar</li>\n</ol>\n```\n\nHasilnya akan menggunakan nomor:\n\n  1. Buka VS Code\n  2. Buat file HTML\n  3. Tulis struktur dasar\n\nContohnya cocok untuk tutorial, langkah instalasi, ranking, atau proses yang memang harus dilakukan secara berurutan.\n\n### Jangan lupa `<li>`\n\n`<li>` berarti list item.\n\nElement ini digunakan untuk setiap item di dalam `<ul>` atau `<ol>`.\n\nStrukturnya:\n\n```HTML\n<ul>\n  <li>Item pertama</li>\n  <li>Item kedua</li>\n</ul>\n```\n\nBukan:\n\n```HTML\n<ul>\n  HTML\n  CSS\n  JavaScript\n</ul>\n```\n\nDengan struktur yang benar, browser dapat memahami bahwa setiap item memang merupakan bagian dari sebuah list.\n\n## Memilih Element Berdasarkan Maknanya\n\nSatu hal penting yang perlu dibiasakan sejak awal adalah menggunakan HTML berdasarkan makna kontennya, bukan sekadar bagaimana tampilannya.\n\nMisalnya, kalau sebuah teks merupakan judul utama, gunakan:\n\n```HTML\n<h1>Belajar HTML</h1>\n```\n\nKalau berupa paragraph:\n\n```HTML\n<p>HTML adalah markup language.</p>\n```\n\nKalau berupa daftar:\n\n```HTML\n<ul>\n  <li>HTML</li>\n  <li>CSS</li>\n</ul>\n```\n\nJangan memilih element hanya karena hasil tampilannya terlihat cocok.\n\nKenapa?\n\nKarena struktur HTML yang semantik membantu browser, search engine, screen reader, dan developer lain memahami isi halaman dengan lebih baik.\n\n## Contoh Sederhana\n\nSekarang kita gabungkan semuanya:\n\n```HTML\n<h1>Belajar Web Development</h1>\n\n<p>\n  Web development terdiri dari berbagai teknologi yang saling melengkapi.\n</p>\n\n<h2>Teknologi Dasar</h2>\n\n<ul>\n  <li>HTML</li>\n  <li>CSS</li>\n  <li>JavaScript</li>\n</ul>\n```\n\nDi sini kita punya satu heading utama, sebuah paragraph, kemudian subheading dan unordered list.\n\nStrukturnya sudah cukup untuk membuat konten sederhana yang jelas dan mudah dibaca.\n\n## Kesimpulan\n\nHeading digunakan untuk membangun hierarki judul dengan `<h1>` sampai `<h6>`. **Paragraph** menggunakan `<p>` untuk menyusun teks menjadi blok informasi. Sementara itu, list menggunakan `<ul>` atau `<ol>` yang berisi `<li>`, tergantung apakah urutannya penting atau tidak.\n\nKunci utamanya adalah jangan memilih element hanya berdasarkan tampilannya. Gunakan element sesuai makna dan fungsi kontennya, lalu gunakan CSS untuk mengatur tampilannya.\n\nSetelah memahami text elements, langkah berikutnya mulai menarik: bagaimana membuat teks atau elemen di halaman bisa **terhubung ke halaman lain, website lain, atau bahkan bagian tertentu dari halaman yang sama.**\n\nDi artikel selanjutnya, kita akan membahas **Links & Navigation: <a>, href, dan Cara Berpindah Halaman.**','Published','2026-09-04 16:12:56','2026-09-04 16:12:56'),
+(3,'1','cat-languages','sk-html','/uploads/1788538642902_THUMB-3.png','2026-09-04','Links & Navigation: Mengenal Anchor dan href','links-navigation-mengenal-anchor-dan-href','Link adalah salah satu bagian paling penting dalam sebuah website karena memungkinkan pengguna berpindah dari satu halaman ke halaman lainnya. Di artikel ini, kita akan mengenal element `<a>`, attribute `href`**bold text**, cara membuat link ke halaman lain, website eksternal, file, hingga bagian tertentu dalam satu halaman.','Website yang hanya berisi teks tentu akan terasa cukup terbatas. Salah satu hal yang membuat web menjadi \"web\" adalah kemampuan untuk saling terhubung.\n\nSaat kamu menekan menu seperti `Home`, `About`, atau `Contact`, sebenarnya browser sedang menggunakan sebuah HTML element yang disebut anchor, yaitu `<a>`.\n\n## Mengenal Element `<a>`\n\nContoh paling sederhana:\n\n```HTML\n<a href=\"about.html\">About</a>\n```\n\nElement `<a>` digunakan untuk membuat link.\n\nBagian `About` adalah teks yang akan diklik oleh pengguna, sedangkan:\n\n`href=\"about.html\"`\n\nmenentukan ke mana link tersebut akan mengarah.\n\n`href` merupakan singkatan dari **Hypertext Reference** dan merupakan attribute penting pada `<a>`.\n\nSecara sederhana:\n\n<a>       → element untuk membuat link\nhref      → tujuan link\nAbout     → teks yang ditampilkan\n\n## Link ke Halaman Lain\n\nMisalnya kamu punya struktur project seperti ini:\n\nwebsite/\n├── index.html\n├── about.html\n└── contact.html\n\nDari index.html, kamu bisa membuat navigation sederhana:\n\n```HTML\n<nav>\n  <a href=\"index.html\">Home</a>\n  <a href=\"about.html\">About</a>\n  <a href=\"contact.html\">Contact</a>\n</nav>\n```\n\nKetika pengguna mengklik **About**, browser akan membuka `about.html`.\n\nInilah dasar dari navigation pada website.\n\n## Link ke Website Lain\n\n`href` juga bisa berisi URL lengkap.\n\n```HTML\n<a href=\"https://developer.mozilla.org\">\n  MDN Web Docs\n</a>\n```HTML\n\nKetika diklik, browser akan menuju website MDN.\n\nKalau kamu ingin link eksternal dibuka di tab baru, bisa menggunakan attribute target:\n\n```HTML\n<a \n  href=\"https://developer.mozilla.org\"\n  target=\"_blank\"\n>\n  Buka MDN\n</a>\n```\n\n`target=\"_blank\"` meminta browser membuka tujuan pada browsing context baru, yang pada browser modern umumnya berupa tab baru.\n\nUntuk link eksternal yang dibuka dengan cara ini, biasanya juga digunakan:\n\n`rel=\"noopener\"`\n\nContohnya:\n\n```HTML\n<a\n  href=\"https://developer.mozilla.org\"\n  target=\"_blank\"\n  rel=\"noopener\"\n>\n  MDN Web Docs\n</a>\n```\n\n## Relative URL vs Absolute URL\n\nAda dua bentuk URL yang sering digunakan pada href.\n\n### Relative URL\n\nRelative URL mengarah berdasarkan lokasi file saat ini.\n\n```HTML\n<a href=\"about.html\">About</a>\n```\n\nKalau `about.html` berada dalam folder yang sama, browser akan mencarinya di folder tersebut.\n\nMisalnya:\n\nwebsite/\n├── index.html\n└── pages/\n    └── about.html\n\nDari `index.html`, link-nya menjadi:\n\n```HTML\n<a href=\"pages/about.html\">About</a>\n```\n\n### Absolute URL\n\nAbsolute URL menggunakan alamat lengkap:\n\n```HTML\n<a href=\"https://example.com/about\">\n  About\n</a>\n```\n\nRelative URL lebih sering digunakan untuk halaman yang masih berada dalam project yang sama, sedangkan absolute URL umum digunakan untuk website atau resource eksternal.\n\n## Membuat Link ke Bagian Tertentu\n\nTernyata `<a>` tidak hanya bisa digunakan untuk berpindah halaman.\n\nKita juga bisa menggunakannya untuk berpindah ke bagian tertentu dalam halaman yang sama.\n\nMisalnya ada element:\n\n```HTML\n<h2 id=\"contact\">Contact</h2>\n```\n\nKemudian kita bisa membuat link:\n\n```HTML\n<a href=\"#contact\">Ke Contact</a>\n```\n\nKetika diklik, browser akan menuju element yang memiliki:\n\n`id=\"contact\"`\n\nTanda `#` menunjukkan bahwa yang dituju adalah fragment identifier berdasarkan id element.\n\nTeknik ini sering digunakan pada daftar isi atau navigation pada halaman yang panjang.\n\nContohnya:\n\n```HTML\n<nav>\n  <a href=\"#about\">About</a>\n  <a href=\"#services\">Services</a>\n  <a href=\"#contact\">Contact</a>\n</nav>\n\n<h2 id=\"about\">About</h2>\n<p>...</p>\n\n<h2 id=\"services\">Services</h2>\n<p>...</p>\n\n<h2 id=\"contact\">Contact</h2>\n<p>...</p>\n```\n\n## Link untuk Email dan Telepon\n\n`href` juga bisa digunakan untuk membuat aksi tertentu.\n\nUntuk email:\n\n```HTML\n<a href=\"mailto:hello@example.com\">\n  Kirim Email\n</a>\n```\n\nUntuk nomor telepon:\n\n```HTML\n<a href=\"tel:+6281234567890\">\n  Hubungi Kami\n</a>\n```\n\nKetika pengguna mengkliknya, browser atau sistem operasi dapat menawarkan aplikasi yang sesuai, seperti aplikasi email atau telepon.\n\n## Kesalahan yang Sering Terjadi\n\nSalah satu kesalahan paling umum adalah lupa menambahkan `href`.\n\n`<a>About</a>`\n\nElement tersebut memang tetap menjadi `<a>`, tetapi tidak memiliki tujuan navigasi.\n\nKesalahan lainnya adalah salah menuliskan path:\n\n```HTML\n<a href=\"abouts.html\">About</a>\n```\n\nPadahal file sebenarnya bernama:\n\n`about.html`\n\nPerbedaan kecil seperti ini bisa membuat link menghasilkan **404 Not Found** ketika diklik.\n\nKarena itu, saat link tidak bekerja, pertama-tama periksa kembali nilai `href` dan lokasi file yang dituju.\n\n## Kesimpulan\n\nElement `<a>` adalah fondasi navigation di HTML. Dengan `<a>` dan attribute `href`, kita bisa membuat link ke halaman lain, website eksternal, file, email, nomor telepon, bahkan bagian tertentu dari halaman yang sama.\n\nContoh paling dasarnya:\n\n```HTML\n<a href=\"about.html\">About</a>\n```\n\nYang perlu dipahami bukan hanya cara menulis syntax-nya, tetapi juga bagaimana menentukan tujuan link menggunakan URL, relative path, atau id.\n\nSetelah bisa menghubungkan halaman, langkah berikutnya adalah mulai memasukkan **gambar dan media** ke dalam website agar halaman tidak hanya berisi teks.','Published','2026-09-04 16:23:36','2026-09-04 16:23:36');
 /*!40000 ALTER TABLE `article_posts` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `article_sub_categories`
@@ -134,6 +147,7 @@ CREATE TABLE `article_sub_categories` (
 -- Dumping data for table `article_sub_categories`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `article_sub_categories` WRITE;
 /*!40000 ALTER TABLE `article_sub_categories` DISABLE KEYS */;
 INSERT INTO `article_sub_categories` VALUES
@@ -164,6 +178,8 @@ INSERT INTO `article_sub_categories` VALUES
 (25,'7','CLI','','CLI.jpg');
 /*!40000 ALTER TABLE `article_sub_categories` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `cache`
@@ -184,6 +200,7 @@ CREATE TABLE `cache` (
 -- Dumping data for table `cache`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `cache` WRITE;
 /*!40000 ALTER TABLE `cache` DISABLE KEYS */;
 INSERT INTO `cache` VALUES
@@ -195,6 +212,8 @@ INSERT INTO `cache` VALUES
 ('a8a95f1f7ec879950017b44a4fa931d1021f0ba9:timer','i:1785395117;',1785395117);
 /*!40000 ALTER TABLE `cache` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `cache_locks`
@@ -215,10 +234,13 @@ CREATE TABLE `cache_locks` (
 -- Dumping data for table `cache_locks`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `cache_locks` WRITE;
 /*!40000 ALTER TABLE `cache_locks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cache_locks` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `contact_messages`
@@ -243,10 +265,13 @@ CREATE TABLE `contact_messages` (
 -- Dumping data for table `contact_messages`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `contact_messages` WRITE;
 /*!40000 ALTER TABLE `contact_messages` DISABLE KEYS */;
 /*!40000 ALTER TABLE `contact_messages` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `credentials`
@@ -275,6 +300,7 @@ CREATE TABLE `credentials` (
 -- Dumping data for table `credentials`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `credentials` WRITE;
 /*!40000 ALTER TABLE `credentials` DISABLE KEYS */;
 INSERT INTO `credentials` VALUES
@@ -285,6 +311,8 @@ INSERT INTO `credentials` VALUES
 ('cred-udemy-nodejs','NodeJS Course PZN','Udemy','August 2023','No Expired','','/uploads/1788509603600_NodeJS_Course_Udemy.jpg','/uploads/1788509592918_Udemy.jpg',1,'2026-09-04 07:06:35','2026-09-04 08:13:29');
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `failed_jobs`
@@ -310,10 +338,13 @@ CREATE TABLE `failed_jobs` (
 -- Dumping data for table `failed_jobs`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `failed_jobs` WRITE;
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `job_batches`
@@ -341,10 +372,13 @@ CREATE TABLE `job_batches` (
 -- Dumping data for table `job_batches`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `job_batches` WRITE;
 /*!40000 ALTER TABLE `job_batches` DISABLE KEYS */;
 /*!40000 ALTER TABLE `job_batches` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `jobs`
@@ -370,10 +404,13 @@ CREATE TABLE `jobs` (
 -- Dumping data for table `jobs`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `jobs` WRITE;
 /*!40000 ALTER TABLE `jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `migrations`
@@ -394,6 +431,7 @@ CREATE TABLE `migrations` (
 -- Dumping data for table `migrations`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` VALUES
@@ -414,6 +452,8 @@ INSERT INTO `migrations` VALUES
 (15,'2026_01_04_093424_create_project_boms_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `password_reset_tokens`
@@ -434,10 +474,13 @@ CREATE TABLE `password_reset_tokens` (
 -- Dumping data for table `password_reset_tokens`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `password_reset_tokens` WRITE;
 /*!40000 ALTER TABLE `password_reset_tokens` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_reset_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `permission_role`
@@ -460,19 +503,22 @@ CREATE TABLE `permission_role` (
 -- Dumping data for table `permission_role`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `permission_role` WRITE;
 /*!40000 ALTER TABLE `permission_role` DISABLE KEYS */;
 INSERT INTO `permission_role` VALUES
 (1,1),
-(1,2),
 (2,1),
-(2,2),
 (3,1),
-(3,2),
 (4,1),
+(1,2),
+(2,2),
+(3,2),
 (4,2);
 /*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `permission_user`
@@ -495,10 +541,13 @@ CREATE TABLE `permission_user` (
 -- Dumping data for table `permission_user`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `permission_user` WRITE;
 /*!40000 ALTER TABLE `permission_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `permission_user` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `permissions`
@@ -523,6 +572,7 @@ CREATE TABLE `permissions` (
 -- Dumping data for table `permissions`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `permissions` WRITE;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` VALUES
@@ -532,6 +582,8 @@ INSERT INTO `permissions` VALUES
 (4,'users-delete','Delete Users','Delete Users','2025-05-24 07:02:17','2025-05-24 07:02:17');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `profile_settings`
@@ -565,12 +617,15 @@ CREATE TABLE `profile_settings` (
 -- Dumping data for table `profile_settings`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `profile_settings` WRITE;
 /*!40000 ALTER TABLE `profile_settings` DISABLE KEYS */;
 INSERT INTO `profile_settings` VALUES
-('profile_main','Fahmi Ibrahim','Software Engineer & IoT Engineer','Software Engineer with experience in developing applications integrated with IoT hardware. Adept in application design, server-side development, and technical problem-solving. Committed to continuous learning and innovation, with a passion for tackling new challenges in the tech industry.','/uploads/1788508503286_Profile1.jpg','/uploads/1788509917083_CV_Fahmi_Ibrahim.pdf','CV_Fahmi_Ibrahim.pdf','fahmidev.ibrahim@gmail.com','https://github.com/fhmiibrhimdev/','https://www.linkedin.com/in/fahmiibrahimdev/','https://www.youtube.com/@midracode','https://instagram.com/fahmiibrahimdev_','Jakarta, Indonesia',1,'2026-09-04 07:06:33','2026-09-04 08:18:55');
+('profile_main','Fahmi Ibrahim','Software Engineer & IoT Engineer','Software Engineer with experience in developing applications integrated with IoT hardware. Adept in application design, server-side development, and technical problem-solving. Committed to continuous learning and innovation, with a passion for tackling new challenges in the tech industry.','/uploads/1788508503286_Profile1.jpg','/uploads/1788509917083_CV_Fahmi_Ibrahim.pdf','CV_Fahmi_Ibrahim.pdf','fahmidev.ibrahim@gmail.com','https://github.com/fhmiibrhimdev/','https://www.linkedin.com/in/fahmiibrahimdev/','https://www.youtube.com/@midracode','https://instagram.com/fahmiibrahimdev_','Jakarta, Indonesia',1,'2026-09-04 07:06:33','2026-09-08 04:35:58');
 /*!40000 ALTER TABLE `profile_settings` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `project_boms`
@@ -602,10 +657,13 @@ CREATE TABLE `project_boms` (
 -- Dumping data for table `project_boms`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `project_boms` WRITE;
 /*!40000 ALTER TABLE `project_boms` DISABLE KEYS */;
 /*!40000 ALTER TABLE `project_boms` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `project_categories`
@@ -626,6 +684,7 @@ CREATE TABLE `project_categories` (
 -- Dumping data for table `project_categories`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `project_categories` WRITE;
 /*!40000 ALTER TABLE `project_categories` DISABLE KEYS */;
 INSERT INTO `project_categories` VALUES
@@ -641,6 +700,8 @@ INSERT INTO `project_categories` VALUES
 (14,'Learning Project','Project hasil belajar dari youtube.');
 /*!40000 ALTER TABLE `project_categories` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `project_details`
@@ -662,10 +723,13 @@ CREATE TABLE `project_details` (
 -- Dumping data for table `project_details`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `project_details` WRITE;
 /*!40000 ALTER TABLE `project_details` DISABLE KEYS */;
 /*!40000 ALTER TABLE `project_details` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `project_files`
@@ -692,10 +756,13 @@ CREATE TABLE `project_files` (
 -- Dumping data for table `project_files`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `project_files` WRITE;
 /*!40000 ALTER TABLE `project_files` DISABLE KEYS */;
 /*!40000 ALTER TABLE `project_files` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `project_images`
@@ -716,10 +783,13 @@ CREATE TABLE `project_images` (
 -- Dumping data for table `project_images`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `project_images` WRITE;
 /*!40000 ALTER TABLE `project_images` DISABLE KEYS */;
 /*!40000 ALTER TABLE `project_images` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `project_tags`
@@ -739,6 +809,7 @@ CREATE TABLE `project_tags` (
 -- Dumping data for table `project_tags`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `project_tags` WRITE;
 /*!40000 ALTER TABLE `project_tags` DISABLE KEYS */;
 INSERT INTO `project_tags` VALUES
@@ -761,6 +832,8 @@ INSERT INTO `project_tags` VALUES
 (19,'Internet Of Things');
 /*!40000 ALTER TABLE `project_tags` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `projects`
@@ -788,17 +861,26 @@ CREATE TABLE `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `projects`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
+INSERT INTO `projects` VALUES
+(1,'1','1','sk-react,sk-ts,sk-tailwind,sk-e2c722db','thumbnail_maker_studio.png','September 2026','Thumbnail Maker Studio — Multi-Image Showcase Generator','thumbnail-maker-studio','Free','Studio pembuat visual mockup thumbnail showcase, OpenGraph banner, dan presentasi multi-gambar dengan estetika matte dark modern, 3D tilt, dan ekspor 4K Ultra Retina.','## 📸 Overview\nThumbnail Maker Studio adalah aplikasi web modern berbasis *client-side* untuk membuat visual showcase portofolio, banner sosial media, dan preview mockup multi-gambar (1 hingga 5 tangkapan layar) secara cepat dan estetis.\n\n### ✨ Fitur Unggulan\n- **Multi-Slot Image Handling**: Unggah 1 hingga 5 gambar sekaligus dengan opsi drag-and-drop, individual zoom, pan, dan mode cover/contain.\n- **Preset Layout Responsif**: Beragam preset tata letak dinamis mulai dari *Solo Floating*, *Overlapping Depth Cascade*, *Apple Keynote Fanned Deck*, hingga *Bento Grid*.\n- **Frame Mockup Realistis**: Pilihan frame macOS traffic light dots, modern browser bar, sleek minimal, dan smartphone titanium frame.\n- **3D Isometric Tilt & Shadows**: Efek kedalaman bayangan berlapis (Soft, Deep Studio, Dramatic) dan pengaturan sudut kemiringan 3D.\n- **Lossless Export Engine**: Render instan ke format PNG 1x dan 2x Ultra Retina/4K serta fitur *Copy to Clipboard* langsung ke Figma, Slack, atau WhatsApp.\n\n### 🛠️ Teknologi yang Digunakan\n- **Frontend**: React 19, TypeScript, Vite\n- **Styling**: Tailwind CSS v4 (Matte Dark Slate Palette)\n- **Icons**: Lucide React\n- **Runtime**: Bun','Published','1.0.0','-','https://github.com/fahmiibrahimdevs/thumbnail-maker','2026-09-09 04:40:08','2026-09-09 04:40:08'),
+(2,'1','1','sk-react,sk-ts,sk-tailwind,sk-e2c722db,sk-de01e262,sk-mariadb','thumbnail_project_management.png','September 2026','ProTrack — Multi-Project Management & Issue Tracking','protrack-project-management','Free','Sistem manajemen proyek fullstack dengan alur kerja Kanban, pelacakan anggaran komponen (BOM), analitik performa tim, dan manajemen investigasi masalah lapangan (Root Cause Analysis).','## 🚀 Overview\nProTrack adalah sistem manajemen proyek internal komprehensif yang dirancang untuk mendukung tim engineering dan manajemen dalam memonitor progress proyek dari tahap perencanaan hingga produksi massal.\n\n### ✨ Fitur Unggulan\n- **Interactive Kanban Board**: Alur kerja drag-and-drop tugas dengan pelacakan status, prioritas, deadline, dan penugasan anggota tim (*assignee*).\n- **Bill of Materials (BOM) Budgeting**: Perhitungan otomatis biaya komponen per proyek, estimasi kuantitas batch, dan kontrol efisiensi anggaran.\n- **Root Cause Analysis (RCA) Issue Tracker**: Pelacakan kendala teknis lapangan berbasis metodologi RCA untuk mendeteksi akar masalah dan tindakan pencegahan.\n- **Multi-Role RBAC Security**: Kontrol hak akses berbasis peran (Admin, Project Manager, Lead Engineer, Team Member).\n- **Offline-to-Cloud Database Sync**: Fitur sinkronisasi data dua arah antara lingkungan lokal dan server cloud VPS produksi.\n\n### 🛠️ Teknologi yang Digunakan\n- **Frontend**: React 18, TypeScript, Tailwind CSS v3.4, Lucide React\n- **Backend Server**: Bun, Hono.js REST API\n- **Database**: MariaDB 10.11+ / MySQL','Published','1.0.0','https://pm.fahmiibrahim.my.id','https://github.com/fahmiibrahimdevs/project-management','2026-09-09 04:40:08','2026-09-09 04:40:08'),
+(3,'1','1','sk-py,sk-5a1ff571,sk-tailwind,sk-123490c4','thumbnail_telebothub.png','September 2026','TeleBotHub — Modular Telegram Bot Management Portal','telebot-hub-portal','Free','Platform web dashboard interaktif untuk mengelola multi-bot Telegram secara modular, monitoring kesehatan server real-time (CPU, RAM, Disk), pengaturan kuota harian pengguna, dan analitik aktivitas.','## 🤖 Overview\nTeleBotHub adalah portal manajemen multi-bot Telegram terintegrasi yang memudahkan pengoperasian beberapa bot fungsional sekaligus dalam satu antarmuka web modern tanpa perlu restart server.\n\n### ✨ Fitur Unggulan\n- **Live Dynamic Bot Management**: Tambah bot baru, verifikasi token via Telegram API secara otomatis, ubah konfigurasi, dan hidupkan/matikan worker polling secara instan.\n- **Server Health Monitor**: Widget monitoring sumber daya sistem mencakup utilisasi CPU (%), RAM (Used/Total), dan Disk Storage pada server secara real-time.\n- **User Directory & Quota Control**: Pelacakan riwayat pengguna bot, pembatasan kuota operasi harian, serta fitur VIP/Unlimited toggle dan pemblokiran spammer.\n- **Interactive Visual Analytics**: Grafik tren interaksi 7 hari terakhir dan diagram sebaran kategori bot menggunakan Chart.js.\n- **Integrated Storage Maintenance**: Penghitungan kapasitas file sementara (*temporary files*) dan tombol pembersihan cache sekali klik.\n\n### 🛠️ Teknologi yang Digunakan\n- **Backend**: Python 3.10+, FastAPI, aiogram v3, Uvicorn\n- **Media & Processing**: yt-dlp, Pillow (PIL), img2pdf, FFmpeg\n- **Database**: SQLite3 / MariaDB\n- **Frontend & Dashboard**: Jinja2 Templates, Tailwind CSS, Lucide Icons, SweetAlert2, Chart.js','Published','1.0.0','https://telebot.fahmiibrahim.my.id','https://github.com/fahmiibrahimdevs/tele-bot-hub','2026-09-09 04:40:08','2026-09-09 04:40:08'),
+(4,'1','1','sk-react,sk-ts,sk-tailwind,13','thumbnail_thermal_receipt_studio.png','September 2026','Thermal Receipt 58mm Studio — POS Receipt Generator','thermal-receipt-58mm-studio','Free','Generator struk kasir & template cetak printer thermal 58mm berbasis web dengan presisi tinggi tanpa risiko terpotong pada Windows Print Dialog.','## 🖨️ Overview\nThermal Receipt 58mm Studio adalah aplikasi web spesialis untuk mendesain dan mencetak struk transaksi kasir POS pada printer thermal ukuran 58mm dengan layout CSS media print yang presisi 1:1.\n\n### ✨ Fitur Unggulan\n- **Presisi Standar 58mm POS**: Menghilangkan masalah klasik teks terpotong atau margin berlebih pada dialog cetak Windows dengan area cetak efektif 48-52mm.\n- **Kustomisasi Profil Usaha Dinamis**: Pengaturan logo monokrom dengan slider ukuran, nama toko, slogan, nomor telepon, alamat, dan website.\n- **8 Pilihan Font Khusus Struk Kasir**: Termasuk *Share Tech Mono*, *Courier Prime*, *JetBrains Mono*, *Space Mono*, dan font dot-matrix retro *VT323*.\n- **Kalkulasi & Transaksi Fleksibel**: Perhitungan otomatis subtotal, diskon, pajak, nominal tunai, dan kembalian, didukung pilihan metode pembayaran (Tunai, QRIS, Debit, Transfer).\n- **Barcode & QRIS Generator**: Pembuatan kode batang barcode otomatis dan kode QR transaksi di bagian bawah struk.\n\n### 🛠️ Teknologi yang Digunakan\n- **Frontend**: React 18, TypeScript, Vite\n- **Styling**: Tailwind CSS v4, Custom CSS Media Print\n- **Libraries**: JsBarcode, QRCode, Lucide React, html-to-image','Published','1.0.0','-','https://github.com/fahmiibrahimdevs/thermal-receipt-studio','2026-09-09 04:40:08','2026-09-09 04:40:08'),
+(5,'1','7','sk-flutter,sk-dart,sk-mqtt,sk-esp32','thumbnail_smartworkshop.png','Juli - Desember 2026','SmartWorkshop — Mobile IoT Ecosystem & Telemetry Client','smartworkshop-mobile-iot-ecosystem','-','Aplikasi mobile lintas platform berbasis Flutter untuk ekosistem IoT SmartWorkshop, menyajikan visualisasi telemetri sensor real-time dan kendali perangkat keras jarak jauh.','## 📱 Overview\nSmartWorkshop adalah aplikasi klien mobile untuk ekosistem IoT industri manufaktur dan bengkel cerdas, memungkinkan pengawasan parameter lingkungan kerja secara terpusat dan otomasi alat kerja dari perangkat smartphone.\n\n### ✨ Fitur Unggulan\n- **Real-time Telemetry Dashboard**: Menampilkan grafik dan indikator sensor suhu, kelembaban, kualitas udara, dan konsumsi daya mesin secara *live*.\n- **Remote Actuator & Relay Control**: Mengontrol status saklar daya, kipas sirkulasi, dan aktuator kelistrikan bengkel langsung dari aplikasi mobile.\n- **Low-Latency MQTT Broker Link**: Komunikasi data dua arah berkecepatan tinggi dengan latensi minimal menggunakan protokol MQTT.\n- **Device Management & Alerts**: Pemindaian dan penambahan mikrokontroler ESP32/ESP8266 baru, serta notifikasi peringatan jika sensor mendeteksi ambang batas bahaya.\n- **Responsive Mobile UI**: Desain antarmuka modern dengan transisi mulus yang dibangun secara khusus untuk sistem operasi Android dan iOS.\n\n### 🛠️ Teknologi yang Digunakan\n- **Mobile Framework**: Flutter 3.10+, Dart\n- **Communication Protocol**: MQTT (Publish / Subscribe), REST API\n- **Embedded Hardware**: ESP32, ESP8266, DHT22 Sensor, Current Transformer, Relay Module\n- **Cloud Infrastructure**: VPS Ubuntu, Mosquitto MQTT Broker, MariaDB','Published','1.0.0','-','https://github.com/fahmiibrahimdevs/smartws-fsi','2026-09-09 04:40:08','2026-09-09 04:40:08');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `role_user`
@@ -821,12 +903,15 @@ CREATE TABLE `role_user` (
 -- Dumping data for table `role_user`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `role_user` WRITE;
 /*!40000 ALTER TABLE `role_user` DISABLE KEYS */;
 INSERT INTO `role_user` VALUES
 (1,1,'App\\Models\\User');
 /*!40000 ALTER TABLE `role_user` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `roles`
@@ -851,6 +936,7 @@ CREATE TABLE `roles` (
 -- Dumping data for table `roles`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` VALUES
@@ -858,6 +944,8 @@ INSERT INTO `roles` VALUES
 (2,'user','User','User','2025-05-24 07:02:17','2025-05-24 07:02:17');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `sessions`
@@ -883,6 +971,7 @@ CREATE TABLE `sessions` (
 -- Dumping data for table `sessions`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 INSERT INTO `sessions` VALUES
@@ -900,6 +989,8 @@ INSERT INTO `sessions` VALUES
 ('yW8oIYWuki3mq8iNwwLwg3n9PhrWMTEfETSwCnWA',NULL,'45.148.10.18','Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1','YTozOntzOjY6Il90b2tlbiI7czo0MDoiNHVJSVZXTm1haTF6OXNiM09vQjlzTDJ1b1BCSGJmOThGSFpyYWVjOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTEzOiJodHRwczovL2ZhaG1paWJyYWhpbS5teS5pZC9pbmRleC5waHA/cGFnZT1ncmF2aXR5c210cC1zZXR0aW5ncyZyZXN0X3JvdXRlPSUyRmdyYXZpdHlzbXRwJTJGdjElMkZ0ZXN0cyUyRm1vY2stZGF0YSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=',1788525048);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `tech_categories`
@@ -921,6 +1012,7 @@ CREATE TABLE `tech_categories` (
 -- Dumping data for table `tech_categories`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `tech_categories` WRITE;
 /*!40000 ALTER TABLE `tech_categories` DISABLE KEYS */;
 INSERT INTO `tech_categories` VALUES
@@ -931,6 +1023,8 @@ INSERT INTO `tech_categories` VALUES
 ('cat-tools','Tools & Others',5,'2026-09-04 07:06:34');
 /*!40000 ALTER TABLE `tech_categories` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `tech_skills`
@@ -955,9 +1049,14 @@ CREATE TABLE `tech_skills` (
 -- Dumping data for table `tech_skills`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `tech_skills` WRITE;
 /*!40000 ALTER TABLE `tech_skills` DISABLE KEYS */;
 INSERT INTO `tech_skills` VALUES
+('sk-075285a6','cat-frameworks','AdonisJS','/uploads/1788572123730_AdonisJS.png',9,'2026-09-05 01:35:26'),
+('sk-0ba6438c','cat-tools','PM2','/uploads/1788572441879_PM2.webp',9,'2026-09-05 01:40:45'),
+('sk-123490c4','cat-tools','Git','/uploads/1788749250011_GIT.webp',1,'2026-09-07 02:47:33'),
+('sk-5a1ff571','cat-databases','SQLite','/uploads/1788572607418_SQLite.webp',4,'2026-09-05 01:43:05'),
 ('sk-638f6978','cat-tools','Laragon','/uploads/1788510731581_Laragon.webp',0,'2026-09-04 08:32:13'),
 ('sk-64c33255','cat-frameworks','jQuery','/uploads/1788507747239_jQuery.png',7,'2026-09-04 07:42:28'),
 ('sk-7196dc2f','cat-iot','NodeRed','/uploads/1788507436589_NodeRed.png',6,'2026-09-04 07:37:18'),
@@ -965,7 +1064,7 @@ INSERT INTO `tech_skills` VALUES
 ('sk-940359cd','cat-tools','Ubuntu OS','/uploads/1788507919419_Ubuntu.webp',5,'2026-09-04 07:45:20'),
 ('sk-9f76877d','cat-databases','PostgreSQL','/uploads/1788507380475_PostgreSQL.svg',3,'2026-09-04 07:36:26'),
 ('sk-a6516c7c','cat-frameworks','Bootstrap','/uploads/1788507526398_Bootstrap.png',7,'2026-09-04 07:38:48'),
-('sk-arduino','cat-iot','Arduino','https://fahmiibrahim.my.id/icons/Arduino.png',1,'2026-09-04 07:06:35'),
+('sk-arduino','cat-iot','Arduino','/uploads/1788748759363_ARDUINO.webp',1,'2026-09-04 07:06:35'),
 ('sk-c566eab1','cat-tools','NGINX','/uploads/1788508022891_NGINX.webp',6,'2026-09-04 07:46:13'),
 ('sk-c57f2fef','cat-tools','FileZilla','/uploads/1788508270329_FileZilla.jpg',7,'2026-09-04 07:51:12'),
 ('sk-c5b79749','cat-iot','Tasmota','/uploads/1788524598933_Tasmota.png',9,'2026-09-04 12:23:22'),
@@ -976,26 +1075,28 @@ INSERT INTO `tech_skills` VALUES
 ('sk-dc8725d0','cat-iot','Wokwi','/uploads/1788508116013_Wokwi.png',0,'2026-09-04 07:48:36'),
 ('sk-de01e262','cat-frameworks','HonoJS','/uploads/1788507321077_HonoJS.png',0,'2026-09-04 07:35:22'),
 ('sk-e2c722db','cat-tools','BunJS','/uploads/1788507643328_BunJS.png',4,'2026-09-04 07:40:45'),
-('sk-easyeda','cat-iot','EasyEDA / PCB','https://fahmiibrahim.my.id/icons/EasyEDA.jpg',5,'2026-09-04 07:06:35'),
-('sk-esp32','cat-iot','ESP32','https://fahmiibrahim.my.id/icons/ESP32.png',3,'2026-09-04 07:06:35'),
-('sk-esp8266','cat-iot','ESP8266','https://fahmiibrahim.my.id/icons/ESP8266.png',2,'2026-09-04 07:06:35'),
+('sk-easyeda','cat-iot','EasyEDA / PCB','/uploads/1788748809120_EASYEDA.png',5,'2026-09-04 07:06:35'),
+('sk-esp32','cat-iot','ESP32','/uploads/1788748669837_ESP32.jpg',3,'2026-09-04 07:06:35'),
+('sk-esp8266','cat-iot','ESP8266','/uploads/1788748789503_ESP8266.webp',2,'2026-09-04 07:06:35'),
 ('sk-flutter','cat-frameworks','Flutter','/uploads/1788507295831_Flutter.png',5,'2026-09-04 07:06:35'),
-('sk-git','cat-tools','GitHub / Git','https://fahmiibrahim.my.id/icons/Github.png',1,'2026-09-04 07:06:35'),
+('sk-git','cat-tools','GitHub','/uploads/1788749181326_GITHUB.png',1,'2026-09-04 07:06:35'),
 ('sk-hono','cat-tools','Node.js','/uploads/1788507263865_NodeJS.svg',3,'2026-09-04 07:06:34'),
 ('sk-html','cat-languages','HTML5','/uploads/1788507096572_HTML5.png',1,'2026-09-04 07:06:34'),
 ('sk-js','cat-languages','JavaScript','/uploads/1788507128896_JavaScript.png',3,'2026-09-04 07:06:34'),
 ('sk-laravel','cat-frameworks','Laravel','/uploads/1788507284722_Laravel.png',4,'2026-09-04 07:06:34'),
 ('sk-mariadb','cat-databases','MariaDB','/uploads/1788507357532_MariaDB.png',2,'2026-09-04 07:06:35'),
-('sk-mqtt','cat-iot','MQTT','https://fahmiibrahim.my.id/icons/MQTT.png',4,'2026-09-04 07:06:35'),
+('sk-mqtt','cat-iot','MQTT','/uploads/1788748714870_MQTT.jpg',4,'2026-09-04 07:06:35'),
 ('sk-mysql','cat-databases','MySQL','/uploads/1788507341469_MySQL.png',1,'2026-09-04 07:06:35'),
 ('sk-php','cat-languages','PHP','/uploads/1788507181520_php.svg',5,'2026-09-04 07:06:34'),
-('sk-postman','cat-tools','Postman','https://fahmiibrahim.my.id/icons/Postman.svg',2,'2026-09-04 07:06:35'),
+('sk-postman','cat-tools','Postman','/uploads/1788749201365_POSTMAN.png',2,'2026-09-04 07:06:35'),
 ('sk-py','cat-languages','Python','/uploads/1788507196294_Python.png',6,'2026-09-04 07:06:34'),
 ('sk-react','cat-frameworks','React','/uploads/1788507238305_ReactJS.png',1,'2026-09-04 07:06:34'),
 ('sk-tailwind','cat-frameworks','Tailwind CSS','/uploads/1788507250584_TailwindCSS.png',2,'2026-09-04 07:06:34'),
 ('sk-ts','cat-languages','TypeScript','/uploads/1788507160540_TypeScript.png',4,'2026-09-04 07:06:34');
 /*!40000 ALTER TABLE `tech_skills` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `university_achievements`
@@ -1025,13 +1126,16 @@ CREATE TABLE `university_achievements` (
 -- Dumping data for table `university_achievements`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `university_achievements` WRITE;
 /*!40000 ALTER TABLE `university_achievements` DISABLE KEYS */;
 INSERT INTO `university_achievements` VALUES
-('univ-b9d2271d','Politeknik Negeri Jakrta','/uploads/1788509106123_PNJ.png','Associate’s Degree – Industrial Electronics Engineering','Aug 2025 - Aug 2026',2,'[{\"name\":\"KSM Psychorobotic\",\"role\":\"Vice Chairman\",\"link\":\"https://www.instagram.com/psychorobotic_pnj/\",\"description\":\"\"},{\"name\":\"KSM Computer Student Club\",\"role\":\"Active Member\",\"link\":\"https://www.instagram.com/cscpnj/\",\"description\":\"\"}]','[{\"title\":\"SIMONLE – IoT-Based Smart Catfish Pond Monitoring & Automation System\",\"supervisor\":\"Purwanti, Ihsan Auditia Akhinov\",\"supervisor_link\":\"\",\"description\":\"Researched and developed an intelligent aquaculture monitoring and automation system (SIMONLE) designed to optimize catfish water quality. Integrated multi-parameter environmental sensors—including pH sensor, TDS (Total Dissolved Solids), water level sensor, and DS18B20 waterproof temperature sensor—with rigorous hardware calibration algorithms. Implemented automated water pump actuators triggered by customizable parameter thresholds, alongside a centralized database system for real-time telemetry logging and historical data analysis.\"}]','[]','[]','2026-09-04 08:05:07','2026-09-04 08:05:07'),
+('univ-b9d2271d','Politeknik Negeri Jakrta','/uploads/1788509106123_PNJ.png','Associate’s Degree – Industrial Electronics Engineering','Aug 2025 - Aug 2026',2,'[{\"name\":\"KSM Psychorobotic\",\"role\":\"Vice Chairman\",\"link\":\"https://www.instagram.com/psychorobotic_pnj/\",\"description\":\"\"},{\"name\":\"KSM Computer Student Club\",\"role\":\"Active Member\",\"link\":\"https://www.instagram.com/cscpnj/\",\"description\":\"\"}]','[{\"title\":\"SIMONLE – IoT-Based Smart Catfish Pond Monitoring & Automation System\",\"supervisor\":\"Purwanti, Ihsan Auditia Akhinov\",\"supervisor_link\":\"\",\"description\":\"Researched and developed an intelligent aquaculture monitoring and automation system (SIMONLE) designed to optimize catfish water quality. Integrated multi-parameter environmental sensors—including pH sensor, TDS (Total Dissolved Solids), water level sensor, and DS18B20 waterproof temperature sensor—with rigorous hardware calibration algorithms. Implemented automated water pump actuators triggered by customizable parameter thresholds, alongside a centralized database system for real-time telemetry logging and historical data analysis.\"}]','[]','[]','2026-09-04 08:05:07','2026-09-07 08:38:08'),
 ('univ-pnj','Politeknik Negeri Jakarta','/uploads/1788509517749_PNJ.png','Associate’s Degree – Industrial Electronics Engineering','Aug 2024 – Aug 2025',1,'[{\"name\":\"KSM Psychorobotic\",\"role\":\"Active Member\",\"link\":\"https://www.instagram.com/psychorobotic_pnj/\",\"description\":\"Active member in robotics and mechatronics student organization.\"}]','[{\"title\":\"Smart Solar Cell Project (Lecturer-led Research, 2025)\",\"supervisor\":\"Dr. Devi Handaya\",\"supervisor_link\":\"https://www.instagram.com/d.handaya/\",\"description\":\"Contributed to a research project focusing on the development of a smart solar panel monitoring system, involving temperature sensors, real-time data acquisition, and IoT-based analysis for performance optimization.\"}]','[{\"category\":\"Paid Projects\",\"items\":[{\"title\":\"Static panoramic 360 websites with Panolens.js (AEON Mall, Kasablanka Hall, JCC)\",\"url\":\"http://aeonmall.midragondev.my.id/\",\"description\":\"Developed interactive panoramic tours using WebGL & Panolens.js.\"},{\"title\":\"Dynamic CMS websites for Metalfest and Creativa\",\"url\":\"http://metalfest.micebgpnj.my.id/\",\"description\":\"Built responsive event and community portals with custom CMS.\"}]},{\"category\":\"Campus Projects\",\"items\":[{\"title\":\"RFID-based Web Attendance System\",\"url\":\"https://fahmiibrahim.my.id/project/web-iot-absensi-rfid\",\"description\":\"Integrated RFID card reader with real-time web attendance logger.\"},{\"title\":\"Film Project Management System Web App\",\"url\":\"https://fahmiibrahim.my.id/project/web-short-film\",\"description\":\"Collaborative project planner and asset manager for short film production.\"},{\"title\":\"5V Power Supply with custom 3D enclosure\",\"url\":\"\",\"description\":\"Designed schematic, etched PCB, and assembled hardware housing.\"},{\"title\":\"Digital Scoreboard System with button controller\",\"url\":\"\",\"description\":\"Engineered microcontroller-driven scoreboard display.\"}]}]','[{\"title\":\"Electronics fundamentals\",\"items\":[\"Basic Logic Gates\",\"Component Selection\",\"PCB Design\",\"Circuit Troubleshooting\"]},{\"title\":\"Embedded Systems & IoT\",\"items\":[\"Circuit Design\",\"Microcontroller Integration (ESP32/Arduino)\",\"Hardware-Software Interfacing\",\"MQTT\"]},{\"title\":\"Web Development\",\"items\":[\"Fullstack Architecture\",\"REST API Development\",\"Database Optimization\",\"Deployment & Infrastructure\"]}]','2026-09-04 07:06:33','2026-09-04 08:12:00');
 /*!40000 ALTER TABLE `university_achievements` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `users`
@@ -1059,12 +1163,15 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES
 (1,'Fahmi Ibrahim','fahmi@admin.com','1',NULL,'$2y$12$pP6LwOh6dmW0MnLltdyhIuRVZlHmA8hvpEuIYj85XZCf3fvgE.pVa','','2025-05-24 07:02:17','2025-05-24 07:02:17');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 
 --
 -- Table structure for table `work_experiences`
@@ -1096,17 +1203,16 @@ CREATE TABLE `work_experiences` (
 -- Dumping data for table `work_experiences`
 --
 
+SET @OLD_AUTOCOMMIT=@@AUTOCOMMIT, @@AUTOCOMMIT=0;
 LOCK TABLES `work_experiences` WRITE;
 /*!40000 ALTER TABLE `work_experiences` DISABLE KEYS */;
 INSERT INTO `work_experiences` VALUES
-('exp-210c31e3','PT. Fortunet Solusi Indonesia','https://www.fortunetindonesia.com/','/uploads/1788506379942_logo-fsi-hd.png','Intern - IoT Engineer','Internship','Bekasi, Indonesia','1 July 2026','4 December 2026',0,2,'[\"Engineered and maintained a fullstack internal web application for project management and task tracking,   featuring Kanban workflows, role-based access, and real-time activity monitoring.\",\"Developed a cross-platform mobile app using Flutter for the SmartWorkshop IoT ecosystem, enabling real-time   remote monitoring, telemetry data visualization, and hardware device control.\",\"Built automated scheduling systems for IoT device control and managed cloud VPS infrastructure, DNS routing, domain configurations, and system uptime maintenance.\",\"Designed and deployed the official Company Profile website with modern responsive UI/UX, optimized performance, and clear   product/service showcase.\",\"Led and mentored vocational high school (SMK) internship students, providing technical guidance, code reviews, and   supervising their practical engineering projects.\"]','2026-09-04 07:27:25','2026-09-04 07:27:25'),
-('exp-intek','PT. Solusi Intek Indonesia','https://intek.co.id/id/','/uploads/1788509538753_Intek.png','Intern - Mechatronics Research & Development','Internship','Bekasi, Indonesia','3 June 2022','10 February 2024',0,1,'[\"Contributed to IoT research by designing and assembling electronic circuits, integrating sensors, and programming microcontrollers (Arduino, ESP8266, ESP32).\",\"Managed server infrastructure, performed domain and DNS administration, and conducted routine maintenance to ensure application availability.\",\"Developed web-based applications and optimized database performance for better scalability and efficiency.\",\"Diagnosed and resolved hardware, software, and network issues to maintain smooth system operations.\",\"Utilized version control systems (e.g., Git) and maintained comprehensive technical documentation throughout the development lifecycle.\"]','2026-09-04 07:06:33','2026-09-04 08:12:20');
+('exp-210c31e3','PT. Fortunet Solusi Indonesia','https://www.fortunetindonesia.com/','/uploads/1788506379942_logo-fsi-hd.png','Intern - IoT Engineer','Internship','Bekasi, Indonesia','1 July 2026','4 December 2026',0,1,'[\"Engineered and maintained a fullstack internal web application for project management and task tracking,   featuring Kanban workflows, role-based access, and real-time activity monitoring.\",\"Developed a cross-platform mobile app using Flutter for the SmartWorkshop IoT ecosystem, enabling real-time   remote monitoring, telemetry data visualization, and hardware device control.\",\"Built automated scheduling systems for IoT device control and managed cloud VPS infrastructure, DNS routing, domain configurations, and system uptime maintenance.\",\"Designed and deployed the official Company Profile website with modern responsive UI/UX, optimized performance, and clear   product/service showcase.\",\"Led and mentored vocational high school (SMK) internship students, providing technical guidance, code reviews, and   supervising their practical engineering projects.\"]','2026-09-04 07:27:25','2026-09-07 08:37:54'),
+('exp-intek','PT. Solusi Intek Indonesia','https://intek.co.id/id/','/uploads/1788509538753_Intek.png','Intern - Mechatronics Research & Development','Internship','Bekasi, Indonesia','3 June 2022','10 February 2024',0,2,'[\"Contributed to IoT research by designing and assembling electronic circuits, integrating sensors, and programming microcontrollers (Arduino, ESP8266, ESP32).\",\"Managed server infrastructure, performed domain and DNS administration, and conducted routine maintenance to ensure application availability.\",\"Developed web-based applications and optimized database performance for better scalability and efficiency.\",\"Diagnosed and resolved hardware, software, and network issues to maintain smooth system operations.\",\"Utilized version control systems (e.g., Git) and maintained comprehensive technical documentation throughout the development lifecycle.\"]','2026-09-04 07:06:33','2026-09-07 08:37:50');
 /*!40000 ALTER TABLE `work_experiences` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'portofolio'
---
+COMMIT;
+SET AUTOCOMMIT=@OLD_AUTOCOMMIT;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1115,6 +1221,6 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-09-04 20:06:04
+-- Dump completed on 2026-09-09 11:40:15
