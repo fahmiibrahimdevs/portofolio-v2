@@ -16,7 +16,10 @@ export function LatestProjectsSection({
   onNavigateToProjects,
   onOpenDetail,
 }: LatestProjectsSectionProps) {
-  const latest = projects.slice(0, 4);
+  const publishedProjects = projects.filter(
+    (p) => p.status_publish === "Published" || !p.status_publish
+  );
+  const latest = publishedProjects.slice(0, 4);
 
   return (
     <section id="projects-preview" className="py-8 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto border-t border-slate-800/80">
@@ -39,7 +42,7 @@ export function LatestProjectsSection({
           onClick={onNavigateToProjects}
           className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-cyan-400 border border-slate-800 hover:border-cyan-500/40 rounded-xl text-xs font-semibold transition-all self-start sm:self-auto shadow-sm"
         >
-          <span>See All Projects ({projects.length})</span>
+          <span>See All Projects ({publishedProjects.length})</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>

@@ -21,9 +21,13 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(15);
 
-  // Filter projects
+  // Filter projects (strictly published only)
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
+      // Guard: strictly exclude drafts on public projects page
+      const isPublished = p.status_publish === "Published" || !p.status_publish;
+      if (!isPublished) return false;
+
       const matchCategory =
         selectedCategory === "all" ||
         String(p.category_id) === selectedCategory ||

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, getToken, removeToken } from "./api/client";
 import { AdminUser } from "./types";
@@ -238,10 +238,21 @@ export function App() {
   const universityAchievements = univData?.achievements || [];
   const techCategories = techData?.categories || [];
   const credentials = credData?.credentials || [];
-  const projects = projectsData?.projects || [];
+
+  // All projects & articles (including drafts for admin dashboard)
+  const allProjects = projectsData?.projects || [];
+  const publishedProjects = useMemo(() => {
+    return allProjects.filter((p) => p.status_publish === "Published" || !p.status_publish);
+  }, [allProjects]);
+
   const projectCategories = projCatsData?.categories || [];
   const projectTags = projTagsData?.tags || [];
-  const articles = articlesData?.articles || [];
+
+  const allArticles = articlesData?.articles || [];
+  const publishedArticles = useMemo(() => {
+    return allArticles.filter((a) => a.status_publish === "Published" || !a.status_publish);
+  }, [allArticles]);
+
   const articleCategories = artCatsData?.categories || [];
   const contactMessages = contactsData?.messages || [];
   const unreadContactCount = contactsData?.unreadCount || 0;
@@ -278,10 +289,10 @@ export function App() {
             universityAchievements={universityAchievements}
             techCategories={techCategories}
             credentials={credentials}
-            projects={projects}
+            projects={allProjects}
             projectCategories={projectCategories}
             projectTags={projectTags}
-            articles={articles}
+            articles={allArticles}
             articleCategories={articleCategories}
             contactMessages={contactMessages}
             unreadContactCount={unreadContactCount}
@@ -307,9 +318,9 @@ export function App() {
                 techLoading={techLoading}
                 credentials={credentials}
                 credLoading={credLoading}
-                projects={projects}
+                projects={publishedProjects}
                 projectsLoading={projectsLoading}
-                articles={articles}
+                articles={publishedArticles}
                 articlesLoading={articlesLoading}
                 onNavigate={(page) => {
                   navigateToPage(page, true);
@@ -322,7 +333,7 @@ export function App() {
 
             {currentPage === "projects" && (
               <ProjectsPage
-                projects={projects}
+                projects={publishedProjects}
                 categories={projectCategories}
                 isLoading={projectsLoading}
                 onSelectProject={navigateToProjectDetail}
@@ -333,7 +344,7 @@ export function App() {
               <ProjectDetailPage
                 identifier={selectedProjectIdentifier}
                 cachedProject={cachedProject}
-                allProjects={projects}
+                allProjects={publishedProjects}
                 onBack={() => navigateToPage("projects", true)}
                 onSelectProject={navigateToProjectDetail}
               />
@@ -341,7 +352,7 @@ export function App() {
 
             {currentPage === "articles" && (
               <ArticlesPage
-                articles={articles}
+                articles={publishedArticles}
                 categories={articleCategories}
                 isLoading={articlesLoading}
                 onSelectArticle={navigateToArticleDetail}
@@ -352,7 +363,7 @@ export function App() {
               <ArticleDetailPage
                 identifier={selectedArticleIdentifier}
                 cachedArticle={cachedArticle}
-                allArticles={articles}
+                allArticles={publishedArticles}
                 onBack={() => navigateToPage("articles", true)}
                 onSelectArticle={navigateToArticleDetail}
               />

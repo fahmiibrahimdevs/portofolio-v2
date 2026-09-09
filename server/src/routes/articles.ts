@@ -102,14 +102,20 @@ articleRoutes.get("/", async (c) => {
 articleRoutes.get("/:idOrSlug", async (c) => {
   try {
     const idOrSlug = c.req.param("idOrSlug");
+    const isAll = c.req.query("all") === "1";
     const isNumeric = /^\d+$/.test(idOrSlug);
+
+    let whereClause = isNumeric ? "a.id = :id" : "a.slug = :slug";
+    if (!isAll) {
+      whereClause += " AND (a.status_publish = 'Published' OR a.status_publish IS NULL)";
+    }
 
     const sql = `
       SELECT a.*, tc.name AS category_name, ts.name AS sub_category_name, ts.icon_url AS sub_category_icon 
       FROM article_posts a
       LEFT JOIN tech_categories tc ON a.category_id = tc.id
       LEFT JOIN tech_skills ts ON a.sub_category_id = ts.id
-      WHERE ${isNumeric ? "a.id = :id" : "a.slug = :slug"}
+      WHERE ${whereClause}
       LIMIT 1
     `;
 

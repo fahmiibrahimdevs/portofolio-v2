@@ -128,13 +128,19 @@ projectRoutes.get("/", async (c) => {
 projectRoutes.get("/:idOrSlug", async (c) => {
   try {
     const idOrSlug = c.req.param("idOrSlug");
+    const isAll = c.req.query("all") === "1";
     const isNumeric = /^\d+$/.test(idOrSlug);
+
+    let whereClause = isNumeric ? "p.id = :id" : "p.slug = :slug";
+    if (!isAll) {
+      whereClause += " AND (p.status_publish = 'Published' OR p.status_publish IS NULL)";
+    }
 
     const sql = `
       SELECT p.*, pc.category_name, pc.category_desc 
       FROM projects p
       LEFT JOIN project_categories pc ON p.category_id = pc.id
-      WHERE ${isNumeric ? "p.id = :id" : "p.slug = :slug"}
+      WHERE ${whereClause}
       LIMIT 1
     `;
 

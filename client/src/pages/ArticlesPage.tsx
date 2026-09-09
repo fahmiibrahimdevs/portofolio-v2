@@ -49,8 +49,13 @@ export function ArticlesPage({
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(15);
 
+  // Filter articles (strictly published only)
   const filteredArticles = useMemo(() => {
     return articles.filter((a) => {
+      // Guard: strictly exclude drafts on public articles page
+      const isPublished = a.status_publish === "Published" || !a.status_publish;
+      if (!isPublished) return false;
+
       const matchCategory =
         selectedCategory === "all" ||
         String(a.category_id) === selectedCategory ||
