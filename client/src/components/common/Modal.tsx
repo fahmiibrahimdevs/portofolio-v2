@@ -78,7 +78,7 @@ export function Modal({ isOpen, onClose, title, children, sidePanel, headerActio
         {/* Companion Floating Window (Side Card docked to the right of modal) */}
         {sidePanel && (
           <div 
-            className="w-full lg:w-[410px] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col animate-in fade-in slide-in-from-right-4 duration-200 shrink-0"
+            className="w-full lg:w-[410px] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto h-[88vh] max-h-[90vh] flex flex-col min-h-0 animate-in fade-in slide-in-from-right-4 duration-200 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
             {sidePanel}

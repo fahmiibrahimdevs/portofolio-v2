@@ -27,7 +27,7 @@ export function ProjectCardPreview({
   const descLength = (project.short_desc || "").length;
 
   return (
-    <div className="flex flex-col h-full bg-slate-900 text-slate-100 overflow-hidden">
+    <div className="flex flex-col h-full min-h-0 bg-slate-900 text-slate-100 overflow-hidden">
       {/* Panel Sub-Header / Status Bar */}
       <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-950/40 shrink-0">
         <div className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export function ProjectCardPreview({
       </div>
 
       {/* Scrollable Preview Stage & Inspector */}
-      <div className="p-4 overflow-y-auto space-y-4 flex-1">
+      <div className="p-4 overflow-y-auto space-y-4 flex-1 min-h-0 overscroll-contain">
         {/* Preview Frame */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-[11px] text-slate-400 font-medium px-1">

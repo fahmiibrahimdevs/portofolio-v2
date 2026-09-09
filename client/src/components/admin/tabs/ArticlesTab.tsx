@@ -561,7 +561,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
         }
         sidePanel={
           showSidePanel ? (
-            <div className="flex flex-col h-full overflow-hidden bg-slate-900">
+            <div className="flex flex-col h-full min-h-0 bg-slate-900 overflow-hidden">
               {/* Header */}
               <div className="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/95 shrink-0">
                 <div className="flex items-center gap-2">
@@ -580,7 +580,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
               </div>
 
               {/* View Content */}
-              <div className="flex-1 overflow-hidden">
+              <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
                 <ArticleCardPreview
                   article={previewArticle}
                   rawContent={formData.fill_content}
