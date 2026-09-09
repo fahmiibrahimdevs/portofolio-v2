@@ -9,7 +9,8 @@ import {
   BookOpen, 
   MessageSquare, 
   Settings, 
-  LogOut 
+  LogOut,
+  ArrowLeft 
 } from "lucide-react";
 import { Profile } from "../../types";
 import { ThemeToggle } from "../common/ThemeToggle";
@@ -73,40 +74,33 @@ export function Navbar({
             </div>
           </button>
 
-          {/* Desktop Navigation Links */}
-          {!isAdminDashboardView ? (
-            <div className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1 rounded-2xl border border-slate-800/80">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive =
-                  currentPage === link.id ||
+          {/* Desktop Navigation Links - Always accessible */}
+          <div className="hidden md:flex items-center gap-1 bg-slate-900/60 p-1 rounded-2xl border border-slate-800/80">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const isActive =
+                !isAdminDashboardView &&
+                (currentPage === link.id ||
                   (link.id === "projects" && currentPage === "project-detail") ||
-                  (link.id === "articles" && currentPage === "article-detail");
+                  (link.id === "articles" && currentPage === "article-detail"));
 
-                return (
-                  <button
-                    key={link.id}
-                    type="button"
-                    onClick={() => handleNavClick(link.id)}
-                    className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all ${
-                      isActive
-                        ? "bg-slate-800 text-cyan-400 shadow-sm border border-slate-700/60"
-                        : "text-slate-400 hover:text-slate-100 hover:bg-slate-800/40"
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{link.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="hidden md:flex items-center gap-2">
-              <span className="badge-soft-cyan text-xs font-semibold px-2.5 py-1 rounded-md">
-                Admin Mode
-              </span>
-            </div>
-          )}
+              return (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => handleNavClick(link.id)}
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all ${
+                    isActive
+                      ? "bg-slate-800 text-sky-400 shadow-sm border border-slate-700/60"
+                      : "text-slate-400 hover:text-slate-100 hover:bg-slate-800/40"
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{link.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
           {/* Right Actions */}
           <div className="hidden md:flex items-center gap-3">
@@ -116,9 +110,9 @@ export function Navbar({
                 target="_blank"
                 rel="noopener noreferrer"
                 download={profile.resume_filename || "CV_Fahmi_Ibrahim.pdf"}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-cyan-400 border border-slate-700/70 hover:border-cyan-500/40 rounded-xl transition-all shadow-sm"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-sky-400 border border-slate-700/70 hover:border-sky-500/40 rounded-xl transition-all shadow-sm"
               >
-                <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                <FileText className="w-3.5 h-3.5 text-sky-400" />
                 <span>My Resume</span>
               </a>
             )}
@@ -131,15 +125,24 @@ export function Navbar({
                 <button
                   type="button"
                   onClick={onToggleView}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold badge-soft-cyan hover:opacity-90 rounded-xl transition-colors shadow-sm"
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all shadow-sm ${
+                    isAdminDashboardView
+                      ? "bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-sky-400 border border-slate-800 hover:border-sky-500/40"
+                      : "bg-sky-500/15 text-sky-400 border border-sky-500/30 hover:bg-sky-500/25"
+                  }`}
+                  title={isAdminDashboardView ? "Switch to Public View" : "Open CMS Dashboard"}
                 >
-                  <Settings className="w-3.5 h-3.5" />
+                  {isAdminDashboardView ? (
+                    <ArrowLeft className="w-3.5 h-3.5 text-sky-400" />
+                  ) : (
+                    <Settings className="w-3.5 h-3.5" />
+                  )}
                   <span>{isAdminDashboardView ? "Public View" : "CMS Dashboard"}</span>
                 </button>
                 <button
                   type="button"
                   onClick={onLogout}
-                  className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-900 rounded-lg transition-colors"
+                  className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-900 rounded-lg transition-colors cursor-pointer"
                   title="Logout Admin"
                 >
                   <LogOut className="w-4 h-4" />
@@ -185,33 +188,32 @@ export function Navbar({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-slate-800 bg-white/95 dark:bg-slate-950/95 px-4 pt-2 pb-5 space-y-3">
-          {!isAdminDashboardView && (
-            <div className="space-y-1">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive =
-                  currentPage === link.id ||
+          <div className="space-y-1">
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              const isActive =
+                !isAdminDashboardView &&
+                (currentPage === link.id ||
                   (link.id === "projects" && currentPage === "project-detail") ||
-                  (link.id === "articles" && currentPage === "article-detail");
+                  (link.id === "articles" && currentPage === "article-detail"));
 
-                return (
-                  <button
-                    key={link.id}
-                    type="button"
-                    onClick={() => handleNavClick(link.id)}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
-                      isActive
-                        ? "bg-slate-800 text-cyan-400 font-semibold"
-                        : "text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span>{link.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+              return (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => handleNavClick(link.id)}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg transition-colors text-left ${
+                    isActive
+                      ? "bg-slate-800 text-sky-400 font-semibold"
+                      : "text-slate-300 hover:text-sky-400 hover:bg-slate-800/60"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{link.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
           <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
             {isAdmin ? (
@@ -222,9 +224,9 @@ export function Navbar({
                     setMobileMenuOpen(false);
                     onToggleView?.();
                   }}
-                  className="flex items-center gap-2 text-xs text-cyan-400 font-semibold py-1.5"
+                  className="flex items-center gap-2 text-xs text-sky-400 font-semibold py-1.5"
                 >
-                  <Settings className="w-4 h-4" />
+                  {isAdminDashboardView ? <ArrowLeft className="w-4 h-4" /> : <Settings className="w-4 h-4" />}
                   <span>{isAdminDashboardView ? "Back to Public View" : "CMS Dashboard"}</span>
                 </button>
                 <button

@@ -141,7 +141,7 @@ export function ArticleDetailPage({
               </span>
             )}
             {article.sub_category_name && (
-              <span className="badge-overlay-emerald text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1">
+              <span className="badge-overlay-slate text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1">
                 <Tag className="w-3 h-3" />
                 <span>{article.sub_category_name}</span>
               </span>
@@ -160,7 +160,7 @@ export function ArticleDetailPage({
               </span>
             )}
             {article.sub_category_name && (
-              <span className="badge-soft-emerald text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+              <span className="badge-soft-slate text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
                 <Tag className="w-3 h-3" />
                 <span>{article.sub_category_name}</span>
               </span>

@@ -271,7 +271,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-950/40 transition-all"
+          className="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Education / Achievement</span>
@@ -418,14 +418,14 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
           {/* 1. Organizational Involvement */}
           <div className="space-y-3 pt-4 border-t border-slate-800">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-sky-400 uppercase tracking-wider">
                 <Users className="w-3.5 h-3.5" />
                 <span>Organizational Involvement</span>
               </div>
               <button
                 type="button"
                 onClick={handleAddOrg}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-cyan-950/50 hover:bg-cyan-900/60 border border-cyan-800/40 text-cyan-300 text-xs font-semibold rounded-lg transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1 bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-400 text-xs font-semibold rounded-lg transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Organization</span>
@@ -460,14 +460,14 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                         placeholder="Organization Name (e.g. KSM Psychorobotic)"
                         value={org.name}
                         onChange={(e) => handleUpdateOrg(idx, "name", e.target.value)}
-                        className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
+                        className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                       />
                       <input
                         type="text"
                         placeholder="Role (e.g. Active Member)"
                         value={org.role || ""}
                         onChange={(e) => handleUpdateOrg(idx, "role", e.target.value)}
-                        className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
+                        className="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                       />
                     </div>
 
@@ -476,7 +476,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                       placeholder="Link / Instagram Profile URL (optional)"
                       value={org.link || ""}
                       onChange={(e) => handleUpdateOrg(idx, "link", e.target.value)}
-                      className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
+                      className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                     />
 
                     <textarea
@@ -484,7 +484,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                       rows={2}
                       value={org.description || ""}
                       onChange={(e) => handleUpdateOrg(idx, "description", e.target.value)}
-                      className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-cyan-500"
+                      className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                     />
                   </div>
                 ))}
@@ -495,14 +495,14 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
           {/* 2. Research Experience (Fully Editable) */}
           <div className="space-y-3 pt-4 border-t border-slate-800">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-sky-400 uppercase tracking-wider">
                 <FlaskConical className="w-3.5 h-3.5" />
                 <span>Research Experience</span>
               </div>
               <button
                 type="button"
                 onClick={handleAddResearch}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-amber-950/50 hover:bg-amber-900/60 border border-amber-800/40 text-amber-300 text-xs font-semibold rounded-lg transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1 bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-400 text-xs font-semibold rounded-lg transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Research Item</span>
@@ -518,7 +518,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                 {formData.research_experience.map((res, idx) => (
                   <div key={idx} className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-amber-400/90 uppercase">
+                      <span className="text-[11px] font-semibold text-sky-400/90 uppercase">
                         Research Project #{idx + 1}
                       </span>
                       <button
@@ -540,7 +540,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                         placeholder="e.g. SIMONLE – IoT-Based Smart Catfish Pond Monitoring"
                         value={res.title}
                         onChange={(e) => handleUpdateResearch(idx, "title", e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-100 focus:outline-none focus:border-amber-500"
+                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                         required
                       />
                     </div>
@@ -555,7 +555,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                           placeholder="e.g. Dr. Devi Handaya"
                           value={res.supervisor || ""}
                           onChange={(e) => handleUpdateResearch(idx, "supervisor", e.target.value)}
-                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-amber-500"
+                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                         />
                       </div>
 
@@ -568,7 +568,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                           placeholder="https://..."
                           value={res.supervisor_link || ""}
                           onChange={(e) => handleUpdateResearch(idx, "supervisor_link", e.target.value)}
-                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-amber-500"
+                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                         />
                       </div>
                     </div>
@@ -582,7 +582,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                         rows={3}
                         value={res.description || ""}
                         onChange={(e) => handleUpdateResearch(idx, "description", e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 leading-relaxed focus:outline-none focus:border-amber-500"
+                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 leading-relaxed focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                       />
                     </div>
                   </div>
@@ -594,14 +594,14 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
           {/* 3. Key Projects (Fully Editable) */}
           <div className="space-y-3 pt-4 border-t border-slate-800">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-sky-400 uppercase tracking-wider">
                 <FolderKanban className="w-3.5 h-3.5" />
                 <span>Key Projects</span>
               </div>
               <button
                 type="button"
                 onClick={handleAddProjectCategory}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-800/40 text-emerald-300 text-xs font-semibold rounded-lg transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1 bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-400 text-xs font-semibold rounded-lg transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Category</span>
@@ -618,7 +618,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                   <div key={catIdx} className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-3">
                     <div className="flex items-center justify-between gap-3 pb-2 border-b border-slate-800/80">
                       <div className="flex-1 flex items-center gap-2">
-                        <label className="text-[11px] font-semibold text-emerald-400 uppercase">
+                        <label className="text-[11px] font-semibold text-sky-400 uppercase">
                           Category:
                         </label>
                         <input
@@ -626,7 +626,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                           value={cat.category}
                           onChange={(e) => handleUpdateProjectCategoryName(catIdx, e.target.value)}
                           placeholder="Category Name (e.g. Paid Projects, Campus Projects)"
-                          className="flex-1 px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-100 focus:outline-none focus:border-emerald-500"
+                          className="flex-1 px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                         />
                       </div>
                       <div className="flex items-center gap-2">
@@ -635,7 +635,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                           onClick={() => handleAddProjectItem(catIdx)}
                           className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg flex items-center gap-1"
                         >
-                          <Plus className="w-3 h-3 text-emerald-400" />
+                          <Plus className="w-3 h-3 text-sky-400" />
                           <span>Add Item</span>
                         </button>
                         <button
@@ -670,14 +670,14 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                               placeholder="Project Title"
                               value={item.title}
                               onChange={(e) => handleUpdateProjectItem(catIdx, itemIdx, "title", e.target.value)}
-                              className="px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                              className="px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                             />
                             <input
                               type="url"
                               placeholder="Project URL (optional)"
                               value={item.url || ""}
                               onChange={(e) => handleUpdateProjectItem(catIdx, itemIdx, "url", e.target.value)}
-                              className="px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                              className="px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                             />
                           </div>
 
@@ -686,7 +686,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                             placeholder="Short description / tech notes..."
                             value={item.description || ""}
                             onChange={(e) => handleUpdateProjectItem(catIdx, itemIdx, "description", e.target.value)}
-                            className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-emerald-500"
+                            className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                           />
                         </div>
                       ))}
@@ -700,14 +700,14 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
           {/* 4. Skills Gained (Fully Editable) */}
           <div className="space-y-3 pt-4 border-t border-slate-800">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-sky-400 uppercase tracking-wider">
                 <Award className="w-3.5 h-3.5" />
                 <span>Skills Gained Groups</span>
               </div>
               <button
                 type="button"
                 onClick={handleAddSkillGroup}
-                className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-950/50 hover:bg-indigo-900/60 border border-indigo-800/40 text-indigo-300 text-xs font-semibold rounded-lg transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1 bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-400 text-xs font-semibold rounded-lg transition-colors"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Skill Group</span>
@@ -723,7 +723,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                 {formData.skills_gained.map((sg, idx) => (
                   <div key={idx} className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800 space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[11px] font-semibold text-indigo-400 uppercase">
+                      <span className="text-[11px] font-semibold text-sky-400 uppercase">
                         Group #{idx + 1}
                       </span>
                       <button
@@ -743,7 +743,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                           placeholder="e.g. Electronics fundamentals"
                           value={sg.title}
                           onChange={(e) => handleUpdateSkillTitle(idx, e.target.value)}
-                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-100 focus:outline-none focus:border-indigo-500"
+                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-semibold text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                         />
                       </div>
 
@@ -756,7 +756,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
                           placeholder="e.g. PCB Design, Basic Logic Gates, MQTT"
                           value={sg.items.join(", ")}
                           onChange={(e) => handleUpdateSkillItems(idx, e.target.value)}
-                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                          className="w-full px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                         />
                       </div>
                     </div>
@@ -778,7 +778,7 @@ export function UniversityTab({ achievements }: UniversityTabProps) {
             <button
               type="submit"
               disabled={createMutation.isPending || updateMutation.isPending}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-950/40"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
             >
               {(createMutation.isPending || updateMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

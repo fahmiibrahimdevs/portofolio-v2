@@ -116,7 +116,7 @@ export function ArticlesPage({
               placeholder="Search articles by title, topic..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+              className="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
             />
           </div>
 
@@ -127,8 +127,8 @@ export function ArticlesPage({
               onClick={() => handleCategoryChange("all")}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                 selectedCategory === "all"
-                  ? "bg-cyan-600 text-white shadow-sm font-bold"
-                  : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs font-semibold"
+                  : "bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700"
               }`}
             >
               All ({articles.length})
@@ -145,8 +145,8 @@ export function ArticlesPage({
                   onClick={() => handleCategoryChange(String(cat.id))}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                     selectedCategory === String(cat.id)
-                      ? "bg-cyan-600 text-white shadow-sm font-bold"
-                      : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                      ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs font-semibold"
+                      : "bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700"
                   }`}
                 >
                   {cat.category_name} ({count})
@@ -160,7 +160,7 @@ export function ArticlesPage({
         {availableSubCategories.length > 0 && (
           <div className="flex items-center gap-1.5 overflow-x-auto pt-3 border-t border-slate-800/80">
             <span className="text-xs text-slate-400 font-medium whitespace-nowrap flex items-center gap-1 mr-1">
-              <Tag className="w-3.5 h-3.5 text-cyan-400" />
+              <Tag className="w-3.5 h-3.5 text-sky-400" />
               Subcategory:
             </span>
             <button
@@ -168,8 +168,8 @@ export function ArticlesPage({
               onClick={() => setSelectedSubCategory("all")}
               className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
                 selectedSubCategory === "all"
-                  ? "bg-cyan-600 text-white shadow-sm"
-                  : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                  ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs font-semibold"
+                  : "bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700"
               }`}
             >
               All Sub
@@ -183,8 +183,8 @@ export function ArticlesPage({
                   onClick={() => setSelectedSubCategory(String(sc.id))}
                   className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
                     selectedSubCategory === String(sc.id)
-                      ? "bg-cyan-600 text-white shadow-sm"
-                      : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                      ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs font-semibold"
+                      : "bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700"
                   }`}
                 >
                   {sc.sub_category_name} {count > 0 && `(${count})`}

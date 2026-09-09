@@ -253,7 +253,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add Project</span>
@@ -269,7 +269,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
             placeholder="Search projects by title..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full pl-9 pr-3 py-1.5 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
           />
         </div>
 
@@ -318,7 +318,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
               onClick={() => setFilterCategory("all")}
               className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
                 filterCategory === "all"
-                  ? "bg-cyan-600 text-white shadow-sm"
+                  ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
                   : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
               }`}
             >
@@ -334,7 +334,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
                   onClick={() => setFilterCategory(String(c.id))}
                   className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
                     filterCategory === String(c.id)
-                      ? "bg-cyan-600 text-white shadow-sm"
+                      ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
                       : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
                   }`}
                 >
@@ -850,7 +850,7 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
             <button
               type="submit"
               disabled={createMutation.isPending || updateMutation.isPending}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
             >
               {(createMutation.isPending || updateMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

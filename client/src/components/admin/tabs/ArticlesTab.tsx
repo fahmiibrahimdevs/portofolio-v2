@@ -237,7 +237,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
         <div>
           <h3 className="text-base font-semibold text-slate-100 flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-indigo-400" />
+            <BookOpen className="w-5 h-5 text-sky-400" />
             <span>Articles & Tutorials Management</span>
             <span className="text-xs font-normal text-slate-400">({articles.length} Total)</span>
           </h3>
@@ -248,7 +248,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-950/40 transition-all self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Write Article</span>
@@ -265,7 +265,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
               placeholder="Search articles by title, topic..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full pl-9 pr-3 py-1.5 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
             />
           </div>
 
@@ -314,7 +314,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                 onClick={() => handleFilterCategoryChange("all")}
                 className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
                   filterCategory === "all"
-                    ? "bg-indigo-600 text-white shadow-sm"
+                    ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
                     : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
                 }`}
               >
@@ -330,7 +330,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                     onClick={() => handleFilterCategoryChange(String(c.id))}
                     className={`px-3 py-1 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
                       filterCategory === String(c.id)
-                        ? "bg-indigo-600 text-white shadow-sm"
+                        ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
                         : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
                     }`}
                   >
@@ -346,7 +346,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
         {filterAvailableSubCategories.length > 0 && (
           <div className="flex items-center gap-1.5 overflow-x-auto pt-2 border-t border-slate-800/80">
             <span className="text-[11px] text-slate-400 font-medium whitespace-nowrap flex items-center gap-1 mr-1">
-              <Tag className="w-3 h-3 text-cyan-400" />
+              <Tag className="w-3 h-3 text-sky-400" />
               Subcategory:
             </span>
             <button
@@ -354,7 +354,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
               onClick={() => setFilterSubCategory("all")}
               className={`px-2.5 py-0.5 rounded-lg text-[11px] font-medium transition-all whitespace-nowrap ${
                 filterSubCategory === "all"
-                  ? "bg-cyan-600 text-white shadow-sm"
+                  ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
                   : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
               }`}
             >
@@ -369,7 +369,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                   onClick={() => setFilterSubCategory(String(sc.id))}
                   className={`px-2.5 py-0.5 rounded-lg text-[11px] font-medium transition-all whitespace-nowrap ${
                     filterSubCategory === String(sc.id)
-                      ? "bg-cyan-600 text-white shadow-sm"
+                      ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
                       : "bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800"
                   }`}
                 >
@@ -394,7 +394,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                 setFilterCategory("all");
                 setFilterSubCategory("all");
               }}
-              className="text-indigo-400 hover:underline text-xs"
+              className="text-sky-400 hover:underline text-xs"
             >
               Clear filters
             </button>
@@ -406,7 +406,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
             {paginatedArticles.map((a) => (
               <div
                 key={a.id}
-                className="group glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 border border-slate-800/90 hover:border-indigo-500/40"
+                className="group glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-200 border border-slate-800/90 hover:border-sky-500/80 hover:ring-1 hover:ring-sky-500/30"
               >
                 <div>
                   {/* Thumbnail Header */}
@@ -443,7 +443,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                           {a.category_name || "Article"}
                         </span>
                         {a.sub_category_name && (
-                          <span className="badge-overlay-emerald text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md flex items-center gap-0.5">
+                          <span className="badge-overlay-slate text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md flex items-center gap-0.5">
                             <Tag className="w-2.5 h-2.5" />
                             <span>{a.sub_category_name}</span>
                           </span>
@@ -468,7 +468,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                         href={`/articles/${a.slug || a.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-bold text-slate-100 line-clamp-2 group-hover:text-indigo-400 transition-colors block"
+                        className="text-sm font-bold text-slate-100 line-clamp-2 group-hover:text-sky-400 transition-colors block"
                         title={a.title}
                       >
                         {a.title}
@@ -510,7 +510,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                     <button
                       type="button"
                       onClick={() => openEditModal(a)}
-                      className="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-800 rounded-lg transition-colors"
+                      className="p-1.5 text-slate-400 hover:text-sky-400 hover:bg-slate-800 rounded-lg transition-colors"
                       title="Edit Article"
                     >
                       <Edit3 className="w-3.5 h-3.5" />
@@ -616,7 +616,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                   });
                 }}
                 placeholder="e.g. Properties and Values in CSS: How It Works"
-                className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
                 required
               />
             </div>
@@ -630,7 +630,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                 placeholder="e.g. css-properties-and-values"
-                className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30"
               />
             </div>
           </div>
@@ -713,7 +713,7 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
             <button
               type="submit"
               disabled={createMutation.isPending || updateMutation.isPending}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-950/40"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
             >
               {(createMutation.isPending || updateMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

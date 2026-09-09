@@ -29,7 +29,7 @@ export function Footer({ profile }: FooterProps) {
               href={profile.github_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-slate-900 border border-slate-800 rounded-xl transition-colors"
+              className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all duration-200"
               title="GitHub"
             >
               <Github className="w-4 h-4" />
@@ -40,7 +40,7 @@ export function Footer({ profile }: FooterProps) {
               href={profile.linkedin_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-slate-900 border border-slate-800 rounded-xl transition-colors"
+              className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all duration-200"
               title="LinkedIn"
             >
               <Linkedin className="w-4 h-4" />
@@ -51,7 +51,7 @@ export function Footer({ profile }: FooterProps) {
               href={profile.youtube_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-900 border border-slate-800 rounded-xl transition-colors"
+              className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all duration-200"
               title="YouTube"
             >
               <Youtube className="w-4 h-4" />
@@ -62,7 +62,7 @@ export function Footer({ profile }: FooterProps) {
               href={profile.instagram_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-400 hover:text-pink-400 hover:bg-slate-900 border border-slate-800 rounded-xl transition-colors"
+              className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all duration-200"
               title="Instagram"
             >
               <Instagram className="w-4 h-4" />
@@ -71,7 +71,7 @@ export function Footer({ profile }: FooterProps) {
           {profile?.email && (
             <a
               href={`mailto:${profile.email}`}
-              className="p-2 text-slate-400 hover:text-emerald-400 hover:bg-slate-900 border border-slate-800 rounded-xl transition-colors"
+              className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 border border-slate-800 hover:border-sky-500/30 rounded-xl transition-all duration-200"
               title="Email"
             >
               <Mail className="w-4 h-4" />

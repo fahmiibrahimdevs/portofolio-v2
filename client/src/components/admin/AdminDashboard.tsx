@@ -233,29 +233,11 @@ export function AdminDashboard({
             <button
               type="button"
               onClick={() => setPasswordModalOpen(true)}
-              className="px-3 py-2 text-xs font-medium text-slate-300 hover:text-white bg-slate-950 border border-slate-800 rounded-xl hover:bg-slate-800 transition-colors flex items-center gap-1.5"
+              className="px-3.5 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-slate-950 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-slate-700 transition-colors flex items-center gap-1.5"
               title="Change Password"
             >
-              <Key className="w-3.5 h-3.5 text-amber-400" />
+              <Key className="w-3.5 h-3.5 text-sky-400" />
               <span>Password</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={onBackToPublic}
-              className="px-3.5 py-2 text-xs font-semibold text-cyan-300 hover:text-cyan-200 bg-cyan-950/40 border border-cyan-800/40 rounded-xl hover:bg-cyan-900/50 transition-colors flex items-center gap-1.5"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Public View</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={onLogout}
-              className="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-950 border border-slate-800 rounded-xl transition-colors"
-              title="Logout"
-            >
-              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>

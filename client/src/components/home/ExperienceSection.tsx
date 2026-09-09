@@ -123,13 +123,13 @@ export function ExperienceSection({ experiences, isLoading }: ExperienceSectionP
                                   href={exp.company_url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-cyan-400 hover:underline font-semibold inline-flex items-center gap-1"
+                                  className="text-slate-300 hover:text-sky-400 hover:underline font-medium inline-flex items-center gap-1 transition-colors"
                                 >
                                   <span>{exp.company_name}</span>
-                                  <ExternalLink className="w-3.5 h-3.5" />
+                                  <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
                                 </a>
                               ) : (
-                                <span className="font-semibold text-slate-200">{exp.company_name}</span>
+                                <span className="font-medium text-slate-300">{exp.company_name}</span>
                               )}
                             </div>
 
@@ -175,7 +175,7 @@ export function ExperienceSection({ experiences, isLoading }: ExperienceSectionP
                     {/* Expanded Activity Points / Deliverables */}
                     {isExpanded && points.length > 0 && (
                       <div className="mt-5 pt-4 border-t border-slate-800/80 space-y-3">
-                        <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+                        <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-sky-400">
                           Key Responsibilities & Deliverables:
                         </p>
                         <ul className="space-y-2.5">

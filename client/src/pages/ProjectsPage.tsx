@@ -82,7 +82,7 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
             placeholder="Search projects, technologies..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full pl-10 pr-4 py-2 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
           />
         </div>
 
@@ -93,8 +93,8 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
             onClick={() => setSelectedCategory("all")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
               selectedCategory === "all"
-                ? "bg-cyan-600 text-white shadow-sm font-bold"
-                : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
+                : "bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700"
             }`}
           >
             All ({projects.length})
@@ -111,8 +111,8 @@ export function ProjectsPage({ projects, categories, isLoading, onSelectProject 
                 onClick={() => setSelectedCategory(String(cat.id))}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   selectedCategory === String(cat.id)
-                    ? "bg-cyan-600 text-white shadow-sm font-bold"
-                    : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                    ? "bg-sky-500/15 text-sky-400 border border-sky-500/30 shadow-xs"
+                    : "bg-slate-950/70 text-slate-400 hover:text-slate-200 border border-slate-800 hover:border-slate-700"
                 }`}
               >
                 {cat.category_name} ({count})

@@ -168,7 +168,7 @@ export function TechnologyTab({ categories }: TechnologyTabProps) {
           <button
             type="button"
             onClick={() => openAddSkill()}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Skill</span>
@@ -331,7 +331,7 @@ export function TechnologyTab({ categories }: TechnologyTabProps) {
             <button
               type="submit"
               disabled={createCatMutation.isPending || updateCatMutation.isPending}
-              className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl"
+              className="px-5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
             >
               {(createCatMutation.isPending || updateCatMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -409,7 +409,7 @@ export function TechnologyTab({ categories }: TechnologyTabProps) {
             <button
               type="submit"
               disabled={createSkillMutation.isPending || updateSkillMutation.isPending}
-              className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold rounded-xl"
+              className="px-5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
             >
               {(createSkillMutation.isPending || updateSkillMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

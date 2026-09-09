@@ -63,7 +63,7 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
             </span>
           )}
           {article.sub_category_name && (
-            <span className="badge-overlay-emerald text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
+            <span className="badge-overlay-slate text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
               {article.sub_category_name}
             </span>
           )}

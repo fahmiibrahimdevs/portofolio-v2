@@ -52,7 +52,7 @@ export function ContactPage({ profile }: ContactPageProps) {
     <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1216px] mx-auto space-y-12">
       {/* Header */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold uppercase tracking-widest">
           <MessageSquare className="w-4 h-4" />
           <span>Get in Touch</span>
         </div>
@@ -68,7 +68,7 @@ export function ContactPage({ profile }: ContactPageProps) {
         {/* Contact Information & Socials (1 Column) */}
         <div className="space-y-6">
           {/* Availability Card */}
-          <div className="p-5 rounded-2xl glass-panel space-y-3 border-emerald-500/30">
+          <div className="p-5 rounded-2xl glass-panel space-y-3 border-slate-800">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
@@ -84,7 +84,7 @@ export function ContactPage({ profile }: ContactPageProps) {
           </div>
 
           {/* Direct Info List */}
-          <div className="p-5 rounded-2xl glass-panel space-y-4">
+          <div className="p-5 rounded-2xl glass-panel space-y-4 border-slate-800">
             <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
               Direct Contact
             </h3>
@@ -93,14 +93,14 @@ export function ContactPage({ profile }: ContactPageProps) {
               {profile?.email && (
                 <a
                   href={`mailto:${profile.email}`}
-                  className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                  className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/30 transition-all group"
                 >
-                  <div className="p-2 rounded-lg bg-emerald-950/40 text-emerald-400">
+                  <div className="p-2 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <p className="text-[10px] text-slate-500 font-medium">Email Address</p>
-                    <p className="text-xs font-semibold text-slate-200">{profile.email}</p>
+                    <p className="text-xs font-semibold text-slate-200 group-hover:text-sky-400 transition-colors">{profile.email}</p>
                   </div>
                 </a>
               )}
@@ -143,9 +143,9 @@ export function ContactPage({ profile }: ContactPageProps) {
                   href={profile.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/30 transition-all"
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/30 transition-all group"
                 >
-                  <Linkedin className="w-4 h-4 text-cyan-400" />
+                  <Linkedin className="w-4 h-4 text-slate-400 group-hover:text-sky-400 transition-colors" />
                   <span className="font-medium">LinkedIn</span>
                 </a>
               )}
@@ -155,9 +155,9 @@ export function ContactPage({ profile }: ContactPageProps) {
                   href={profile.youtube_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-rose-400 hover:border-rose-500/30 transition-all"
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/30 transition-all group"
                 >
-                  <Youtube className="w-4 h-4 text-rose-400" />
+                  <Youtube className="w-4 h-4 text-slate-400 group-hover:text-sky-400 transition-colors" />
                   <span className="font-medium">YouTube</span>
                 </a>
               )}
@@ -167,9 +167,9 @@ export function ContactPage({ profile }: ContactPageProps) {
                   href={profile.instagram_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-pink-400 hover:border-pink-500/30 transition-all"
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 hover:text-sky-400 hover:border-sky-500/30 transition-all group"
                 >
-                  <Instagram className="w-4 h-4 text-pink-400" />
+                  <Instagram className="w-4 h-4 text-slate-400 group-hover:text-sky-400 transition-colors" />
                   <span className="font-medium">Instagram</span>
                 </a>
               )}
@@ -178,10 +178,10 @@ export function ContactPage({ profile }: ContactPageProps) {
         </div>
 
         {/* Message Form (2 Columns) */}
-        <div className="lg:col-span-2 p-6 sm:p-8 rounded-2xl glass-panel space-y-6">
+        <div className="lg:col-span-2 p-6 sm:p-8 rounded-2xl glass-panel space-y-6 border-slate-800">
           <div className="space-y-1 pb-4 border-b border-slate-800">
             <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-              <Send className="w-4 h-4 text-emerald-400" />
+              <Send className="w-4 h-4 text-sky-400" />
               <span>Send a Direct Message</span>
             </h2>
             <p className="text-xs text-slate-400">
@@ -217,7 +217,7 @@ export function ContactPage({ profile }: ContactPageProps) {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. John Doe"
-                  className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
                   required
                 />
               </div>
@@ -231,7 +231,7 @@ export function ContactPage({ profile }: ContactPageProps) {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="e.g. john@example.com"
-                  className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
                   required
                 />
               </div>
@@ -246,7 +246,7 @@ export function ContactPage({ profile }: ContactPageProps) {
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                 placeholder="e.g. Collaboration on IoT Web Application"
-                className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
               />
             </div>
 
@@ -259,7 +259,7 @@ export function ContactPage({ profile }: ContactPageProps) {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Write your project details, inquiry, or question..."
-                className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 leading-relaxed focus:outline-none focus:border-emerald-500 transition-colors"
+                className="w-full px-3.5 py-2.5 bg-slate-950/80 border border-slate-800 rounded-xl text-xs text-slate-100 placeholder-slate-500 leading-relaxed focus:outline-none focus:border-sky-500/80 focus:ring-1 focus:ring-sky-500/30 transition-all"
                 required
               />
             </div>
@@ -268,7 +268,7 @@ export function ContactPage({ profile }: ContactPageProps) {
               <button
                 type="submit"
                 disabled={contactMutation.isPending}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-semibold rounded-xl shadow-lg shadow-emerald-950/50 transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-sky-500 hover:bg-sky-400 active:scale-[0.99] disabled:opacity-50 text-slate-950 text-xs font-bold rounded-xl shadow-sm transition-all cursor-pointer"
               >
                 {contactMutation.isPending ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

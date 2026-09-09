@@ -121,7 +121,7 @@ export function CredentialsTab({ credentials }: CredentialsTabProps) {
         <button
           type="button"
           onClick={openCreateModal}
-          className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-amber-950/40 transition-all"
+          className="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Credential</span>
@@ -148,7 +148,7 @@ export function CredentialsTab({ credentials }: CredentialsTabProps) {
                       className="w-full h-full object-contain"
                     />
                   ) : (
-                    <Award className="w-5 h-5 text-amber-400" />
+                    <Award className="w-5 h-5 text-sky-400" />
                   )}
                 </div>
 
@@ -309,7 +309,7 @@ export function CredentialsTab({ credentials }: CredentialsTabProps) {
             <button
               type="submit"
               disabled={createMutation.isPending || updateMutation.isPending}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-amber-950/40"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all"
             >
               {(createMutation.isPending || updateMutation.isPending) && (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />

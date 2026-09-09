@@ -84,7 +84,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 download={profile.resume_filename || "CV_Fahmi_Ibrahim.pdf"}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold rounded-xl shadow-sm transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 text-sm font-bold rounded-xl shadow-sm transition-all hover:-translate-y-0.5"
               >
                 <FileDown className="w-4 h-4" />
                 <span>My Resume</span>
@@ -93,10 +93,10 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
 
             <a
               href="#technology"
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-200 text-sm font-semibold border border-slate-700/60 rounded-xl transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-sky-400 text-sm font-semibold border border-slate-700/60 hover:border-sky-500/40 rounded-xl transition-all shadow-sm"
             >
               <span>Explore Tech Stack</span>
-              <ArrowDown className="w-3.5 h-3.5 text-cyan-400" />
+              <ArrowDown className="w-3.5 h-3.5 text-sky-400" />
             </a>
 
             {/* Social icons */}
@@ -106,7 +106,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
                   href={profile.github_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-slate-800"
+                  className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-sky-500/30"
                   title="GitHub"
                 >
                   <Github className="w-4 h-4" />
@@ -117,7 +117,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
                   href={profile.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-slate-800"
+                  className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-sky-500/30"
                   title="LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -128,7 +128,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
                   href={profile.youtube_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-slate-800"
+                  className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-sky-500/30"
                   title="YouTube"
                 >
                   <Youtube className="w-4 h-4" />
@@ -139,7 +139,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
                   href={profile.instagram_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-slate-400 hover:text-pink-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-slate-800"
+                  className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-sky-500/30"
                   title="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
@@ -148,7 +148,7 @@ export function HeroSection({ profile, isLoading }: HeroSectionProps) {
               {profile?.email && (
                 <a
                   href={`mailto:${profile.email}`}
-                  className="p-2 text-slate-400 hover:text-emerald-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-slate-800"
+                  className="p-2 text-slate-400 hover:text-sky-400 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-sky-500/30"
                   title="Email"
                 >
                   <Mail className="w-4 h-4" />
