@@ -4,19 +4,19 @@ import hljs from "highlight.js";
 // Custom Renderer for Tailored Styling & Syntax Highlighting
 const renderer = new Renderer();
 
-// Headings Hierarchy (No underline on H1, clean top spacing)
+// Headings Hierarchy (Clear section borders, crisp cyan badges & optimal breathing room)
 renderer.heading = function ({ tokens, depth }) {
   const text = this.parser.parseInline(tokens);
   if (depth === 1) {
-    return `<h1 class="text-2xl sm:text-3xl font-extrabold text-slate-100 first:mt-0 mt-6 mb-3 tracking-tight leading-[1.3]">${text}</h1>`;
+    return `<h1 class="text-xl sm:text-2xl font-bold text-slate-100 first:mt-0 mt-7 mb-3 tracking-tight leading-snug">${text}</h1>`;
   }
   if (depth === 2) {
-    return `<h2 class="text-xl sm:text-2xl font-extrabold text-cyan-400 first:mt-0 mt-5 mb-2.5 tracking-tight leading-[1.35]">${text}</h2>`;
+    return `<h2 class="text-base sm:text-lg font-bold text-cyan-400 first:mt-0 mt-7 mb-3 pb-1.5 border-b border-slate-800 flex items-center gap-2 tracking-tight leading-snug">${text}</h2>`;
   }
   if (depth === 3) {
-    return `<h3 class="text-lg sm:text-xl font-bold text-slate-100 first:mt-0 mt-4 mb-2 tracking-tight leading-[1.4]">${text}</h3>`;
+    return `<h3 class="text-xs sm:text-sm font-bold text-cyan-400 first:mt-0 mt-6 mb-2.5 pt-3 border-t border-slate-800/80 flex items-center gap-2 uppercase tracking-wider">${text}</h3>`;
   }
-  return `<h4 class="text-base sm:text-lg font-bold text-slate-200 first:mt-0 mt-3 mb-1.5 tracking-tight leading-[1.4]">${text}</h4>`;
+  return `<h4 class="text-xs sm:text-sm font-semibold text-slate-200 first:mt-0 mt-4 mb-2 tracking-wide">${text}</h4>`;
 };
 
 // Helper to validate safe URLs
@@ -161,25 +161,25 @@ renderer.html = function ({ text }) {
   return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 };
 
-// Lists (Ordered & Unordered with 1.5 line height & clean indentation)
+// Lists (Ordered & Unordered with comfortable line height & clear spacing)
 renderer.list = function ({ ordered, items }) {
   const body = items.map((item) => this.listitem(item)).join("");
   const tag = ordered ? "ol" : "ul";
   const listClass = ordered
-    ? "list-decimal ml-6 pl-2 space-y-1.5 my-3 text-slate-300 leading-[1.5]"
-    : "list-disc ml-6 pl-2 space-y-1.5 my-3 text-slate-300 leading-[1.5]";
+    ? "list-decimal ml-5 sm:ml-6 pl-1 space-y-2.5 my-3.5 text-slate-300 text-xs sm:text-sm leading-relaxed"
+    : "list-disc ml-5 sm:ml-6 pl-1 space-y-2.5 my-3.5 text-slate-300 text-xs sm:text-sm leading-relaxed";
   return `<${tag} class="${listClass}">\n${body}</${tag}>\n`;
 };
 
 renderer.listitem = function ({ tokens }) {
   const text = this.parser.parse(tokens);
-  return `<li class="leading-[1.5] pl-1">${text}</li>\n`;
+  return `<li class="leading-relaxed pl-1 text-slate-300 [&>strong]:text-slate-100 [&>strong]:font-semibold">${text}</li>\n`;
 };
 
 // Blockquotes
 renderer.blockquote = function ({ tokens }) {
   const quote = this.parser.parse(tokens);
-  return `<blockquote class="border-l-4 border-cyan-500 bg-slate-950/60 pl-4 py-2.5 my-3.5 text-slate-300 italic rounded-r-xl leading-[1.5]">${quote}</blockquote>`;
+  return `<blockquote class="border-l-4 border-cyan-500 bg-slate-950/60 pl-4 py-3 my-4 text-slate-300 italic rounded-r-xl leading-relaxed text-xs sm:text-sm">${quote}</blockquote>`;
 };
 
 marked.use({

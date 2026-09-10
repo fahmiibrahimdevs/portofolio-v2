@@ -226,13 +226,13 @@ export function ProjectDetailPage({
       </div>
 
       {/* Documentation Section */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider">
-          <Layers className="w-4 h-4" />
+      <div className="rounded-3xl bg-slate-900/40 border border-slate-800/80 p-6 sm:p-8 space-y-4 shadow-sm backdrop-blur-xs">
+        <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider pb-3 border-b border-slate-800/80">
+          <Layers className="w-4 h-4 text-cyan-400" />
           <span>Full Documentation & Specifications</span>
         </div>
 
-        <div className="py-2">
+        <div className="pt-1">
           <div
             className="prose prose-invert rich-content max-w-none text-slate-300 text-sm sm:text-base leading-relaxed"
             dangerouslySetInnerHTML={{

@@ -99,14 +99,14 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
         </div>
 
         {/* Rich Description / Documentation Body */}
-        <div className="pt-4 border-t border-slate-800/80">
-          <h4 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-            <Layers className="w-4 h-4" />
+        <div className="rounded-2xl bg-slate-950/40 border border-slate-800/80 p-5 sm:p-6 space-y-3 shadow-inner">
+          <h4 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-2 pb-2.5 border-b border-slate-800/80">
+            <Layers className="w-4 h-4 text-cyan-400" />
             <span>Project Documentation & Specifications</span>
           </h4>
 
           <div
-            className="prose prose-invert rich-content max-w-none text-slate-300 text-xs sm:text-sm leading-relaxed"
+            className="prose prose-invert rich-content max-w-none text-slate-300 text-xs sm:text-sm leading-relaxed pt-1"
             dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(project.description) }}
           />
         </div>
