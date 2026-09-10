@@ -41,8 +41,8 @@ export function ProjectCard({ project, onOpenDetail }: ProjectCardProps) {
 
         {/* Category Badge */}
         {project.category_name && (
-          <div className="absolute top-3 left-3">
-            <span className="badge-overlay-cyan text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
+          <div className="absolute top-3 left-3 z-20 pointer-events-none">
+            <span className="badge-overlay-cyan text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md shadow-md">
               {project.category_name}
             </span>
           </div>

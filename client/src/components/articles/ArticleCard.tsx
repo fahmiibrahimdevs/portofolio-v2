@@ -56,14 +56,14 @@ export function ArticleCard({ article, onRead }: ArticleCardProps) {
           />
         )}
 
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap z-20 pointer-events-none">
           {article.category_name && (
-            <span className="badge-overlay-cyan text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
+            <span className="badge-overlay-cyan text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md shadow-md">
               {article.category_name}
             </span>
           )}
           {article.sub_category_name && (
-            <span className="badge-overlay-slate text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md">
+            <span className="badge-overlay-slate text-[11px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md shadow-md">
               {article.sub_category_name}
             </span>
           )}

@@ -136,9 +136,9 @@ export function ProjectDetailPage({
           />
 
           {/* Badges Floating on Hero */}
-          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
+          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 z-20 pointer-events-none">
             {project.category_name && (
-              <span className="badge-overlay-cyan text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md">
+              <span className="badge-overlay-cyan text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-md">
                 {project.category_name}
               </span>
             )}

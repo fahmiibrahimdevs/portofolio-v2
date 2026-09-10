@@ -134,14 +134,14 @@ export function ArticleDetailPage({
           />
 
           {/* Floating Badges */}
-          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
+          <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 z-20 pointer-events-none">
             {article.category_name && (
-              <span className="badge-overlay-cyan text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md">
+              <span className="badge-overlay-cyan text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-md">
                 {article.category_name}
               </span>
             )}
             {article.sub_category_name && (
-              <span className="badge-overlay-slate text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1">
+              <span className="badge-overlay-slate text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1 shadow-md">
                 <Tag className="w-3 h-3" />
                 <span>{article.sub_category_name}</span>
               </span>

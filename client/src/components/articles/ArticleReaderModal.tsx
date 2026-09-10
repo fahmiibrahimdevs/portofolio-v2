@@ -30,8 +30,8 @@ export function ArticleReaderModal({ article, isOpen, onClose }: ArticleReaderMo
             />
             
             {article.category_name && (
-              <div className="absolute top-4 left-4">
-                <span className="badge-soft-cyan text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-md">
+              <div className="absolute top-4 left-4 z-20 pointer-events-none">
+                <span className="badge-soft-cyan text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-md shadow-md">
                   {article.category_name}
                 </span>
               </div>

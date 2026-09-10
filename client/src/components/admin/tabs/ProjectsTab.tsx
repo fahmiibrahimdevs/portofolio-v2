@@ -396,16 +396,18 @@ export function ProjectsTab({ projects, categories, tags, techCategories = [] }:
                     )}
 
                     {/* Badges Overlay */}
-                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 pointer-events-none">
-                      <span className="badge-overlay-cyan text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md">
+                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 pointer-events-none z-20">
+                      <span className="badge-overlay-cyan text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm">
                         {p.category_name || "Project"}
                       </span>
-                      {p.status_publish === "Published" ? (
-                        <span className="badge-overlay-emerald text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md">
+                      {(p.status_publish || "").toLowerCase() === "published" ? (
+                        <span className="badge-overlay-emerald text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                           Published
                         </span>
                       ) : (
-                        <span className="badge-overlay-amber text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md">
+                        <span className="badge-overlay-amber text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                           Draft
                         </span>
                       )}

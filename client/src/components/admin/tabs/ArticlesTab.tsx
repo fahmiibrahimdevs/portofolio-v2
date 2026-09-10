@@ -437,24 +437,26 @@ export function ArticlesTab({ articles, categories }: ArticlesTabProps) {
                     )}
 
                     {/* Badges Overlay */}
-                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 pointer-events-none">
+                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 pointer-events-none z-20">
                       <div className="flex items-center gap-1 flex-wrap">
-                        <span className="badge-overlay-cyan text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md">
+                        <span className="badge-overlay-cyan text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm">
                           {a.category_name || "Article"}
                         </span>
                         {a.sub_category_name && (
-                          <span className="badge-overlay-slate text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md flex items-center gap-0.5">
+                          <span className="badge-overlay-slate text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md flex items-center gap-0.5 shadow-sm">
                             <Tag className="w-2.5 h-2.5" />
                             <span>{a.sub_category_name}</span>
                           </span>
                         )}
                       </div>
-                      {a.status_publish === "Published" ? (
-                        <span className="badge-overlay-emerald text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md">
+                      {(a.status_publish || "").toLowerCase() === "published" ? (
+                        <span className="badge-overlay-emerald text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                           Published
                         </span>
                       ) : (
-                        <span className="badge-overlay-amber text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md">
+                        <span className="badge-overlay-amber text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-md shadow-sm flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                           Draft
                         </span>
                       )}
